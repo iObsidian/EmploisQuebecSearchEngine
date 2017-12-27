@@ -6,18 +6,22 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.text.Document;
 
+import autoCompletion.AutoCompleteDocument;
+import autoCompletion.CompletionService;
 import emplois.Emploi;
 import utils.StringArrayUtils;
 
@@ -57,6 +61,9 @@ public class AdvancedSearch extends JPanel {
 	private JLabel jobsFoundLabel;
 
 	public JPanel getSimpleSearchPanel(Table table) {
+
+		updateExistingKeywords(new ArrayList<Emploi>()); //avoids null value on first key press (update advanced search not yet called)
+
 		this.table = table;
 
 		if (simpleSearch == null) {
@@ -101,7 +108,52 @@ public class AdvancedSearch extends JPanel {
 		} else {
 			return simpleSearch;
 		}
+	}
 
+	KeywordService existing_numeroDeLoffre = new KeywordService();
+	KeywordService existing_appellationDeLemploi = new KeywordService();
+	KeywordService existing_employeur = new KeywordService();
+	KeywordService existing_nombreDePostes = new KeywordService();
+	KeywordService existing_scolarite = new KeywordService();
+	KeywordService existing_annesDexperience = new KeywordService();
+	KeywordService existing_lieuDeTravail = new KeywordService();
+
+	public void updateExistingKeywords(ArrayList<Emploi> emplois) {
+
+		ArrayList<String> numeroDeLoffre = new ArrayList<String>();
+		ArrayList<String> apellationDeLemploi = new ArrayList<String>();
+		ArrayList<String> employeur = new ArrayList<String>();
+		ArrayList<String> nombreDePostes = new ArrayList<String>();
+		ArrayList<String> Scolarite = new ArrayList<String>();
+		ArrayList<String> AnnesDexperience = new ArrayList<String>();
+		ArrayList<String> lieuDeTravail = new ArrayList<String>();
+
+		for (Emploi e : emplois) {
+
+			addIfNotExisting(numeroDeLoffre, e.numeroDeLoffre);
+			addIfNotExisting(apellationDeLemploi, e.appellationDeLemploi);
+			addIfNotExisting(employeur, e.employeur);
+			addIfNotExisting(nombreDePostes, e.nombreDePostes);
+			addIfNotExisting(Scolarite, e.scolarite);
+			addIfNotExisting(AnnesDexperience, e.annesDexperience);
+			addIfNotExisting(lieuDeTravail, e.lieuDeTravail);
+
+		}
+
+		existing_numeroDeLoffre.setValues(numeroDeLoffre);
+		existing_appellationDeLemploi.setValues(apellationDeLemploi);
+		existing_employeur.setValues(employeur);
+		existing_nombreDePostes.setValues(nombreDePostes);
+		existing_scolarite.setValues(Scolarite);
+		existing_annesDexperience.setValues(AnnesDexperience);
+		existing_lieuDeTravail.setValues(lieuDeTravail);
+
+	}
+
+	private void addIfNotExisting(ArrayList<String> numeroDeLoffre, String numeroDeLoffre2) {
+		if (!numeroDeLoffre.contains(numeroDeLoffre2)) {
+			numeroDeLoffre.add(numeroDeLoffre2);
+		}
 	}
 
 	/**
@@ -128,38 +180,66 @@ public class AdvancedSearch extends JPanel {
 
 		fileDetailsLabels.add(new JLabel("N° de l'offre", JLabel.TRAILING));
 		JTextArea offerNumber = new JTextArea();
+		offerNumber.setDocument(new AutoCompleteDocument(existing_numeroDeLoffre, offerNumber));
+
 		offerNumber.getDocument().addDocumentListener(new SearchParam(me, offerNumber, table, 0));
 		fileDetailsValues.add(offerNumber);
 
+		//
+
 		fileDetailsLabels.add(new JLabel("Appellation d'emploi", JLabel.TRAILING));
 		JTextArea jobName = new JTextArea();
+		jobName.setDocument(new AutoCompleteDocument(existing_appellationDeLemploi, jobName));
+
 		jobName.getDocument().addDocumentListener(new SearchParam(me, jobName, table, 1));
 		fileDetailsValues.add(jobName);
 
+		//
+
 		fileDetailsLabels.add(new JLabel("Employeur", JLabel.TRAILING));
 		JTextArea employer = new JTextArea();
+		employer.setDocument(new AutoCompleteDocument(existing_employeur, employer));
+
 		employer.getDocument().addDocumentListener(new SearchParam(me, employer, table, 2));
 		fileDetailsValues.add(employer);
 
+		//
+
 		fileDetailsLabels.add(new JLabel("Nombre de poste(s)", JLabel.TRAILING));
 		JTextArea numberOfOffers = new JTextArea();
+		numberOfOffers.setDocument(new AutoCompleteDocument(existing_nombreDePostes, numberOfOffers));
+
 		numberOfOffers.getDocument().addDocumentListener(new SearchParam(me, numberOfOffers, table, 3));
 		fileDetailsValues.add(numberOfOffers);
 
+		//
+
 		fileDetailsLabels.add(new JLabel("Scolarité", JLabel.TRAILING));
 		JTextArea scholarity = new JTextArea();
+		scholarity.setDocument(new AutoCompleteDocument(existing_scolarite, scholarity));
+
 		scholarity.getDocument().addDocumentListener(new SearchParam(me, scholarity, table, 4));
 		fileDetailsValues.add(scholarity);
 
+		//
+
 		fileDetailsLabels.add(new JLabel("Années d'expérience", JLabel.TRAILING));
 		JTextArea yearsOfExperience = new JTextArea();
+		yearsOfExperience.setDocument(new AutoCompleteDocument(existing_annesDexperience, yearsOfExperience));
+
 		yearsOfExperience.getDocument().addDocumentListener(new SearchParam(me, yearsOfExperience, table, 5));
 		fileDetailsValues.add(yearsOfExperience);
 
+		//
+
 		fileDetailsLabels.add(new JLabel("Lieu de travail", JLabel.TRAILING));
 		JTextArea workPlace = new JTextArea();
+		workPlace.setDocument(new AutoCompleteDocument(existing_lieuDeTravail, workPlace));
+
 		workPlace.getDocument().addDocumentListener(new SearchParam(me, workPlace, table, 6));
 		fileDetailsValues.add(workPlace);
+
+		// End
 
 		JPanel searchSettingsPanel = new JPanel();
 		add(searchSettingsPanel, BorderLayout.SOUTH);
@@ -189,7 +269,11 @@ public class AdvancedSearch extends JPanel {
 	}
 
 	public void searchParamsChanged() {
-		jobsFoundLabel.setText("Emplois trouvés : " + table.updateAdvancedSearchChanged(this));
+
+		ArrayList<Emploi> e = table.updateAdvancedSearchChanged(this);
+		updateExistingKeywords(e);
+
+		jobsFoundLabel.setText("Emplois trouvés : " + e.size());
 	}
 
 	public boolean accept(Emploi emploi) {
@@ -228,6 +312,46 @@ public class AdvancedSearch extends JPanel {
 		System.out.println(accept);
 
 		return accept;
+	}
+
+	private static class KeywordService implements CompletionService<String> {
+
+		/** Our name data. */
+		private List<String> data;
+
+		public void setValues(List<String> data) {
+			this.data = data;
+		}
+
+		/** {@inheritDoc} */
+		@Override
+		public String toString() {
+			StringBuilder b = new StringBuilder();
+			for (String o : data) {
+				b.append(o).append("\n");
+			}
+			return b.toString();
+		}
+
+		/** {@inheritDoc} */
+		public String autoComplete(String startsWith) {
+			// Naive implementation, but good enough for the sample
+			String hit = null;
+			for (String o : data) {
+				if (o.startsWith(startsWith)) {
+					// CompletionService contract states that we only
+					// should return completion for unique hits.
+					if (hit == null) {
+						hit = o;
+					} else {
+						hit = null;
+						break;
+					}
+				}
+			}
+			return hit;
+		}
+
 	}
 
 }

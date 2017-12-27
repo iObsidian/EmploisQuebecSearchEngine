@@ -104,4 +104,16 @@ public class Emploi {
 
 	}
 
+	public static Emploi getTest() {
+		Emploi e = new Emploi();
+		e.numeroDeLoffre = "";
+		e.appellationDeLemploi = "";
+		e.employeur = "";
+		e.nombreDePostes = "";
+		e.scolarite = "";
+		e.annesDexperience = "";
+		e.lieuDeTravail = "";
+		return e;
+	}
+
 }

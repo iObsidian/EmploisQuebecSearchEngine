@@ -184,7 +184,7 @@ public class Table extends JPanel implements ActionListener {
 		tableColumn.setMinWidth(width);
 	}
 
-	public int updateAdvancedSearchChanged(AdvancedSearch advancedSearch) {
+	public ArrayList<Emploi> updateAdvancedSearchChanged(AdvancedSearch advancedSearch) {
 
 		ArrayList<Emploi> newEmplois = new ArrayList<Emploi>();
 
@@ -196,7 +196,7 @@ public class Table extends JPanel implements ActionListener {
 
 		setTableData(newEmplois, true);
 
-		return newEmplois.size();
+		return newEmplois;
 	}
 
 }

@@ -1,4 +1,4 @@
-package test;
+package autoCompletion;
 
 /**
  * A service providing autocompletion support.

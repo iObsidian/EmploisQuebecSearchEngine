@@ -1,4 +1,4 @@
-package test;
+package autoCompletion;
 
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
