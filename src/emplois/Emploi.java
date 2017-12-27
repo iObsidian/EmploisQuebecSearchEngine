@@ -2,7 +2,7 @@ package emplois;
 
 import org.apache.commons.lang.StringUtils;
 
-import utils.StringArrayUtils;
+import utils.StringUtil;
 
 public class Emploi {
 
@@ -16,7 +16,7 @@ public class Emploi {
 	 * 6 = Lieu de travail
 	 */
 
-	String url;
+	public String url;
 
 	public String numeroDeLoffre = "";
 	public String appellationDeLemploi = "";
@@ -25,6 +25,8 @@ public class Emploi {
 	public String scolarite = "";
 	public String annesDexperience = "";
 	public String lieuDeTravail = "";
+
+	public String html = "";
 
 	@Override
 	public String toString() {
@@ -38,6 +40,10 @@ public class Emploi {
 		if (searchAppellationDeLemploi(keywords)) {
 			return true;
 		} else if (searchEmployeur(keywords)) {
+			return true;
+		} else if (searchScolarite(keywords)) {
+			return true;
+		} else if (searchAnnesDexperience(keywords)) {
 			return true;
 		} else if (searchLieuDeTravail(keywords)) {
 			return true;
@@ -80,7 +86,7 @@ public class Emploi {
 
 	public boolean scs(String search[], String in) {
 
-		if (StringArrayUtils.isBlank(search)) {
+		if (StringUtil.isBlank(search)) {
 			return true;
 		} else {
 

@@ -17,8 +17,11 @@ import javax.swing.border.EmptyBorder;
 
 import emplois.Emploi;
 import emplois.RiotMotor;
+import java.awt.FlowLayout;
+import java.awt.Component;
+import javax.swing.Box;
 
-public class LoadingBar extends JFrame {
+public class Load extends JFrame {
 
 	private JPanel contentPane;
 
@@ -28,6 +31,9 @@ public class LoadingBar extends JFrame {
 	RiotMotor riotMotor = new RiotMotor(this);
 
 	UI ui;
+	private JLabel lblStatus;
+	private Component horizontalStrut;
+	private Component horizontalStrut_1;
 
 	/**
 	 * Launch the application.
@@ -36,7 +42,7 @@ public class LoadingBar extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					LoadingBar frame = new LoadingBar();
+					Load frame = new Load();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -48,17 +54,15 @@ public class LoadingBar extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public LoadingBar() {
-		
-		
+	public Load() {
+
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
-				| UnsupportedLookAndFeelException e1) {
+		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e1) {
 			e1.printStackTrace();
 		}
-		
-		setIconImage(Toolkit.getDefaultToolkit().getImage(LoadingBar.class.getResource("/com/sun/javafx/scene/web/skin/Copy_16x16_JFX.png")));
+
+		setIconImage(Toolkit.getDefaultToolkit().getImage(Load.class.getResource("/com/sun/javafx/scene/web/skin/Copy_16x16_JFX.png")));
 		setTitle("Loading...");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 400, 140);
@@ -78,15 +82,26 @@ public class LoadingBar extends JFrame {
 		progressBarPanel.setLayout(new BorderLayout(0, 0));
 
 		progressBar = new JProgressBar();
+		progressBar.setStringPainted(true);
 		progressBarPanel.add(progressBar, BorderLayout.NORTH);
 
 		JPanel labelPanel = new JPanel();
 		getContentPane().add(labelPanel, BorderLayout.CENTER);
-		labelPanel.setLayout(new BorderLayout(0, 0));
+		labelPanel.setLayout(new BoxLayout(labelPanel, BoxLayout.X_AXIS));
+
+		horizontalStrut_1 = Box.createHorizontalStrut(20);
+		labelPanel.add(horizontalStrut_1);
 
 		lblInitialising = new JLabel("Initialising...");
 		lblInitialising.setHorizontalAlignment(SwingConstants.CENTER);
-		labelPanel.add(lblInitialising, BorderLayout.CENTER);
+		labelPanel.add(lblInitialising);
+
+		horizontalStrut = Box.createHorizontalStrut(20);
+		labelPanel.add(horizontalStrut);
+
+		lblStatus = new JLabel("Status...");
+		lblStatus.setHorizontalAlignment(SwingConstants.RIGHT);
+		labelPanel.add(lblStatus);
 
 		reload();
 
@@ -108,12 +123,17 @@ public class LoadingBar extends JFrame {
 	}
 
 	public void reportJobs(int totalJobs) {
-		lblInitialising.setText(i18n.Constants.emploisTrouveesLabel + " " + totalJobs);
+		lblInitialising.setText(totalJobs + " emplois trouvés.");
 	}
 
 	public void reportEnded(List<Emploi> emplois) {
 		ui.loadingEnded(emplois);
 		setVisible(false);
+	}
+
+	public void reportStatus(String s) {
+		System.out.println(s);
+		lblStatus.setText(s);
 	}
 
 }

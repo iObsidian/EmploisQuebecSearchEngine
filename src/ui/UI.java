@@ -40,9 +40,9 @@ public class UI extends JFrame {
 	 */
 	public UI() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(UI.class.getResource("/com/sun/javafx/scene/control/skin/caspian/images/capslock-icon.png")));
-		setTitle("Placement en Ligne Emplois Qu\u00E9bec | Outil de recherche");
+		setTitle("Outil de recherche pour Placement en Ligne d'Emplois Qu\u00E9bec");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 620, 377);
+		setBounds(100, 100, 881, 518);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));

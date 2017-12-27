@@ -6,17 +6,19 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import i18n.Constants;
-import ui.LoadingBar;
+import ui.Load;
+import ui.MashTek;
 
 public class RiotMotor {
 
 	private static final String ROOT_ = "http://placement.emploiquebec.gouv.qc.ca/mbe/ut/rechroffr/listoffr.asp?mtcle=&cle=47&offrdisptoutqc=2&pp=1&date=3&CL=french";
 
-	private LoadingBar progressBar;
+	private Load progressBar;
 
-	public RiotMotor(LoadingBar progressBar) {
+	public RiotMotor(Load progressBar) {
 		this.progressBar = progressBar;
 	}
 
@@ -37,7 +39,7 @@ public class RiotMotor {
 
 				progressBar.reportTotal(current, total);
 
-				System.out.println("Loading job offerings from list... " + current + "\\" + total);
+				progressBar.reportStatus("Loading job offerings from list... " + current + "\\" + total);
 
 				URL page = new URL(pageUrl);
 				BufferedReader in = new BufferedReader(new InputStreamReader(page.openStream()));
@@ -52,12 +54,12 @@ public class RiotMotor {
 
 					if (inputLine.contains("<tbody>")) {
 
-						System.out.println("Found beginning of list...");
+						progressBar.reportStatus("Found beginning of list...");
 						isInsideJobOfferings = true;
 
 					} else if (inputLine.contains("</tbody>")) {
 
-						System.out.println("Found end of list.");
+						progressBar.reportStatus("Found end of list.");
 						isInsideJobOfferings = false;
 
 						break;
@@ -87,7 +89,7 @@ public class RiotMotor {
 
 						try {
 
-							//System.out.println(i + " " + jobParams[i]);
+							//progressBar.reportStatus(i + " " + jobParams[i]);
 
 							/**
 							 * 0 = N° de l'offre
@@ -123,7 +125,7 @@ public class RiotMotor {
 								emploi.lieuDeTravail = line.substring(line.indexOf("<td>") + 4);
 								break;
 							default:
-								System.out.println("Error! Invalid emploi argument size " + i);
+								progressBar.reportStatus("Error! Invalid emploi argument size " + i);
 								break;
 							}
 
@@ -140,7 +142,7 @@ public class RiotMotor {
 				}
 
 				if (Constants.IS_DEBUG) {
-					break; //remove after debug
+					break;
 				}
 
 			}
@@ -150,9 +152,14 @@ public class RiotMotor {
 			e.printStackTrace();
 		}
 
-		System.out.println("Found " + emplois.size() + " jobs.");
+		progressBar.reportStatus("Found " + emplois.size() + " jobs. Loading contents...");
 
-		progressBar.reportEnded(emplois);
+		try {
+			MashTek.verifyEmplois(emplois, 50, progressBar);
+		} catch (ExecutionException | InterruptedException e) {
+			e.printStackTrace();
+		}
+
 	}
 
 	/**
@@ -160,7 +167,7 @@ public class RiotMotor {
 	 * Utilises the navigation bar at the bottom of the first page of offers
 	 */
 	private ArrayList<String> getAllPages() {
-		System.out.println("Getting all pages...");
+		progressBar.reportStatus("Getting all pages...");
 
 		ArrayList<String> allPages = new ArrayList<>();
 		String pagesRaw = null;
@@ -175,7 +182,7 @@ public class RiotMotor {
 			while ((inputLine = in.readLine()) != null) {
 
 				if (inputLine.contains("Suivant")) {
-					System.out.println("Found pages.");
+					progressBar.reportStatus("Found pages.");
 					pagesRaw = inputLine;
 
 					break;
@@ -197,7 +204,7 @@ public class RiotMotor {
 			} else {
 				String pages[] = pagesRaw.split("&nbsp;&nbsp;");
 
-				System.out.println("Found " + pages.length + " pages.");
+				progressBar.reportStatus("Found " + pages.length + " pages.");
 
 				for (String s : pages) {
 					s = s.replace("<a href=\"", "");
@@ -206,7 +213,7 @@ public class RiotMotor {
 					allPages.add(s);
 				}
 
-				System.out.println("Raw pages parsed succesfully.");
+				progressBar.reportStatus("Raw pages parsed succesfully.");
 
 			}
 

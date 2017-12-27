@@ -1,6 +1,7 @@
 package ui;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
@@ -9,21 +10,23 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-import javax.swing.text.Document;
 
 import autoCompletion.AutoCompleteDocument;
 import autoCompletion.CompletionService;
 import emplois.Emploi;
-import utils.StringArrayUtils;
+import utils.StringUtil;
 
 public class AdvancedSearch extends JPanel {
 
@@ -78,12 +81,12 @@ public class AdvancedSearch extends JPanel {
 			searchLabel.setToolTipText("Recherche par mots clef");
 			simpleSearch.add(searchLabel);
 
-			JTextArea simpleSearchTextArea = new JTextArea();
+			JTextField simpleSearchTextArea = new JTextField();
 			simpleSearchTextArea.getDocument().addDocumentListener(new SearchParam(me, simpleSearchTextArea, table, -1));
 
 			simpleSearch.add(simpleSearchTextArea, BorderLayout.CENTER);
 
-			toggleAdvancedSearchBtn = new JButton("Recherche avancée \u2304");
+			toggleAdvancedSearchBtn = new JButton("Recherche simple");
 
 			toggleAdvancedSearchBtn.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
@@ -92,10 +95,10 @@ public class AdvancedSearch extends JPanel {
 
 					if (isInAdvancedSearchMode) {
 						setVisible(true);
-						toggleAdvancedSearchBtn.setText("Recherche avancée \u2304");
+						toggleAdvancedSearchBtn.setText("Recherche simple");
 					} else {
 						setVisible(false);
-						toggleAdvancedSearchBtn.setText("Recherche avancée \u02C4");
+						toggleAdvancedSearchBtn.setText("Recherche avancée");
 					}
 
 				}
@@ -179,7 +182,7 @@ public class AdvancedSearch extends JPanel {
 		//
 
 		fileDetailsLabels.add(new JLabel("N° de l'offre", JLabel.TRAILING));
-		JTextArea offerNumber = new JTextArea();
+		JTextField offerNumber = new JTextField();
 		offerNumber.setDocument(new AutoCompleteDocument(existing_numeroDeLoffre, offerNumber));
 
 		offerNumber.getDocument().addDocumentListener(new SearchParam(me, offerNumber, table, 0));
@@ -188,7 +191,7 @@ public class AdvancedSearch extends JPanel {
 		//
 
 		fileDetailsLabels.add(new JLabel("Appellation d'emploi", JLabel.TRAILING));
-		JTextArea jobName = new JTextArea();
+		JTextField jobName = new JTextField();
 		jobName.setDocument(new AutoCompleteDocument(existing_appellationDeLemploi, jobName));
 
 		jobName.getDocument().addDocumentListener(new SearchParam(me, jobName, table, 1));
@@ -197,7 +200,7 @@ public class AdvancedSearch extends JPanel {
 		//
 
 		fileDetailsLabels.add(new JLabel("Employeur", JLabel.TRAILING));
-		JTextArea employer = new JTextArea();
+		JTextField employer = new JTextField();
 		employer.setDocument(new AutoCompleteDocument(existing_employeur, employer));
 
 		employer.getDocument().addDocumentListener(new SearchParam(me, employer, table, 2));
@@ -206,7 +209,7 @@ public class AdvancedSearch extends JPanel {
 		//
 
 		fileDetailsLabels.add(new JLabel("Nombre de poste(s)", JLabel.TRAILING));
-		JTextArea numberOfOffers = new JTextArea();
+		JTextField numberOfOffers = new JTextField();
 		numberOfOffers.setDocument(new AutoCompleteDocument(existing_nombreDePostes, numberOfOffers));
 
 		numberOfOffers.getDocument().addDocumentListener(new SearchParam(me, numberOfOffers, table, 3));
@@ -215,7 +218,7 @@ public class AdvancedSearch extends JPanel {
 		//
 
 		fileDetailsLabels.add(new JLabel("Scolarité", JLabel.TRAILING));
-		JTextArea scholarity = new JTextArea();
+		JTextField scholarity = new JTextField();
 		scholarity.setDocument(new AutoCompleteDocument(existing_scolarite, scholarity));
 
 		scholarity.getDocument().addDocumentListener(new SearchParam(me, scholarity, table, 4));
@@ -224,7 +227,7 @@ public class AdvancedSearch extends JPanel {
 		//
 
 		fileDetailsLabels.add(new JLabel("Années d'expérience", JLabel.TRAILING));
-		JTextArea yearsOfExperience = new JTextArea();
+		JTextField yearsOfExperience = new JTextField();
 		yearsOfExperience.setDocument(new AutoCompleteDocument(existing_annesDexperience, yearsOfExperience));
 
 		yearsOfExperience.getDocument().addDocumentListener(new SearchParam(me, yearsOfExperience, table, 5));
@@ -233,7 +236,7 @@ public class AdvancedSearch extends JPanel {
 		//
 
 		fileDetailsLabels.add(new JLabel("Lieu de travail", JLabel.TRAILING));
-		JTextArea workPlace = new JTextArea();
+		JTextField workPlace = new JTextField();
 		workPlace.setDocument(new AutoCompleteDocument(existing_lieuDeTravail, workPlace));
 
 		workPlace.getDocument().addDocumentListener(new SearchParam(me, workPlace, table, 6));
@@ -249,7 +252,7 @@ public class AdvancedSearch extends JPanel {
 		searchSettingsPanel.add(panel);
 		panel.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
 
-		jobsFoundLabel = new JLabel("En attente...");
+		jobsFoundLabel = new JLabel("");
 		panel.add(jobsFoundLabel);
 
 		/**JCheckBox chckbxNewCheckBox = new JCheckBox("Inclusif/Exclusif");
@@ -284,8 +287,8 @@ public class AdvancedSearch extends JPanel {
 			accept = emploi.contains(searchForSimple);
 		} else {
 
-			if (StringArrayUtils.isBlank(searchForNumeroDeLoffre) && StringArrayUtils.isBlank(searchForAppellationDeLemploi) && StringArrayUtils.isBlank(searchForEmployeur) && StringArrayUtils.isBlank(searchForNombreDePoste) && StringArrayUtils.isBlank(searchForScolarite)
-					&& StringArrayUtils.isBlank(searchForAnnesDexperience) && StringArrayUtils.isBlank(searchForLieuDeTravail)) {
+			if (StringUtil.isBlank(searchForNumeroDeLoffre) && StringUtil.isBlank(searchForAppellationDeLemploi) && StringUtil.isBlank(searchForEmployeur) && StringUtil.isBlank(searchForNombreDePoste) && StringUtil.isBlank(searchForScolarite)
+					&& StringUtil.isBlank(searchForAnnesDexperience) && StringUtil.isBlank(searchForLieuDeTravail)) {
 				System.out.println("Is all blank...");
 				return true;
 			} else {
@@ -360,13 +363,13 @@ class SearchParam implements DocumentListener {
 
 	AdvancedSearch as;
 
-	JTextArea j;
+	JTextField j;
 	Table table;
 	int searchType;
 
-	public SearchParam(AdvancedSearch as, JTextArea j, Table table, int searchType) {
+	public SearchParam(AdvancedSearch as, JTextField yearsOfExperience, Table table, int searchType) {
 		this.as = as;
-		this.j = j;
+		this.j = yearsOfExperience;
 		this.table = table;
 		this.searchType = searchType;
 	}

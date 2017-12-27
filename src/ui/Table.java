@@ -32,6 +32,7 @@ import javax.swing.table.TableColumn;
 import org.apache.commons.lang.StringUtils;
 
 import emplois.Emploi;
+import utils.StringUtil;
 
 public class Table extends JPanel implements ActionListener {
 
@@ -228,11 +229,10 @@ class EmploiTableModel extends AbstractTableModel {
 		case 0:
 			return emploi.numeroDeLoffre;
 		case 1:
-			return emploi.appellationDeLemploi;
+			return StringUtil.capitalise(emploi.appellationDeLemploi);
 		case 2:
 			return emploi.employeur;
 		case 3:
-			System.out.println(emploi.nombreDePostes);
 			return emploi.nombreDePostes;
 		case 4:
 			return emploi.scolarite;
