@@ -7,19 +7,16 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-import ui.LoadingScreen;
+import i18n.Constants;
+import ui.LoadingBar;
 
 public class RiotMotor {
 
-	private static final String ROOT_ = "http://placement.emploiquebec.gouv.qc.ca/mbe/ut/rechroffr/listoffr.asp?mtcle=&cle=47&offrdisptoutqc=2&pp=1&date=3";
+	private static final String ROOT_ = "http://placement.emploiquebec.gouv.qc.ca/mbe/ut/rechroffr/listoffr.asp?mtcle=&cle=47&offrdisptoutqc=2&pp=1&date=3&CL=french";
 
-	//
+	private LoadingBar progressBar;
 
-	
-
-	private LoadingScreen progressBar;
-
-	public RiotMotor(LoadingScreen progressBar) {
+	public RiotMotor(LoadingBar progressBar) {
 		this.progressBar = progressBar;
 	}
 
@@ -139,11 +136,12 @@ public class RiotMotor {
 
 					emplois.add(emploi);
 					progressBar.reportJobs(emplois.size());
-					
-					
+
 				}
-				
-				//break; //remove after debug
+
+				if (Constants.IS_DEBUG) {
+					break; //remove after debug
+				}
 
 			}
 
@@ -175,9 +173,12 @@ public class RiotMotor {
 			String inputLine;
 
 			while ((inputLine = in.readLine()) != null) {
+
 				if (inputLine.contains("Suivant")) {
 					System.out.println("Found pages.");
 					pagesRaw = inputLine;
+
+					break;
 				}
 			}
 
@@ -191,7 +192,7 @@ public class RiotMotor {
 		try {
 
 			if (pagesRaw == null) {
-				System.err.println("Could not get pages!");
+				System.err.println("Could not get pages! Maybe the website answer is not correct?");
 				return null;
 			} else {
 				String pages[] = pagesRaw.split("&nbsp;&nbsp;");

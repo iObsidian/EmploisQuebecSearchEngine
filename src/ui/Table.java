@@ -1,4 +1,4 @@
-package i18n;
+package ui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -61,8 +61,8 @@ public class Table extends JPanel implements ActionListener {
 		table.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 		table.setAutoCreateRowSorter(true);
 		table.setShowVerticalLines(false);
-		table.setSelectionBackground(Color.PINK);
-		table.setSelectionForeground(Color.WHITE);
+		table.setSelectionBackground(Color.CYAN);
+		table.setSelectionForeground(Color.ORANGE);
 
 		table.setComponentPopupMenu(popupMenu);
 
@@ -121,10 +121,10 @@ public class Table extends JPanel implements ActionListener {
 		add(tableScroll, BorderLayout.CENTER);
 
 		/**List<Emploi> e = new ArrayList<Emploi>();
-
+		
 		Emploi a = new Emploi();
 		a.annesDexperience = "1";
-
+		
 		e.add(a);
 		setTableData(e, false);*/
 
@@ -210,7 +210,7 @@ class EmploiTableModel extends AbstractTableModel {
 
 	private static final String TAG = "FileTableModel";
 	private List<Emploi> emplois;
-	private String[] columns = { "N° de l'offre", "Appellation d'emploi", "Nombre de poste(s)", "Scolarité", "Années d'expérience", "Lieu de travail" };
+	private String[] columns = { "N° de l'offre", "Appellation d'emploi", "Employeur", "Nombre de poste(s)", "Scolarité", "Années d'expérience", "Lieu de travail" };
 
 	EmploiTableModel() {
 		emplois = new ArrayList<Emploi>();
@@ -220,7 +220,7 @@ class EmploiTableModel extends AbstractTableModel {
 
 		/**
 		 * 0 = N° de l'offre
-		 * 1 = Appellation d'emploi
+		 * 1 = Appellation d'emploi (& URL)
 		 * 2 = Employeur
 		 * 3 = Nombre de poste(s)
 		 * 4 = Scolarité
@@ -237,6 +237,7 @@ class EmploiTableModel extends AbstractTableModel {
 		case 2:
 			return emploi.employeur;
 		case 3:
+			System.out.println(emploi.nombreDePostes);
 			return emploi.nombreDePostes;
 		case 4:
 			return emploi.scolarite;

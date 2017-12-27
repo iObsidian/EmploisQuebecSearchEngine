@@ -1,29 +1,23 @@
 package ui;
 
 import java.awt.BorderLayout;
-import java.awt.Component;
 import java.awt.EventQueue;
+import java.awt.Toolkit;
 import java.util.List;
 
-import javax.swing.Box;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
 import javax.swing.border.EmptyBorder;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 
 import emplois.Emploi;
-import i18n.Table;
-import java.awt.Toolkit;
 
 public class UI extends JFrame {
 
+	AdvancedSearch as = new AdvancedSearch();
 	Table table = new Table();
-	LoadingScreen loadingScreen;
 
 	private JPanel contentPane;
+	private JPanel search;
 
 	/**
 	 * Launch the application.
@@ -56,61 +50,20 @@ public class UI extends JFrame {
 
 		contentPane.add(table, BorderLayout.CENTER);
 
-		JPanel search = new JPanel();
-		contentPane.add(search, BorderLayout.SOUTH);
-		search.setLayout(new BorderLayout(0, 0));
+		JPanel searchPanel = new JPanel();
+		table.add(searchPanel, BorderLayout.SOUTH);
+		searchPanel.setLayout(new BorderLayout(0, 0));
 
-		JPanel panel = new JPanel();
-		search.add(panel, BorderLayout.WEST);
+		//
 
-		Component horizontalStrut = Box.createHorizontalStrut(1);
-		panel.add(horizontalStrut);
+		searchPanel.add(as.getSimpleSearchPanel(), BorderLayout.NORTH);
+		searchPanel.add(as, BorderLayout.SOUTH);
 
-		JLabel lblNewLabel_1 = new JLabel("Recherche : ");
-		lblNewLabel_1.setToolTipText("Recherche par mots clef");
-		panel.add(lblNewLabel_1);
-
-		JTextArea textArea_1 = new JTextArea();
-
-		textArea_1.getDocument().addDocumentListener(new DocumentListener() {
-
-			public void changedUpdate(DocumentEvent arg0) {
-				updateKeywords();
-			}
-
-			public void insertUpdate(DocumentEvent arg0) {
-				updateKeywords();
-			}
-
-			public void removeUpdate(DocumentEvent arg0) {
-				updateKeywords();
-			}
-
-			private void updateKeywords() {
-
-				String keywords = textArea_1.getText();
-
-				String[] keyWords;
-
-				if (keywords.contains(", ")) {
-					keyWords = keywords.split(", ");
-				} else if (keywords.contains(",")) {
-					keyWords = keywords.split(",");
-				} else {
-					keyWords = new String[] { keywords };
-				}
-				
-				table.filterByKeyword(keyWords);
-
-			}
-		});
-
-		search.add(textArea_1, BorderLayout.CENTER);
-
-		loadingScreen = new LoadingScreen(this);
 	}
 
 	public void loadingEnded(List<Emploi> emplois) {
+		setVisible(true);
+
 		System.out.println("Emplois : " + emplois.size());
 
 		table.setTableData(emplois, false);
