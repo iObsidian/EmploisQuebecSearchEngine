@@ -10,7 +10,7 @@ import java.util.concurrent.ExecutionException;
 
 import i18n.Constants;
 import ui.Load;
-import ui.MashTek;
+import ui.LoadJobHTML;
 
 public class RiotMotor {
 
@@ -155,7 +155,7 @@ public class RiotMotor {
 		progressBar.reportStatus("Found " + emplois.size() + " jobs. Loading contents...");
 
 		try {
-			MashTek.verifyEmplois(emplois, 50, progressBar);
+			LoadJobHTML.verifyEmplois(emplois, 50, progressBar);
 		} catch (ExecutionException | InterruptedException e) {
 			e.printStackTrace();
 		}

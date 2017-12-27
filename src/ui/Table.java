@@ -36,6 +36,8 @@ import utils.StringUtil;
 
 public class Table extends JPanel implements ActionListener {
 
+	JobVisualiser j;
+
 	/** currently selected File. */
 	public ArrayList<Emploi> selectedFiles = new ArrayList<Emploi>();
 
@@ -53,13 +55,15 @@ public class Table extends JPanel implements ActionListener {
 
 	List<Emploi> emplois;
 
-	public Table() {
+	public Table(JobVisualiser j) {
+
+		this.j = j;
 
 		setLayout(new BorderLayout(3, 3));
 		setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		table = new JTable();
-		table.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		table.setAutoCreateRowSorter(true);
 		table.setShowVerticalLines(false);
 		/**table.setSelectionBackground(Color.CYAN);
@@ -94,6 +98,8 @@ public class Table extends JPanel implements ActionListener {
 							//Fixes row being incorrect after sortings
 							int row = table.convertRowIndexToModel(i);
 
+							System.out.println("setting view");
+
 							selectedFiles.add(emploiTableModel.getFile(row));
 						}
 					}
@@ -101,9 +107,7 @@ public class Table extends JPanel implements ActionListener {
 					if (!isAdjusting) {
 						if (selectedFiles.size() == 1) { //amount of selected emplois == 1
 
-							Emploi selectedFile = selectedFiles.get(0);
-
-						} else if (selectedFiles.size() > 1) { //more than 1 selected emploi
+							j.setJob(selectedFiles.get(0));
 
 						}
 

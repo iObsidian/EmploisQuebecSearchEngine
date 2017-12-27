@@ -13,12 +13,12 @@ import java.util.concurrent.Future;
 
 import emplois.Emploi;
 
-public class MashTek implements Runnable {
+public class LoadJobHTML implements Runnable {
 
 	private Emploi account;
 	private static Load progressBar;
 
-	public MashTek(Emploi account, Load run) {
+	public LoadJobHTML(Emploi account, Load run) {
 		this.account = account;
 		this.progressBar = run;
 	}
@@ -42,7 +42,7 @@ public class MashTek implements Runnable {
 		List<Future<Runnable>> futures = new ArrayList<Future<Runnable>>();
 
 		for (Emploi a : accountList) {
-			Future f = service.submit(new MashTek(a, load));
+			Future f = service.submit(new LoadJobHTML(a, load));
 			futures.add(f);
 			waitingForAnswer.add(a);
 		}
@@ -81,7 +81,7 @@ public class MashTek implements Runnable {
 
 			while ((inputLine = in.readLine()) != null) {
 
-				if (inputLine.contains("Visualisation de l'offre d'emploi")) {
+				if (inputLine.contains("<h1>Visualisation de l'offre d'emploi")) {
 
 					progressBar.reportStatus("Loading job listing " + current + "...");
 					isInsideJobOfferings = true;

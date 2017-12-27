@@ -10,11 +10,14 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import emplois.Emploi;
+import javax.swing.JSplitPane;
 
 public class UI extends JFrame {
 
 	AdvancedSearch as = new AdvancedSearch();
-	Table table = new Table();
+
+	private JobVisualiser panel = new JobVisualiser();
+	Table table = new Table(panel);
 
 	private JPanel contentPane;
 	private JPanel search;
@@ -45,10 +48,17 @@ public class UI extends JFrame {
 		setBounds(100, 100, 881, 518);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
+		contentPane.setLayout(new BorderLayout(0, 0));
 
-		contentPane.add(table, BorderLayout.CENTER);
+		JSplitPane splitPane = new JSplitPane();
+		splitPane.setResizeWeight(0.5);
+		splitPane.setDividerLocation(400);
+		contentPane.add(splitPane, BorderLayout.CENTER);
+
+		JPanel tableAndSearchPanel = new JPanel(new BorderLayout());
+
+		tableAndSearchPanel.add(table, BorderLayout.CENTER);
 
 		JPanel searchPanel = new JPanel();
 		table.add(searchPanel, BorderLayout.SOUTH);
@@ -58,6 +68,10 @@ public class UI extends JFrame {
 
 		searchPanel.add(as.getSimpleSearchPanel(table), BorderLayout.NORTH);
 		searchPanel.add(as, BorderLayout.SOUTH);
+
+		splitPane.setLeftComponent(tableAndSearchPanel);
+
+		splitPane.setRightComponent(panel);
 
 	}
 
