@@ -1,5 +1,9 @@
 package emplois;
 
+import org.apache.commons.lang.StringUtils;
+
+import utils.StringArrayUtils;
+
 public class Emploi {
 
 	/**
@@ -29,53 +33,75 @@ public class Emploi {
 	}
 
 	//Simple search
-	public boolean contains(String s) {
+	public boolean contains(String[] keywords) {
 
-		if (searchAppellationDeLemploi(s)) {
+		if (searchAppellationDeLemploi(keywords)) {
 			return true;
-		} else if (searchEmployeur(s)) {
+		} else if (searchEmployeur(keywords)) {
 			return true;
-		} else if (searchLieuDeTravail(s)) {
+		} else if (searchLieuDeTravail(keywords)) {
 			return true;
 		}
 
 		return false;
 	}
 
-	public boolean searchUrlContains(String s) {
-		return scs(s, url);
+	public boolean searchUrlContains(String[] keywords) {
+		return scs(keywords, url);
 	}
 
-	public boolean searchNumeroDeLoffre(String s) {
-		return scs(s, numeroDeLoffre);
+	public boolean searchNumeroDeLoffre(String[] keywords) {
+		return scs(keywords, numeroDeLoffre);
 	}
 
-	public boolean searchAppellationDeLemploi(String s) {
-		return scs(s, appellationDeLemploi);
+	public boolean searchAppellationDeLemploi(String[] keywords) {
+		return scs(keywords, appellationDeLemploi);
 	}
 
-	public boolean searchEmployeur(String s) {
-		return scs(s, employeur);
+	public boolean searchEmployeur(String[] keywords) {
+		return scs(keywords, employeur);
 	}
 
-	public boolean searchNombreDePostes(String s) {
-		return scs(s, nombreDePostes);
+	public boolean searchNombreDePostes(String[] keywords) {
+		return scs(keywords, nombreDePostes);
 	}
 
-	public boolean searchScolarite(String s) {
-		return scs(s, scolarite);
+	public boolean searchScolarite(String[] keywords) {
+		return scs(keywords, scolarite);
 	}
 
-	public boolean searchAnnesDexperience(String s) {
-		return scs(s, annesDexperience);
+	public boolean searchAnnesDexperience(String[] keywords) {
+		return scs(keywords, annesDexperience);
 	}
 
-	public boolean searchLieuDeTravail(String s) {
-		return scs(s, lieuDeTravail);
+	public boolean searchLieuDeTravail(String[] keywords) {
+		return scs(keywords, lieuDeTravail);
 	}
 
-	public boolean scs(String search, String in) {
-		return (search.toLowerCase().contains(in.toLowerCase()));
+	public boolean scs(String search[], String in) {
+
+		if (StringArrayUtils.isBlank(search)) {
+			return true;
+		} else {
+
+			boolean exists = false;
+
+			if (!StringUtils.isBlank(in)) { //TODO remove
+				for (String s : search) {
+
+					if (!StringUtils.isBlank(s)) {
+						if (in.toLowerCase().contains(s.toLowerCase())) {
+							exists = true;
+							break;
+						}
+					}
+
+				}
+			}
+
+			return exists;
+		}
+
 	}
 
 }

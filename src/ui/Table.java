@@ -50,7 +50,7 @@ public class Table extends JPanel implements ActionListener {
 
 	private JPopupMenu popupMenu = new JPopupMenu();
 
-	private List<Emploi> files;
+	List<Emploi> emplois;
 
 	public Table() {
 
@@ -61,8 +61,8 @@ public class Table extends JPanel implements ActionListener {
 		table.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 		table.setAutoCreateRowSorter(true);
 		table.setShowVerticalLines(false);
-		table.setSelectionBackground(Color.CYAN);
-		table.setSelectionForeground(Color.ORANGE);
+		/**table.setSelectionBackground(Color.CYAN);
+		table.setSelectionForeground(Color.ORANGE);*/
 
 		table.setComponentPopupMenu(popupMenu);
 
@@ -138,7 +138,7 @@ public class Table extends JPanel implements ActionListener {
 	public void setTableData(List<Emploi> newFiles, boolean isFiltered) {
 
 		if (!isFiltered) {
-			files = newFiles;
+			emplois = newFiles;
 		}
 
 		SwingUtilities.invokeLater(new Runnable() {
@@ -184,26 +184,21 @@ public class Table extends JPanel implements ActionListener {
 		tableColumn.setMinWidth(width);
 	}
 
-	public void filterByKeyword(String[] keyWords) {
+	public int updateAdvancedSearchChanged(AdvancedSearch advancedSearch) {
 
-		if (keyWords.length == 1 && (StringUtils.isBlank(keyWords[0]))) {
-			System.out.println("Reset");
-			setTableData(files, false); //reset
-		} else {
+		ArrayList<Emploi> newEmplois = new ArrayList<Emploi>();
 
-			ArrayList<Emploi> emplois = new ArrayList<Emploi>();
-
-			for (Emploi file : files) {
-				for (String s : keyWords) {
-					if (file.contains(s)) {
-						emplois.add(file);
-					}
-				}
+		for (Emploi emploi : emplois) {
+			if (advancedSearch.accept(emploi)) {
+				newEmplois.add(emploi);
 			}
-
-			setTableData(emplois, true);
 		}
+
+		setTableData(newEmplois, true);
+
+		return newEmplois.size();
 	}
+
 }
 
 class EmploiTableModel extends AbstractTableModel {

@@ -56,7 +56,7 @@ public class UI extends JFrame {
 
 		//
 
-		searchPanel.add(as.getSimpleSearchPanel(), BorderLayout.NORTH);
+		searchPanel.add(as.getSimpleSearchPanel(table), BorderLayout.NORTH);
 		searchPanel.add(as, BorderLayout.SOUTH);
 
 	}
