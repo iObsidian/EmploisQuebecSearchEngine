@@ -25,16 +25,16 @@ import javax.swing.event.DocumentListener;
 
 import autoCompletion.AutoCompleteDocument;
 import autoCompletion.CompletionService;
-import emplois.Emploi;
 import utils.StringUtil;
+import java.awt.Font;
 
 public class AdvancedSearch extends JPanel {
 
 	private AdvancedSearch me = this;
 
-	private Table table;
+	private JobTable table;
 
-	boolean isInAdvancedSearchMode = true;
+	boolean isInAdvancedSearchMode = false;
 
 	/**
 	 * -1 = Simple search
@@ -48,7 +48,7 @@ public class AdvancedSearch extends JPanel {
 	 * 6 = Lieu de travail
 	 */
 
-	String[] searchForSimple;
+	String[] searchForSimple = new String[0];
 
 	String[] searchForNumeroDeLoffre = new String[0];
 	String[] searchForAppellationDeLemploi = new String[0];
@@ -63,9 +63,9 @@ public class AdvancedSearch extends JPanel {
 	JButton toggleAdvancedSearchBtn;
 	private JLabel jobsFoundLabel;
 
-	public JPanel getSimpleSearchPanel(Table table) {
+	public JPanel getSimpleSearchPanel(JobTable table) {
 
-		updateExistingKeywords(new ArrayList<Emploi>()); //avoids null value on first key press (update advanced search not yet called)
+		updateExistingKeywords(new ArrayList<Job>()); //avoids null value on first key press (update advanced search not yet called)
 
 		this.table = table;
 
@@ -105,7 +105,6 @@ public class AdvancedSearch extends JPanel {
 			});
 
 			simpleSearch.add(toggleAdvancedSearchBtn, BorderLayout.EAST);
-			simpleSearch.setVisible(true);
 
 			return simpleSearch;
 		} else {
@@ -121,7 +120,7 @@ public class AdvancedSearch extends JPanel {
 	KeywordService existing_annesDexperience = new KeywordService();
 	KeywordService existing_lieuDeTravail = new KeywordService();
 
-	public void updateExistingKeywords(ArrayList<Emploi> emplois) {
+	public void updateExistingKeywords(ArrayList<Job> emplois) {
 
 		ArrayList<String> numeroDeLoffre = new ArrayList<String>();
 		ArrayList<String> apellationDeLemploi = new ArrayList<String>();
@@ -131,7 +130,7 @@ public class AdvancedSearch extends JPanel {
 		ArrayList<String> AnnesDexperience = new ArrayList<String>();
 		ArrayList<String> lieuDeTravail = new ArrayList<String>();
 
-		for (Emploi e : emplois) {
+		for (Job e : emplois) {
 
 			addIfNotExisting(numeroDeLoffre, e.numeroDeLoffre);
 			addIfNotExisting(apellationDeLemploi, e.appellationDeLemploi);
@@ -164,6 +163,8 @@ public class AdvancedSearch extends JPanel {
 	 */
 	public AdvancedSearch() {
 
+		Font f = new Font("Tahoma", Font.PLAIN, 11);
+
 		// details for a File
 		setLayout(new BorderLayout(0, 0));
 
@@ -181,7 +182,9 @@ public class AdvancedSearch extends JPanel {
 
 		//
 
-		fileDetailsLabels.add(new JLabel("N° de l'offre", JLabel.TRAILING));
+		JLabel offerNumberLabel = new JLabel("N° de l'offre", JLabel.TRAILING);
+		offerNumberLabel.setFont(f);
+		fileDetailsLabels.add(offerNumberLabel);
 		JTextField offerNumber = new JTextField();
 		offerNumber.setDocument(new AutoCompleteDocument(existing_numeroDeLoffre, offerNumber));
 
@@ -190,7 +193,9 @@ public class AdvancedSearch extends JPanel {
 
 		//
 
-		fileDetailsLabels.add(new JLabel("Appellation d'emploi", JLabel.TRAILING));
+		JLabel titleLabel = new JLabel("Appellation d'emploi", JLabel.TRAILING);
+		titleLabel.setFont(f);
+		fileDetailsLabels.add(titleLabel);
 		JTextField jobName = new JTextField();
 		jobName.setDocument(new AutoCompleteDocument(existing_appellationDeLemploi, jobName));
 
@@ -199,7 +204,9 @@ public class AdvancedSearch extends JPanel {
 
 		//
 
-		fileDetailsLabels.add(new JLabel("Employeur", JLabel.TRAILING));
+		JLabel employerLabel = new JLabel("Employeur", JLabel.TRAILING);
+		employerLabel.setFont(f);
+		fileDetailsLabels.add(employerLabel);
 		JTextField employer = new JTextField();
 		employer.setDocument(new AutoCompleteDocument(existing_employeur, employer));
 
@@ -208,7 +215,9 @@ public class AdvancedSearch extends JPanel {
 
 		//
 
-		fileDetailsLabels.add(new JLabel("Nombre de poste(s)", JLabel.TRAILING));
+		JLabel numberOfOpenningLabel = new JLabel("Nombre de poste(s)", JLabel.TRAILING);
+		numberOfOpenningLabel.setFont(f);
+		fileDetailsLabels.add(numberOfOpenningLabel);
 		JTextField numberOfOffers = new JTextField();
 		numberOfOffers.setDocument(new AutoCompleteDocument(existing_nombreDePostes, numberOfOffers));
 
@@ -217,7 +226,9 @@ public class AdvancedSearch extends JPanel {
 
 		//
 
-		fileDetailsLabels.add(new JLabel("Scolarité", JLabel.TRAILING));
+		JLabel scolarityLabel = new JLabel("Scolarité", JLabel.TRAILING);
+		scolarityLabel.setFont(f);
+		fileDetailsLabels.add(scolarityLabel);
 		JTextField scholarity = new JTextField();
 		scholarity.setDocument(new AutoCompleteDocument(existing_scolarite, scholarity));
 
@@ -226,7 +237,9 @@ public class AdvancedSearch extends JPanel {
 
 		//
 
-		fileDetailsLabels.add(new JLabel("Années d'expérience", JLabel.TRAILING));
+		JLabel yearsOfExperienceLabel = new JLabel("Années d'expérience", JLabel.TRAILING);
+		yearsOfExperienceLabel.setFont(f);
+		fileDetailsLabels.add(yearsOfExperienceLabel);
 		JTextField yearsOfExperience = new JTextField();
 		yearsOfExperience.setDocument(new AutoCompleteDocument(existing_annesDexperience, yearsOfExperience));
 
@@ -235,7 +248,9 @@ public class AdvancedSearch extends JPanel {
 
 		//
 
-		fileDetailsLabels.add(new JLabel("Lieu de travail", JLabel.TRAILING));
+		JLabel workplaceLabel = new JLabel("Lieu de travail", JLabel.TRAILING);
+		workplaceLabel.setFont(f);
+		fileDetailsLabels.add(workplaceLabel);
 		JTextField workPlace = new JTextField();
 		workPlace.setDocument(new AutoCompleteDocument(existing_lieuDeTravail, workPlace));
 
@@ -252,34 +267,21 @@ public class AdvancedSearch extends JPanel {
 		searchSettingsPanel.add(panel);
 		panel.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
 
-		jobsFoundLabel = new JLabel("");
+		jobsFoundLabel = new JLabel("Emplois trouvés : 0");
+		jobsFoundLabel.setFont(new Font("Tahoma", Font.BOLD, 11));
 		panel.add(jobsFoundLabel);
-
-		/**JCheckBox chckbxNewCheckBox = new JCheckBox("Inclusif/Exclusif");
-		
-		ActionListener actionListener = new ActionListener() {
-			public void actionPerformed(ActionEvent actionEvent) {
-				inclusive = chckbxNewCheckBox.isSelected();
-				searchParamsChanged();
-		
-				System.out.println("Inclusive : " + inclusive);
-			}
-		};
-		chckbxNewCheckBox.addActionListener(actionListener);
-		
-		panel.add(chckbxNewCheckBox);*/
 
 	}
 
 	public void searchParamsChanged() {
 
-		ArrayList<Emploi> e = table.updateAdvancedSearchChanged(this);
+		ArrayList<Job> e = table.updateAdvancedSearchChanged(this);
 		updateExistingKeywords(e);
 
 		jobsFoundLabel.setText("Emplois trouvés : " + e.size());
 	}
 
-	public boolean accept(Emploi emploi) {
+	public boolean accept(Job emploi) {
 
 		boolean accept = false;
 
@@ -287,8 +289,8 @@ public class AdvancedSearch extends JPanel {
 			accept = emploi.contains(searchForSimple);
 		} else {
 
-			if (StringUtil.isBlank(searchForNumeroDeLoffre) && StringUtil.isBlank(searchForAppellationDeLemploi) && StringUtil.isBlank(searchForEmployeur) && StringUtil.isBlank(searchForNombreDePoste) && StringUtil.isBlank(searchForScolarite)
-					&& StringUtil.isBlank(searchForAnnesDexperience) && StringUtil.isBlank(searchForLieuDeTravail)) {
+			if (StringUtil.isBlank(searchForNumeroDeLoffre) && StringUtil.isBlank(searchForAppellationDeLemploi) && StringUtil.isBlank(searchForEmployeur) && StringUtil.isBlank(searchForNombreDePoste) && StringUtil.isBlank(searchForScolarite) && StringUtil.isBlank(searchForAnnesDexperience)
+					&& StringUtil.isBlank(searchForLieuDeTravail)) {
 				System.out.println("Is all blank...");
 				return true;
 			} else {
@@ -364,10 +366,10 @@ class SearchParam implements DocumentListener {
 	AdvancedSearch as;
 
 	JTextField j;
-	Table table;
+	JobTable table;
 	int searchType;
 
-	public SearchParam(AdvancedSearch as, JTextField yearsOfExperience, Table table, int searchType) {
+	public SearchParam(AdvancedSearch as, JTextField yearsOfExperience, JobTable table, int searchType) {
 		this.as = as;
 		this.j = yearsOfExperience;
 		this.table = table;

@@ -1,10 +1,13 @@
 package ui;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Toolkit;
 import java.util.List;
 
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -15,20 +18,14 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.EmptyBorder;
 
-import emplois.Emploi;
-import emplois.RiotMotor;
-import java.awt.FlowLayout;
-import java.awt.Component;
-import javax.swing.Box;
-
-public class Load extends JFrame {
+public class Loading extends JFrame {
 
 	private JPanel contentPane;
 
 	private JLabel lblInitialising;
 	private JProgressBar progressBar;
 
-	RiotMotor riotMotor = new RiotMotor(this);
+	JobMotor riotMotor = new JobMotor(this);
 
 	UI ui;
 	private JLabel lblStatus;
@@ -42,8 +39,11 @@ public class Load extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Load frame = new Load();
+					Loading frame = new Loading();
 					frame.setVisible(true);
+
+					Dimension dimemsion = Toolkit.getDefaultToolkit().getScreenSize();
+					frame.setLocation(dimemsion.width / 2 - frame.getSize().width / 2, dimemsion.height / 2 - frame.getSize().height / 2);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -54,7 +54,7 @@ public class Load extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Load() {
+	public Loading() {
 
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -62,7 +62,7 @@ public class Load extends JFrame {
 			e1.printStackTrace();
 		}
 
-		setIconImage(Toolkit.getDefaultToolkit().getImage(Load.class.getResource("/com/sun/javafx/scene/web/skin/Copy_16x16_JFX.png")));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(Loading.class.getResource("/com/sun/javafx/scene/web/skin/Copy_16x16_JFX.png")));
 		setTitle("Loading...");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 400, 140);
@@ -126,7 +126,7 @@ public class Load extends JFrame {
 		lblInitialising.setText(totalJobs + " emplois trouvés.");
 	}
 
-	public void reportEnded(List<Emploi> emplois) {
+	public void reportEnded(List<Job> emplois) {
 		ui.loadingEnded(emplois);
 		setVisible(false);
 	}

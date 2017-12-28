@@ -31,15 +31,14 @@ import javax.swing.table.TableColumn;
 
 import org.apache.commons.lang.StringUtils;
 
-import emplois.Emploi;
 import utils.StringUtil;
 
-public class Table extends JPanel implements ActionListener {
+public class JobTable extends JPanel implements ActionListener {
 
 	JobVisualiser j;
 
 	/** currently selected File. */
-	public ArrayList<Emploi> selectedFiles = new ArrayList<Emploi>();
+	public ArrayList<Job> selectedFiles = new ArrayList<Job>();
 
 	/** Directory listing */
 	private JTable table;
@@ -53,16 +52,24 @@ public class Table extends JPanel implements ActionListener {
 
 	private JPopupMenu popupMenu = new JPopupMenu();
 
-	List<Emploi> emplois;
+	List<Job> emplois;
 
-	public Table(JobVisualiser j) {
+	public JobTable(JobVisualiser j) {
 
 		this.j = j;
 
 		setLayout(new BorderLayout(3, 3));
 		setBorder(new EmptyBorder(5, 5, 5, 5));
 
-		table = new JTable();
+		table = new JTable() {
+
+			//Allows for deslection on click
+			@Override
+			public void changeSelection(int rowIndex, int columnIndex, boolean toggle, boolean extend) {
+				super.changeSelection(rowIndex, columnIndex, !extend, extend);
+			}
+
+		};
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		table.setAutoCreateRowSorter(true);
 		table.setShowVerticalLines(false);
@@ -98,17 +105,16 @@ public class Table extends JPanel implements ActionListener {
 							//Fixes row being incorrect after sortings
 							int row = table.convertRowIndexToModel(i);
 
-							System.out.println("setting view");
-
 							selectedFiles.add(emploiTableModel.getFile(row));
 						}
 					}
 
-					if (!isAdjusting) {
+					if (!isAdjusting) { //avoids performing twice
 						if (selectedFiles.size() == 1) { //amount of selected emplois == 1
 
-							j.setJob(selectedFiles.get(0));
+							System.out.println("Selection...");
 
+							j.setJob(selectedFiles.get(0));
 						}
 
 					}
@@ -140,7 +146,7 @@ public class Table extends JPanel implements ActionListener {
 	 * isFiltered = is not the actual files, but a variant that is filtered
 	 *  
 	 *  */
-	public void setTableData(List<Emploi> newFiles, boolean isFiltered) {
+	public void setTableData(List<Job> newFiles, boolean isFiltered) {
 
 		if (!isFiltered) {
 			emplois = newFiles;
@@ -189,11 +195,11 @@ public class Table extends JPanel implements ActionListener {
 		tableColumn.setMinWidth(width);
 	}
 
-	public ArrayList<Emploi> updateAdvancedSearchChanged(AdvancedSearch advancedSearch) {
+	public ArrayList<Job> updateAdvancedSearchChanged(AdvancedSearch advancedSearch) {
 
-		ArrayList<Emploi> newEmplois = new ArrayList<Emploi>();
+		ArrayList<Job> newEmplois = new ArrayList<Job>();
 
-		for (Emploi emploi : emplois) {
+		for (Job emploi : emplois) {
 			if (advancedSearch.accept(emploi)) {
 				newEmplois.add(emploi);
 			}
@@ -209,11 +215,11 @@ public class Table extends JPanel implements ActionListener {
 class EmploiTableModel extends AbstractTableModel {
 
 	private static final String TAG = "FileTableModel";
-	private List<Emploi> emplois;
+	private List<Job> emplois;
 	private String[] columns = { "N° de l'offre", "Appellation d'emploi", "Employeur", "Nombre de poste(s)", "Scolarité", "Années d'expérience", "Lieu de travail" };
 
 	EmploiTableModel() {
-		emplois = new ArrayList<Emploi>();
+		emplois = new ArrayList<Job>();
 	}
 
 	public Object getValueAt(int row, int column) {
@@ -228,7 +234,7 @@ class EmploiTableModel extends AbstractTableModel {
 		 * 6 = Lieu de travail
 		 */
 
-		Emploi emploi = emplois.get(row);
+		Job emploi = emplois.get(row);
 		switch (column) {
 		case 0:
 			return emploi.numeroDeLoffre;
@@ -276,20 +282,20 @@ class EmploiTableModel extends AbstractTableModel {
 		return emplois.size();
 	}
 
-	public Emploi getFile(int row) {
+	public Job getFile(int row) {
 		return emplois.get(row);
 	}
 
-	public void setFiles(List<Emploi> emplois) {
+	public void setFiles(List<Job> emplois) {
 		this.emplois = emplois;
 		fireTableDataChanged();
 	}
 
-	public List<Emploi> getFiles() {
+	public List<Job> getFiles() {
 		return emplois;
 	}
 
-	public void addFile(Emploi emploi) {
+	public void addFile(Job emploi) {
 		emplois.add(emploi);
 		fireTableDataChanged();
 	}

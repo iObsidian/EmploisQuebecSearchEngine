@@ -11,14 +11,12 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
-import emplois.Emploi;
+public class JobHTMLEngine implements Runnable {
 
-public class LoadJobHTML implements Runnable {
+	private Job account;
+	private static Loading progressBar;
 
-	private Emploi account;
-	private static Load progressBar;
-
-	public LoadJobHTML(Emploi account, Load run) {
+	public JobHTMLEngine(Job account, Loading run) {
 		this.account = account;
 		this.progressBar = run;
 	}
@@ -26,23 +24,23 @@ public class LoadJobHTML implements Runnable {
 	public static int current = 0;
 	public static int total = 0;
 
-	public static ArrayList<Emploi> waitingForAnswer;
+	public static ArrayList<Job> waitingForAnswer;
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public static void verifyEmplois(List<Emploi> accountList, int amountOfThreads, Load load) throws ExecutionException, InterruptedException {
+	public static void verifyEmplois(List<Job> accountList, int amountOfThreads, Loading load) throws ExecutionException, InterruptedException {
 
 		current = 0;
 		total = 0;
 
-		waitingForAnswer = new ArrayList<Emploi>();
+		waitingForAnswer = new ArrayList<Job>();
 
 		total = accountList.size();
 
 		ExecutorService service = Executors.newFixedThreadPool(amountOfThreads);
 		List<Future<Runnable>> futures = new ArrayList<Future<Runnable>>();
 
-		for (Emploi a : accountList) {
-			Future f = service.submit(new LoadJobHTML(a, load));
+		for (Job a : accountList) {
+			Future f = service.submit(new JobHTMLEngine(a, load));
 			futures.add(f);
 			waitingForAnswer.add(a);
 		}
@@ -63,7 +61,7 @@ public class LoadJobHTML implements Runnable {
 
 	public void run() {
 
-		Emploi a = account;
+		Job a = account;
 
 		try {
 

@@ -1,10 +1,10 @@
-package emplois;
+package ui;
 
 import org.apache.commons.lang.StringUtils;
 
 import utils.StringUtil;
 
-public class Emploi {
+public class Job {
 
 	/**
 	 * 0 = N° de l'offre
@@ -108,18 +108,6 @@ public class Emploi {
 			return exists;
 		}
 
-	}
-
-	public static Emploi getTest() {
-		Emploi e = new Emploi();
-		e.numeroDeLoffre = "";
-		e.appellationDeLemploi = "";
-		e.employeur = "";
-		e.nombreDePostes = "";
-		e.scolarite = "";
-		e.annesDexperience = "";
-		e.lieuDeTravail = "";
-		return e;
 	}
 
 }

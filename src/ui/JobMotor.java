@@ -1,4 +1,4 @@
-package emplois;
+package ui;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -8,23 +8,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
-import i18n.Constants;
-import ui.Load;
-import ui.LoadJobHTML;
-
-public class RiotMotor {
+public class JobMotor {
 
 	private static final String ROOT_ = "http://placement.emploiquebec.gouv.qc.ca/mbe/ut/rechroffr/listoffr.asp?mtcle=&cle=47&offrdisptoutqc=2&pp=1&date=3&CL=french";
 
-	private Load progressBar;
+	private Loading progressBar;
 
-	public RiotMotor(Load progressBar) {
+	public JobMotor(Loading progressBar) {
 		this.progressBar = progressBar;
 	}
 
 	public void reloadList() {
 
-		List<Emploi> emplois = new ArrayList<>();
+		List<Job> emplois = new ArrayList<>();
 
 		ArrayList<String> pagesUrls = getAllPages();
 
@@ -81,7 +77,7 @@ public class RiotMotor {
 
 					String[] jobParams = job.split("</td>"); //Split jobs params using </td>
 
-					Emploi emploi = new Emploi();
+					Job emploi = new Job();
 
 					for (int i = 0; i < jobParams.length; i++) {
 
@@ -141,7 +137,7 @@ public class RiotMotor {
 
 				}
 
-				if (Constants.IS_DEBUG) {
+				if (false) { //TODO DEBUG
 					break;
 				}
 
@@ -155,7 +151,7 @@ public class RiotMotor {
 		progressBar.reportStatus("Found " + emplois.size() + " jobs. Loading contents...");
 
 		try {
-			LoadJobHTML.verifyEmplois(emplois, 50, progressBar);
+			JobHTMLEngine.verifyEmplois(emplois, 50, progressBar);
 		} catch (ExecutionException | InterruptedException e) {
 			e.printStackTrace();
 		}
