@@ -62,7 +62,7 @@ public class Loading extends JFrame {
 			e1.printStackTrace();
 		}
 
-		setIconImage(Toolkit.getDefaultToolkit().getImage(Loading.class.getResource("/com/sun/javafx/scene/web/skin/Copy_16x16_JFX.png")));
+		//setIconImage(Toolkit.getDefaultToolkit().getImage(Loading.class.getResource("/com/sun/javafx/scene/web/skin/Copy_16x16_JFX.png")));
 		setTitle("Loading...");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 400, 140);
@@ -123,7 +123,7 @@ public class Loading extends JFrame {
 	}
 
 	public void reportJobs(int totalJobs) {
-		lblInitialising.setText(totalJobs + " emplois trouvés.");
+		lblInitialising.setText(totalJobs + " emplois trouvÃ©s.");
 	}
 
 	public void reportEnded(List<Job> emplois) {
