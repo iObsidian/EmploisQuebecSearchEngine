@@ -7,7 +7,6 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
@@ -29,22 +28,17 @@ import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableColumn;
 
-import org.apache.commons.lang.StringUtils;
-
-import utils.StringUtil;
+import job.Job;
 
 public class JobTable extends JPanel implements ActionListener {
 
-	JobVisualiser j;
-
-	/** currently selected File. */
-	public ArrayList<Job> selectedFiles = new ArrayList<Job>();
+	public Job selectedJob = null;
 
 	/** Directory listing */
 	private JTable table;
 
-	/** Table model for File array. */
-	private EmploiTableModel emploiTableModel;
+	/** Table model for Job array. */
+	private JobTableModel fileTableModel;
 	private ListSelectionListener listSelectionListener;
 	private boolean cellSizesSet = false;
 
@@ -52,37 +46,26 @@ public class JobTable extends JPanel implements ActionListener {
 
 	private JPopupMenu popupMenu = new JPopupMenu();
 
-	List<Job> emplois;
-
-	public JobTable(JobVisualiser j) {
-
-		this.j = j;
+	public JobTable() {
 
 		setLayout(new BorderLayout(3, 3));
 		setBorder(new EmptyBorder(5, 5, 5, 5));
 
-		table = new JTable() {
-
-			//Allows for deslection on click
-			@Override
-			public void changeSelection(int rowIndex, int columnIndex, boolean toggle, boolean extend) {
-				super.changeSelection(rowIndex, columnIndex, !extend, extend);
-			}
-
-		};
-		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		table = new JTable();
+		table.setRowSelectionAllowed(true);
+		table.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 		table.setAutoCreateRowSorter(true);
 		table.setShowVerticalLines(false);
-		/**table.setSelectionBackground(Color.CYAN);
-		table.setSelectionForeground(Color.ORANGE);*/
+		table.setSelectionBackground(Color.PINK);
+		table.setSelectionForeground(Color.WHITE);
 
 		table.setComponentPopupMenu(popupMenu);
 
-		emploiTableModel = new EmploiTableModel();
-		table.setModel(emploiTableModel);
+		fileTableModel = new JobTableModel();
+		table.setModel(fileTableModel);
 
 		//set font bold for column 1 (see CellRenderer at the bottom of this class)
-		//table.getColumnModel().getColumn(1).setCellRenderer(new CellRenderer());
+		table.getColumnModel().getColumn(1).setCellRenderer(new CellRenderer());
 
 		listSelectionListener = new ListSelectionListener() {
 
@@ -97,26 +80,14 @@ public class JobTable extends JPanel implements ActionListener {
 					int minIndex = lsm.getMinSelectionIndex();
 					int maxIndex = lsm.getMaxSelectionIndex();
 
-					selectedFiles.clear();
-
 					for (int i = minIndex; i <= maxIndex; i++) {
 						if (lsm.isSelectedIndex(i)) {
 
 							//Fixes row being incorrect after sortings
 							int row = table.convertRowIndexToModel(i);
 
-							selectedFiles.add(emploiTableModel.getFile(row));
+							selectedJob = fileTableModel.getJob(row);
 						}
-					}
-
-					if (!isAdjusting) { //avoids performing twice
-						if (selectedFiles.size() == 1) { //amount of selected emplois == 1
-
-							System.out.println("Selection...");
-
-							j.setJob(selectedFiles.get(0));
-						}
-
 					}
 
 				}
@@ -131,41 +102,26 @@ public class JobTable extends JPanel implements ActionListener {
 		tableScroll.setPreferredSize(new Dimension((int) d.getWidth(), (int) d.getHeight() / 2));
 		add(tableScroll, BorderLayout.CENTER);
 
-		/**List<Emploi> e = new ArrayList<Emploi>();
-		
-		Emploi a = new Emploi();
-		a.annesDexperience = "1";
-		
-		e.add(a);
-		setTableData(e, false);*/
-
 	}
 
-	/** Update the table on the EDT
-	 * 
-	 * isFiltered = is not the actual files, but a variant that is filtered
-	 *  
-	 *  */
-	public void setTableData(List<Job> newFiles, boolean isFiltered) {
-
-		if (!isFiltered) {
-			emplois = newFiles;
-		}
+	/** Update the table on the EDT */
+	void setTableData(List<Job> newJobs) {
 
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				if (emploiTableModel == null) {
-					emploiTableModel = new EmploiTableModel();
-					table.setModel(emploiTableModel);
+				if (fileTableModel == null) {
+					fileTableModel = new JobTableModel();
+					table.setModel(fileTableModel);
 				}
 				table.getSelectionModel().removeListSelectionListener(listSelectionListener);
-				emploiTableModel.setFiles(newFiles);
+				fileTableModel.setJobs(newJobs);
 				table.getSelectionModel().addListSelectionListener(listSelectionListener);
 				if (!cellSizesSet) {
 
-					table.setRowHeight(30);
-					setColumnWidth(0, -1);
+					table.setRowHeight(40);
+					//setColumnWidth(0, -1);
 					cellSizesSet = true;
+
 				}
 			}
 		});
@@ -178,6 +134,32 @@ public class JobTable extends JPanel implements ActionListener {
 			JMenuItem menu = (JMenuItem) event.getSource();
 
 		}
+
+	}
+
+	public void addJobs(ArrayList<Job> filesToAdd) {
+		final List<Job> files = fileTableModel.getJobs();
+
+		for (Iterator<Job> iterator = filesToAdd.iterator(); iterator.hasNext();) {
+			files.add(iterator.next());
+		}
+
+		setTableData(files);
+
+	}
+
+	public void removeJobs(ArrayList<Job> filesToRemove) {
+		final List<Job> files = fileTableModel.getJobs();
+
+		for (Iterator<Job> iterator = files.iterator(); iterator.hasNext();) {
+			Job file = iterator.next();
+
+			if (filesToRemove.contains(file)) {
+				iterator.remove();
+			}
+		}
+
+		setTableData(files);
 
 	}
 
@@ -195,63 +177,39 @@ public class JobTable extends JPanel implements ActionListener {
 		tableColumn.setMinWidth(width);
 	}
 
-	public ArrayList<Job> updateAdvancedSearchChanged(AdvancedSearch advancedSearch) {
-
-		ArrayList<Job> newEmplois = new ArrayList<Job>();
-
-		for (Job emploi : emplois) {
-			if (advancedSearch.accept(emploi)) {
-				newEmplois.add(emploi);
-			}
-		}
-
-		setTableData(newEmplois, true);
-
-		return newEmplois;
-	}
+	//UPDATE POPUPMENU END
 
 }
 
-class EmploiTableModel extends AbstractTableModel {
+class JobTableModel extends AbstractTableModel {
 
-	private static final String TAG = "FileTableModel";
-	private List<Job> emplois;
-	private String[] columns = { "N° de l'offre", "Appellation d'emploi", "Employeur", "Nombre de poste(s)", "Scolarité", "Années d'expérience", "Lieu de travail" };
+	private static final String TAG = "JobTableModel";
+	private List<Job> jobs;
 
-	EmploiTableModel() {
-		emplois = new ArrayList<Job>();
+	private String[] columns = { "Numéro", "Titre", "Employeur", "Position(s)", "Éducation", "Année(s) d'experience",
+			"Lieu" };
+
+	JobTableModel() {
+		jobs = new ArrayList<Job>();
 	}
 
 	public Object getValueAt(int row, int column) {
-
-		/**
-		 * 0 = N° de l'offre
-		 * 1 = Appellation d'emploi (& URL)
-		 * 2 = Employeur
-		 * 3 = Nombre de poste(s)
-		 * 4 = Scolarité
-		 * 5 = Années d'expérience
-		 * 6 = Lieu de travail
-		 */
-
-		Job emploi = emplois.get(row);
+		Job job = jobs.get(row);
 		switch (column) {
 		case 0:
-			return emploi.numeroDeLoffre;
+			return job.getOfferNumber();
 		case 1:
-			return StringUtil.capitalise(emploi.appellationDeLemploi);
+			return job.getNameOfTheJob();
 		case 2:
-			return emploi.employeur;
+			return job.getEmployer();
 		case 3:
-			return emploi.nombreDePostes;
+			return job.getNumberOfPositions();
 		case 4:
-			return emploi.scolarite;
+			return job.getEducation();
 		case 5:
-			return emploi.annesDexperience;
+			return job.getYearsOfExperience();
 		case 6:
-			return emploi.lieuDeTravail;
-		default:
-			System.err.println("Logic Error");
+			return job.getWorkPlace();
 		}
 		return "";
 	}
@@ -261,16 +219,14 @@ class EmploiTableModel extends AbstractTableModel {
 	}
 
 	public Class<?> getColumnClass(int column) {
-		/**switch (column) {
+		/*switch (column) {
 		case 0:
-			return ImageIcon.class;
+			return String.class;
 		case 3:
 			return Long.class;
 		case 4:
 			return Date.class;
-		}
-		return String.class;*/
-
+		}**/
 		return String.class;
 	}
 
@@ -279,24 +235,24 @@ class EmploiTableModel extends AbstractTableModel {
 	}
 
 	public int getRowCount() {
-		return emplois.size();
+		return jobs.size();
 	}
 
-	public Job getFile(int row) {
-		return emplois.get(row);
+	public Job getJob(int row) {
+		return jobs.get(row);
 	}
 
-	public void setFiles(List<Job> emplois) {
-		this.emplois = emplois;
+	public void setJobs(List<Job> files) {
+		this.jobs = files;
 		fireTableDataChanged();
 	}
 
-	public List<Job> getFiles() {
-		return emplois;
+	public List<Job> getJobs() {
+		return jobs;
 	}
 
-	public void addFile(Job emploi) {
-		emplois.add(emploi);
+	public void addJob(Job file) {
+		jobs.add(file);
 		fireTableDataChanged();
 	}
 
@@ -307,7 +263,8 @@ class CellRenderer extends DefaultTableCellRenderer {
 	private static final long serialVersionUID = 1L;
 
 	@Override
-	public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+	public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,
+			int row, int column) {
 		super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
 
 		// if (value>17 value<26) {
