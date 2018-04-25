@@ -1,18 +1,15 @@
 package ui;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
-import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
@@ -38,7 +35,7 @@ public class JobTable extends JPanel implements ActionListener {
 	private JTable table;
 
 	/** Table model for Job array. */
-	private JobTableModel fileTableModel;
+	private JobTableModel jobTableModel;
 	private ListSelectionListener listSelectionListener;
 	private boolean cellSizesSet = false;
 
@@ -53,16 +50,14 @@ public class JobTable extends JPanel implements ActionListener {
 
 		table = new JTable();
 		table.setRowSelectionAllowed(true);
-		table.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+		table.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
 		table.setAutoCreateRowSorter(true);
 		table.setShowVerticalLines(false);
-		table.setSelectionBackground(Color.PINK);
-		table.setSelectionForeground(Color.WHITE);
 
 		table.setComponentPopupMenu(popupMenu);
 
-		fileTableModel = new JobTableModel();
-		table.setModel(fileTableModel);
+		jobTableModel = new JobTableModel();
+		table.setModel(jobTableModel);
 
 		//set font bold for column 1 (see CellRenderer at the bottom of this class)
 		table.getColumnModel().getColumn(1).setCellRenderer(new CellRenderer());
@@ -86,7 +81,7 @@ public class JobTable extends JPanel implements ActionListener {
 							//Fixes row being incorrect after sortings
 							int row = table.convertRowIndexToModel(i);
 
-							selectedJob = fileTableModel.getJob(row);
+							selectedJob = jobTableModel.getJob(row);
 						}
 					}
 
@@ -109,12 +104,12 @@ public class JobTable extends JPanel implements ActionListener {
 
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				if (fileTableModel == null) {
-					fileTableModel = new JobTableModel();
-					table.setModel(fileTableModel);
+				if (jobTableModel == null) {
+					jobTableModel = new JobTableModel();
+					table.setModel(jobTableModel);
 				}
 				table.getSelectionModel().removeListSelectionListener(listSelectionListener);
-				fileTableModel.setJobs(newJobs);
+				jobTableModel.setJobs(newJobs);
 				table.getSelectionModel().addListSelectionListener(listSelectionListener);
 				if (!cellSizesSet) {
 
@@ -138,7 +133,7 @@ public class JobTable extends JPanel implements ActionListener {
 	}
 
 	public void addJobs(ArrayList<Job> filesToAdd) {
-		final List<Job> files = fileTableModel.getJobs();
+		final List<Job> files = jobTableModel.getJobs();
 
 		for (Iterator<Job> iterator = filesToAdd.iterator(); iterator.hasNext();) {
 			files.add(iterator.next());
@@ -149,7 +144,7 @@ public class JobTable extends JPanel implements ActionListener {
 	}
 
 	public void removeJobs(ArrayList<Job> filesToRemove) {
-		final List<Job> files = fileTableModel.getJobs();
+		final List<Job> files = jobTableModel.getJobs();
 
 		for (Iterator<Job> iterator = files.iterator(); iterator.hasNext();) {
 			Job file = iterator.next();
@@ -162,22 +157,6 @@ public class JobTable extends JPanel implements ActionListener {
 		setTableData(files);
 
 	}
-
-	private void setColumnWidth(int column, int width) {
-		TableColumn tableColumn = table.getColumnModel().getColumn(column);
-		if (width < 0) {
-			// use the preferred width of the header..
-			JLabel label = new JLabel((String) tableColumn.getHeaderValue());
-			Dimension preferred = label.getPreferredSize();
-			// altered 10->14 as per camickr comment.
-			width = (int) preferred.getWidth() + 14;
-		}
-		tableColumn.setPreferredWidth(width);
-		tableColumn.setMaxWidth(width);
-		tableColumn.setMinWidth(width);
-	}
-
-	//UPDATE POPUPMENU END
 
 }
 
@@ -219,14 +198,6 @@ class JobTableModel extends AbstractTableModel {
 	}
 
 	public Class<?> getColumnClass(int column) {
-		/*switch (column) {
-		case 0:
-			return String.class;
-		case 3:
-			return Long.class;
-		case 4:
-			return Date.class;
-		}**/
 		return String.class;
 	}
 

@@ -1,7 +1,6 @@
 package ui;
 
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
 import java.util.List;
 
 import javax.swing.JFrame;
@@ -11,9 +10,7 @@ import alde.commons.util.autoComplete.jtextfield.AutoCompleteMemoryJTextField;
 import alde.commons.util.autoComplete.jtextfield.AutoCompleteService;
 import job.Job;
 
-public class JobTableUI {
-
-	private JFrame frame;
+public class JobTableUI extends JPanel {
 
 	private AutoCompleteService autoCompleteService = new AutoCompleteService();
 
@@ -28,13 +25,11 @@ public class JobTableUI {
 			autoCompleteService.addData(j.getEducation());
 		}
 
-		frame = new JFrame();
-		frame.setBounds(100, 100, 620, 342);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setLayout(new BorderLayout());
 
 		JobTable panel = new JobTable();
 		panel.setTableData(jobs);
-		frame.getContentPane().add(panel, BorderLayout.CENTER);
+		add(panel, BorderLayout.CENTER);
 
 		JPanel panel_1 = new JPanel();
 		panel.add(panel_1, BorderLayout.SOUTH);
@@ -43,8 +38,6 @@ public class JobTableUI {
 		textField = new AutoCompleteMemoryJTextField(autoCompleteService);
 		panel_1.add(textField);
 		textField.setColumns(10);
-
-		frame.setVisible(true);
 
 	}
 

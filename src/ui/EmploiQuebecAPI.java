@@ -10,8 +10,6 @@ import org.apache.log4j.BasicConfigurator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import alde.commons.network.ProxyHandler;
-import alde.commons.network.ProxyHandlerImpl;
 import city.City;
 import city.CityService;
 import region.Region;

@@ -7,7 +7,6 @@ import alde.commons.network.WebsiteReader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import alde.commons.network.ProxyHandler;
 import region.Region;
 import ui.StringUtil;
 

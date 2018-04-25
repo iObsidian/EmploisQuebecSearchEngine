@@ -14,6 +14,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
@@ -29,6 +30,8 @@ import selector.Selectable;
 import selector.SelectorPanel;
 
 public class SelectorUI {
+
+	Loading loadingPanel = new Loading();
 
 	PropertyBuilder propertyBuilder = new PropertyBuilder(new PropertyFileManager("emploi-quebec-search.properties"));
 	EmploiQuebecAPI emploiQuebecAPI = new EmploiQuebecAPI();
@@ -79,9 +82,10 @@ public class SelectorUI {
 	 */
 	private void initialize() {
 		frame = new UtilityJFrame();
-		frame.setType(Type.UTILITY);
 		frame.setBounds(100, 100, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+		frame.setIconImage(null);
 
 		mainPanel = new JScrollPane();
 		frame.getContentPane().add(mainPanel, BorderLayout.CENTER);
@@ -113,38 +117,75 @@ public class SelectorUI {
 	}
 
 	public void showRegionSelector() {
-		frame.setTitle("Region selector");
+		setIsLoading();
 
-		regionSelector = new SelectorPanel(emploiQuebecAPI.getRegions());
-		mainPanel.setViewportView(regionSelector);
+		SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				frame.setTitle("Region selector");
+
+				regionSelector = new SelectorPanel(emploiQuebecAPI.getRegions());
+				mainPanel.setViewportView(regionSelector);
+			}
+		});
+
 	}
 
 	public void showCitySelector() {
-		frame.setTitle("City selector");
 
-		List<City> cities = new ArrayList<>();
+		setIsLoading();
 
-		System.out.println(regionSelector.getSelected().size());
+		SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				frame.setTitle("City selector");
 
-		for (Selectable s : regionSelector.getSelected()) {
-			Region r = (Region) s;
-			cities.addAll(emploiQuebecAPI.getCities(r));
-		}
+				List<City> cities = new ArrayList<>();
 
-		citySelector = new SelectorPanel(cities);
+				System.out.println(regionSelector.getSelected().size());
 
-		mainPanel.setViewportView(citySelector);
+				for (Selectable s : regionSelector.getSelected()) {
+					Region r = (Region) s;
+					cities.addAll(emploiQuebecAPI.getCities(r));
+				}
+
+				citySelector = new SelectorPanel(cities);
+
+				mainPanel.setViewportView(citySelector);
+			}
+		});
+
 	}
 
 	private void showJobTable() {
-		List<Job> jobs = new ArrayList<>();
+		setIsLoading();
 
-		for (Selectable s : citySelector.getSelected()) {
-			City c = (City) s;
-			jobs.addAll(emploiQuebecAPI.getJobs(c));
-		}
+		SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
 
-		JobTableUI j = new JobTableUI(jobs);
+				frame.setTitle("Jobs");
+
+				List<Job> jobs = new ArrayList<>();
+
+				for (Selectable s : citySelector.getSelected()) {
+					City c = (City) s;
+					jobs.addAll(emploiQuebecAPI.getJobs(c));
+				}
+
+				mainPanel.setViewportView(new JobTableUI(jobs));
+			}
+		});
+
+	}
+
+	private void setIsLoading() {
+		frame.setTitle("Loading...");
+
+		mainPanel.setViewportView(loadingPanel);
+		mainPanel.revalidate();
+		mainPanel.repaint();
+
+		loadingPanel.revalidate();
+		loadingPanel.repaint();
+
 	}
 
 }

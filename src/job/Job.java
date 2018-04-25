@@ -1,7 +1,5 @@
 package job;
 
-import selector.Selectable;
-
 public class Job {
 
 	private String offerNumber;
