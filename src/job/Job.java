@@ -1,16 +1,18 @@
 package job;
 
+import automaticPrune.Prune;
+
 public class Job {
 
-	private String offerNumber;
-	private String url;
-	private String nameOfTheJob;
-	private String employer;
-	private String numberOfPositions;
-	private String education;
-	private String yearsOfExperience;
-	private String workPlace;
-
+	public String offerNumber;
+	public String url;
+	public String nameOfTheJob;
+	public String employer;
+	public String numberOfPositions;
+	public String education;
+	public String yearsOfExperience;
+	@Prune
+	public String workPlace;
 
 	public String getOfferNumber() {
 		return offerNumber;
@@ -78,16 +80,10 @@ public class Job {
 
 	@Override
 	public String toString() {
-		return "Job{" +
-				"offerNumber='" + offerNumber + '\'' +
-				", url='" + url + '\'' +
-				", nameOfTheJob='" + nameOfTheJob + '\'' +
-				", employer='" + employer + '\'' +
-				", numberOfPositions='" + numberOfPositions + '\'' +
-				", education='" + education + '\'' +
-				", yearsOfExperience='" + yearsOfExperience + '\'' +
-				", workPlace='" + workPlace + '\'' +
-				'}';
+		return "Job{" + "offerNumber='" + offerNumber + '\'' + ", url='" + url + '\'' + ", nameOfTheJob='"
+				+ nameOfTheJob + '\'' + ", employer='" + employer + '\'' + ", numberOfPositions='" + numberOfPositions
+				+ '\'' + ", education='" + education + '\'' + ", yearsOfExperience='" + yearsOfExperience + '\''
+				+ ", workPlace='" + workPlace + '\'' + '}';
 	}
 
 }

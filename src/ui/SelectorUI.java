@@ -3,11 +3,14 @@ package ui;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.EventQueue;
-import java.awt.Window.Type;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.swing.Box;
 import javax.swing.JButton;
@@ -19,9 +22,12 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 import org.apache.log4j.BasicConfigurator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import alde.commons.properties.PropertyFileManager;
 import alde.commons.util.UtilityJFrame;
+import automaticPrune.ReflectionValuePruner;
 import city.City;
 import job.Job;
 import region.Region;
@@ -30,6 +36,8 @@ import selector.Selectable;
 import selector.SelectorPanel;
 
 public class SelectorUI {
+
+	private static final Logger log = LoggerFactory.getLogger(SelectorUI.class);
 
 	Loading loadingPanel = new Loading();
 
@@ -163,14 +171,40 @@ public class SelectorUI {
 
 				frame.setTitle("Jobs");
 
-				List<Job> jobs = new ArrayList<>();
+				List<Object> jobs = new ArrayList<>();
 
 				for (Selectable s : citySelector.getSelected()) {
 					City c = (City) s;
 					jobs.addAll(emploiQuebecAPI.getJobs(c));
 				}
 
-				mainPanel.setViewportView(new JobTableUI(jobs));
+				// Prune jobs...
+
+				log.info("Pruning jobs of invalid data...");
+
+				int amountRemoved = 0;
+				Iterator<Object> iterator = jobs.iterator();
+				while (iterator.hasNext()) {
+					Job j = (Job) iterator.next();
+					if (j.getEmployer().contains("Invalid")) {
+						amountRemoved++;
+						iterator.remove();
+					}
+				}
+
+				log.info("Removed  " + amountRemoved + " invalid jobs.");
+
+				log.info("Compiling simillar data...");
+
+				ReflectionValuePruner.prune(jobs);
+
+				List<Job> actualJobList = new ArrayList<>();
+
+				for (Object b : jobs) {
+					actualJobList.add((Job) b);
+				}
+
+				mainPanel.setViewportView(new JobTableUI(actualJobList));
 			}
 		});
 

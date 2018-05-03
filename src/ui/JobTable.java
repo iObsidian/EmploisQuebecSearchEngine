@@ -2,15 +2,18 @@ package ui;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
@@ -23,7 +26,6 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.TableColumn;
 
 import job.Job;
 
@@ -50,9 +52,44 @@ public class JobTable extends JPanel implements ActionListener {
 
 		table = new JTable();
 		table.setRowSelectionAllowed(true);
-		table.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		table.setAutoCreateRowSorter(true);
 		table.setShowVerticalLines(false);
+
+		final JPopupMenu popupMenu = new JPopupMenu();
+		JMenuItem deleteItem = new JMenuItem("Visit");
+		deleteItem.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.out.println(selectedJob);
+
+				try {
+
+					if (selectedJob != null && selectedJob.getUrl() != null) {
+						if (Desktop.isDesktopSupported()) {
+							Desktop.getDesktop().browse(new URI(selectedJob.getUrl()));
+						} else {
+							System.err.println(
+									"Could not automatically open browser with Job URL. Please visit this website manually : ");
+							System.err.println(selectedJob.getUrl());
+						}
+					} else {
+						System.err.println("Could not visit null job. Please select a job first.");
+					}
+
+				} catch (IOException e1) {
+					System.err.println("Error while trying to open Job URL.");
+					e1.printStackTrace();
+				} catch (URISyntaxException e1) {
+					System.err.println("Error while trying to open Job URL, invalid URL syntax.");
+					e1.printStackTrace();
+				}
+
+			}
+		});
+		popupMenu.add(deleteItem);
+		table.setComponentPopupMenu(popupMenu);
 
 		table.setComponentPopupMenu(popupMenu);
 
@@ -113,7 +150,7 @@ public class JobTable extends JPanel implements ActionListener {
 				table.getSelectionModel().addListSelectionListener(listSelectionListener);
 				if (!cellSizesSet) {
 
-					table.setRowHeight(40);
+					table.setRowHeight(30);
 					//setColumnWidth(0, -1);
 					cellSizesSet = true;
 
@@ -162,11 +199,11 @@ public class JobTable extends JPanel implements ActionListener {
 
 class JobTableModel extends AbstractTableModel {
 
-	private static final String TAG = "JobTableModel";
+	private static final long serialVersionUID = 1L;
+
 	private List<Job> jobs;
 
-	private String[] columns = { "Numéro", "Titre", "Employeur", "Position(s)", "Éducation", "Année(s) d'experience",
-			"Lieu" };
+	private String[] columns = { "Titre", "Employeur", "Position(s)", "Éducation", "Année(s) d'experience", "Lieu" };
 
 	JobTableModel() {
 		jobs = new ArrayList<Job>();
@@ -176,21 +213,20 @@ class JobTableModel extends AbstractTableModel {
 		Job job = jobs.get(row);
 		switch (column) {
 		case 0:
-			return job.getOfferNumber();
-		case 1:
 			return job.getNameOfTheJob();
-		case 2:
+		case 1:
 			return job.getEmployer();
-		case 3:
+		case 2:
 			return job.getNumberOfPositions();
-		case 4:
+		case 3:
 			return job.getEducation();
-		case 5:
+		case 4:
 			return job.getYearsOfExperience();
-		case 6:
+		case 5:
 			return job.getWorkPlace();
+		default:
+			return "Unknown column : " + column;
 		}
-		return "";
 	}
 
 	public int getColumnCount() {

@@ -99,6 +99,8 @@ public class JobService {
 			}
 
 			System.out.println(pageUrl);
+			break; //TODO REMOVE THIS AFTER DEBUGGING
+
 		}
 
 		return jobs;
