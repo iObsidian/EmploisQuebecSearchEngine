@@ -3,21 +3,21 @@ package job;
 import java.util.ArrayList;
 import java.util.List;
 
-import alde.commons.network.WebsiteReader;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import alde.commons.network.GetWebsite;
 import city.City;
 import ui.StringUtil;
 
 public class JobService {
 
+	private static final Logger log = LoggerFactory.getLogger(JobService.class);
+
 	PageService pageService;
 
-	WebsiteReader websiteReader;
-
-	public JobService(WebsiteReader websiteReader) {
-		this.websiteReader = websiteReader;
-
-		pageService = new PageService(websiteReader);
-
+	public JobService() {
+		pageService = new PageService();
 	}
 
 	private static final String JOBS_START = "<tbody>";
@@ -32,11 +32,11 @@ public class JobService {
 
 		List<String> pageUrls = pageService.getPages(c);
 
-		System.out.println("Found " + pageUrls.size() + " page url(s).");
+		log.info("Found " + pageUrls.size() + " page url(s).");
 
 		for (String pageUrl : pageUrls) {
 
-			List<String> jobsRaw = StringUtil.getStringsBetween(websiteReader.getWebsiteAsStringList(pageUrl),
+			List<String> jobsRaw = StringUtil.getStringsBetween(GetWebsite.get().getWebsiteAsStringList(pageUrl),
 					JOBS_START, JOBS_END);
 
 			Job currentJob = new Job();
@@ -98,7 +98,7 @@ public class JobService {
 
 			}
 
-			System.out.println(pageUrl);
+			log.info(pageUrl);
 			break; //TODO REMOVE THIS AFTER DEBUGGING
 
 		}
@@ -114,12 +114,6 @@ public class JobService {
  */
 class PageService {
 
-	WebsiteReader websiteReader;
-
-	public PageService(WebsiteReader websiteReader) {
-		this.websiteReader = websiteReader;
-	}
-
 	private static final String PAGE_LINE_STARS_WITH = "<a href=\"http://placement.emploiquebec.gouv.qc.ca";
 	private static final String PAGE_ENDS_WITH = "</a>&nbsp;&nbsp;";
 
@@ -127,7 +121,7 @@ class PageService {
 
 		List<String> pageUrls = new ArrayList<>();
 
-		List<String> website = websiteReader.getWebsiteAsStringList(c.getUrl());
+		List<String> website = GetWebsite.get().getWebsiteAsStringList(c.getUrl());
 
 		String pageLine = "";
 

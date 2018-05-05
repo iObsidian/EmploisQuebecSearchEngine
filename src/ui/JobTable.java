@@ -27,9 +27,14 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import job.Job;
 
 public class JobTable extends JPanel implements ActionListener {
+
+	private static final Logger log = LoggerFactory.getLogger(JobTable.class);
 
 	public Job selectedJob = null;
 
@@ -45,7 +50,10 @@ public class JobTable extends JPanel implements ActionListener {
 
 	private JPopupMenu popupMenu = new JPopupMenu();
 
-	public JobTable() {
+	//
+
+
+	public JobTable(List<Job> jobs) {
 
 		setLayout(new BorderLayout(3, 3));
 		setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -62,7 +70,6 @@ public class JobTable extends JPanel implements ActionListener {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				System.out.println(selectedJob);
 
 				try {
 
@@ -70,19 +77,19 @@ public class JobTable extends JPanel implements ActionListener {
 						if (Desktop.isDesktopSupported()) {
 							Desktop.getDesktop().browse(new URI(selectedJob.getUrl()));
 						} else {
-							System.err.println(
+							log.error(
 									"Could not automatically open browser with Job URL. Please visit this website manually : ");
-							System.err.println(selectedJob.getUrl());
+							log.error(selectedJob.getUrl());
 						}
 					} else {
-						System.err.println("Could not visit null job. Please select a job first.");
+						log.error("Could not visit null job. Please select a job first.");
 					}
 
 				} catch (IOException e1) {
-					System.err.println("Error while trying to open Job URL.");
+					log.error("Error while trying to open Job URL.");
 					e1.printStackTrace();
 				} catch (URISyntaxException e1) {
-					System.err.println("Error while trying to open Job URL, invalid URL syntax.");
+					log.error("Error while trying to open Job URL, invalid URL syntax.");
 					e1.printStackTrace();
 				}
 
@@ -134,10 +141,24 @@ public class JobTable extends JPanel implements ActionListener {
 		tableScroll.setPreferredSize(new Dimension((int) d.getWidth(), (int) d.getHeight() / 2));
 		add(tableScroll, BorderLayout.CENTER);
 
+		//Search field
+
+		
+
+		setTableData(jobs);
+
 	}
 
 	/** Update the table on the EDT */
-	void setTableData(List<Job> newJobs) {
+	void setTableData(List<Job> jobs) {
+
+		for (Job j : jobs) {
+			for (String data : j.getValues()) {
+				log.info(data);
+
+				//autoCompleteService.addData(data); //TODO make this accept arraylists of data
+			}
+		}
 
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
@@ -146,7 +167,7 @@ public class JobTable extends JPanel implements ActionListener {
 					table.setModel(jobTableModel);
 				}
 				table.getSelectionModel().removeListSelectionListener(listSelectionListener);
-				jobTableModel.setJobs(newJobs);
+				jobTableModel.setJobs(jobs);
 				table.getSelectionModel().addListSelectionListener(listSelectionListener);
 				if (!cellSizesSet) {
 

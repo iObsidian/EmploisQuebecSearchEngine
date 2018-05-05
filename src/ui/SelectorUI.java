@@ -5,12 +5,9 @@ import java.awt.Component;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 import javax.swing.Box;
 import javax.swing.JButton;
@@ -20,6 +17,8 @@ import javax.swing.JScrollPane;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.border.Border;
+import javax.swing.border.LineBorder;
 
 import org.apache.log4j.BasicConfigurator;
 import org.slf4j.Logger;
@@ -38,6 +37,8 @@ import selector.SelectorPanel;
 public class SelectorUI {
 
 	private static final Logger log = LoggerFactory.getLogger(SelectorUI.class);
+
+	Border uiBorder = new LineBorder(UIManager.getColor("Button.background"), 5);
 
 	Loading loadingPanel = new Loading();
 
@@ -132,6 +133,8 @@ public class SelectorUI {
 				frame.setTitle("Region selector");
 
 				regionSelector = new SelectorPanel(emploiQuebecAPI.getRegions());
+				regionSelector.setBorder(uiBorder);
+
 				mainPanel.setViewportView(regionSelector);
 			}
 		});
@@ -148,7 +151,7 @@ public class SelectorUI {
 
 				List<City> cities = new ArrayList<>();
 
-				System.out.println(regionSelector.getSelected().size());
+				log.info("" + regionSelector.getSelected().size());
 
 				for (Selectable s : regionSelector.getSelected()) {
 					Region r = (Region) s;
@@ -156,6 +159,7 @@ public class SelectorUI {
 				}
 
 				citySelector = new SelectorPanel(cities);
+				citySelector.setBorder(uiBorder);
 
 				mainPanel.setViewportView(citySelector);
 			}
@@ -204,7 +208,9 @@ public class SelectorUI {
 					actualJobList.add((Job) b);
 				}
 
-				mainPanel.setViewportView(new JobTableUI(actualJobList));
+				JobTable jobTable = new JobTable(actualJobList);
+				jobTable.setBorder(uiBorder);
+				mainPanel.setViewportView(jobTable);
 			}
 		});
 

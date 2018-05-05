@@ -1,5 +1,9 @@
 package job;
 
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.List;
+
 import automaticPrune.Prune;
 
 public class Job {
@@ -76,6 +80,29 @@ public class Job {
 
 	public void setWorkPlace(String workPlace) {
 		this.workPlace = workPlace;
+	}
+
+	public List<String> getValues() {
+
+		List<String> values = new ArrayList<String>();
+
+		for (Field f : this.getClass().getFields()) {
+
+			Object value = null;
+			try {
+				value = f.get(this);
+			} catch (IllegalArgumentException | IllegalAccessException e) {
+				e.printStackTrace();
+			}
+
+			if (value != null && value instanceof String) {
+				values.add((String) value);
+			}
+
+		}
+
+		return values;
+
 	}
 
 	@Override

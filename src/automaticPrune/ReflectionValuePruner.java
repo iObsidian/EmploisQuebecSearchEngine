@@ -7,9 +7,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import alde.commons.util.math.LevenshteinDistance;
 
 public class ReflectionValuePruner {
+
+	private static final Logger log = LoggerFactory.getLogger(ReflectionValuePruner.class);
 
 	public static int REPLACE_ABOVE_PERCENTAGE = 50;
 
@@ -89,20 +94,20 @@ public class ReflectionValuePruner {
 								valueAndCount.put(value, valueAndCount.get(value) + 1); // Increment
 							}
 
-							System.out.println(value + " : " + valueAndCount.get(value) + ".");
+							log.info(value + " : " + valueAndCount.get(value) + ".");
 
 						} else {
-							System.err.println(
+							log.error(
 									"Found a field that is not a String, ignoring. Consider implementing some kind of matching for other type than String here.");
 						}
 
 					}
 
 				} catch (IllegalArgumentException e) {
-					System.err.println("Exception : " + e);
+					log.error("Exception : " + e);
 					e.printStackTrace();
 				} catch (IllegalAccessException e) {
-					System.err.println("Exception : " + e);
+					log.error("Exception : " + e);
 					e.printStackTrace();
 				}
 
@@ -135,7 +140,7 @@ public class ReflectionValuePruner {
 
 							if (percentage >= REPLACE_ABOVE_PERCENTAGE) {
 
-								System.out.println("Apparently " + value2 + " is more popular than " + value + "! "
+								log.info("Apparently " + value2 + " is more popular than " + value + "! "
 										+ percentage + "% match... Correcting value...");
 
 								try {

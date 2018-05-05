@@ -3,21 +3,15 @@ package region;
 import java.util.ArrayList;
 import java.util.List;
 
-import alde.commons.network.WebsiteReader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import alde.commons.network.GetWebsite;
 import ui.StringUtil;
 
 public class RegionService {
 
 	private static final Logger log = LoggerFactory.getLogger(RegionService.class);
-
-	WebsiteReader websiteReader;
-
-	public RegionService(WebsiteReader websiteReader) {
-		this.websiteReader = websiteReader;
-	}
 
 	private static final String REGIONS_LINK = "http://placement.emploiquebec.gouv.qc.ca/mbe/ut/rechroffr/erechroffr.asp?CL=french";
 	public static final String REGIONS_ERROR = "The page cannot be found";
@@ -30,7 +24,7 @@ public class RegionService {
 	public List<Region> getRegions() {
 		ArrayList<Region> regions = new ArrayList<>();
 
-		List<String> website = websiteReader.getWebsiteAsStringList(REGIONS_LINK);
+		List<String> website = GetWebsite.get().getWebsiteAsStringList(REGIONS_LINK);
 
 		List<String> regionsRaw = StringUtil.getStringsBetween(website, CITIES_RAW_START, CITIES_RAW_END);
 
