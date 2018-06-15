@@ -44,7 +44,6 @@ public class StringUtil {
 		}
 
 		return f.substring(f.lastIndexOf(begin) + begin.length(), f.lastIndexOf(end));
-
 	}
 
 	public static String html2text(String html) {

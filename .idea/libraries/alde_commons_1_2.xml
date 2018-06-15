@@ -1,11 +1,7 @@
 <component name="libraryTable">
   <library name="alde-commons-1.2">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/alde-commons-1.2.jar!/" />
-    </CLASSES>
+    <CLASSES />
     <JAVADOC />
-    <SOURCES>
-      <root url="jar://$PROJECT_DIR$/alde-commons-1.2.jar!/" />
-    </SOURCES>
+    <SOURCES />
   </library>
 </component>

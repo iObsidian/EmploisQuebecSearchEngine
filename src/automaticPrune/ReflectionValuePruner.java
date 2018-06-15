@@ -12,6 +12,16 @@ import org.slf4j.LoggerFactory;
 
 import alde.commons.util.math.LevenshteinDistance;
 
+/**
+ * This is a test (idea) class for a generic 'pruner'.
+ * 
+ * The pruner takes in a list of objects with fields with the @Prune annotation.
+ * 
+ * Each field with the @Prune are compared to other fields with the @Prune annotation.
+ * 
+ * @author Alde
+ *
+ */
 public class ReflectionValuePruner {
 
 	private static final Logger log = LoggerFactory.getLogger(ReflectionValuePruner.class);
@@ -19,6 +29,9 @@ public class ReflectionValuePruner {
 	public static int REPLACE_ABOVE_PERCENTAGE = 50;
 
 	/**
+	 * 
+	 * 
+	 * 
 	 * Only works on objects that have fields with the @Prune annotation.
 	 * 
 	 * Using reflection, we iterate trough every fields, 
@@ -27,7 +40,7 @@ public class ReflectionValuePruner {
 	 * 
 	 * @param objects List of objects to prune
 	 */
-	public static void prune(List<Object> objects) {
+	public static void prune(List<?> objects) {
 
 		/* Quick fail */
 		if (objects == null) {
@@ -57,7 +70,7 @@ public class ReflectionValuePruner {
 		}
 
 		if (!hasAnnotation) {
-			System.err.println("Annotation error : add the @Prune annotation to every fields you want to prune.");
+			System.err.println("Annotation error : add the @Prune annotation to fields you want to prune.");
 			return;
 		}
 
@@ -68,12 +81,12 @@ public class ReflectionValuePruner {
 		 * */
 		Map<Field, HashMap<Object, Integer>> fieldsValuesAndCount = new HashMap<>();
 
-		/* For each fields, populate */
+		/* Populate */
 		for (Field f : fields) {
 			fieldsValuesAndCount.put(f, new HashMap<Object, Integer>());
 		}
 
-		Iterator<Object> iter = objects.iterator(); // For each field, count quantity of same value
+		Iterator<?> iter = objects.iterator();
 		while (iter.hasNext()) {
 			Object j = iter.next();
 
@@ -140,8 +153,8 @@ public class ReflectionValuePruner {
 
 							if (percentage >= REPLACE_ABOVE_PERCENTAGE) {
 
-								log.info("Apparently " + value2 + " is more popular than " + value + "! "
-										+ percentage + "% match... Correcting value...");
+								log.info("Apparently " + value2 + " is more popular than " + value + "! " + percentage
+										+ "% match... Correcting value...");
 
 								try {
 									f.set(o, value2);

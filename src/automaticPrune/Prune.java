@@ -8,7 +8,6 @@ import java.lang.annotation.Target;
 /**
  * Tells the automatic pruner to prune this field
  * @see ReflectionValuePruner
- *
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)

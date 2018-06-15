@@ -30,13 +30,13 @@ import javax.swing.table.DefaultTableCellRenderer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import job.Job;
+import api.region.city.job.JobDTO;
 
 public class JobTable extends JPanel implements ActionListener {
 
 	private static final Logger log = LoggerFactory.getLogger(JobTable.class);
 
-	public Job selectedJob = null;
+	public JobDTO selectedJob = null;
 
 	/** Directory listing */
 	private JTable table;
@@ -53,7 +53,7 @@ public class JobTable extends JPanel implements ActionListener {
 	//
 
 
-	public JobTable(List<Job> jobs) {
+	public JobTable(List<JobDTO> jobs) {
 
 		setLayout(new BorderLayout(3, 3));
 		setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -150,9 +150,9 @@ public class JobTable extends JPanel implements ActionListener {
 	}
 
 	/** Update the table on the EDT */
-	void setTableData(List<Job> jobs) {
+	void setTableData(List<JobDTO> jobs) {
 
-		for (Job j : jobs) {
+		for (JobDTO j : jobs) {
 			for (String data : j.getValues()) {
 				log.info(data);
 
@@ -190,10 +190,10 @@ public class JobTable extends JPanel implements ActionListener {
 
 	}
 
-	public void addJobs(ArrayList<Job> filesToAdd) {
-		final List<Job> files = jobTableModel.getJobs();
+	public void addJobs(ArrayList<JobDTO> filesToAdd) {
+		final List<JobDTO> files = jobTableModel.getJobs();
 
-		for (Iterator<Job> iterator = filesToAdd.iterator(); iterator.hasNext();) {
+		for (Iterator<JobDTO> iterator = filesToAdd.iterator(); iterator.hasNext();) {
 			files.add(iterator.next());
 		}
 
@@ -201,11 +201,11 @@ public class JobTable extends JPanel implements ActionListener {
 
 	}
 
-	public void removeJobs(ArrayList<Job> filesToRemove) {
-		final List<Job> files = jobTableModel.getJobs();
+	public void removeJobs(ArrayList<JobDTO> filesToRemove) {
+		final List<JobDTO> files = jobTableModel.getJobs();
 
-		for (Iterator<Job> iterator = files.iterator(); iterator.hasNext();) {
-			Job file = iterator.next();
+		for (Iterator<JobDTO> iterator = files.iterator(); iterator.hasNext();) {
+			JobDTO file = iterator.next();
 
 			if (filesToRemove.contains(file)) {
 				iterator.remove();
@@ -222,16 +222,16 @@ class JobTableModel extends AbstractTableModel {
 
 	private static final long serialVersionUID = 1L;
 
-	private List<Job> jobs;
+	private List<JobDTO> jobs;
 
 	private String[] columns = { "Titre", "Employeur", "Position(s)", "Éducation", "Année(s) d'experience", "Lieu" };
 
 	JobTableModel() {
-		jobs = new ArrayList<Job>();
+		jobs = new ArrayList<JobDTO>();
 	}
 
 	public Object getValueAt(int row, int column) {
-		Job job = jobs.get(row);
+		JobDTO job = jobs.get(row);
 		switch (column) {
 		case 0:
 			return job.getNameOfTheJob();
@@ -266,20 +266,20 @@ class JobTableModel extends AbstractTableModel {
 		return jobs.size();
 	}
 
-	public Job getJob(int row) {
+	public JobDTO getJob(int row) {
 		return jobs.get(row);
 	}
 
-	public void setJobs(List<Job> files) {
+	public void setJobs(List<JobDTO> files) {
 		this.jobs = files;
 		fireTableDataChanged();
 	}
 
-	public List<Job> getJobs() {
+	public List<JobDTO> getJobs() {
 		return jobs;
 	}
 
-	public void addJob(Job file) {
+	public void addJob(JobDTO file) {
 		jobs.add(file);
 		fireTableDataChanged();
 	}
