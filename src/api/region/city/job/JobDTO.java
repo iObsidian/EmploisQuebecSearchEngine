@@ -6,10 +6,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import automaticPrune.Prune;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class JobDTO implements Serializable {
 
 	public String offerNumber;
+	@JsonIgnore
 	public String url;
 	public String nameOfTheJob;
 	public String employer;

@@ -1,4 +1,11 @@
-<p>
-  region-selector works!
-</p>
+<p-multiSelect [options]="cities1" [(ngModel)]="selectedCities1"></p-multiSelect>
 
+
+{{selectedCities1}}
+
+
+
+<div *ngFor="let region of regions">
+  {{region.code}}
+  {{region.name}}
+</div>

@@ -10,38 +10,47 @@ import api.region.city.job.JobDTO;
 
 public class Valdor {
 
+	private static List<JobDTO> valdorJobs;
+
 	public static void main(String[] args) {
 		System.out.println(getValdorJobs().size());
 	}
 
 	public static List<JobDTO> getValdorJobs() {
 
-		List<JobDTO> jobs = new ArrayList<JobDTO>();
+		if (valdorJobs == null) {
+			List<JobDTO> jobs = new ArrayList<JobDTO>();
 
-		EmploiQuebecAPI e = new EmploiQuebecAPI();
+			EmploiQuebecAPI e = new EmploiQuebecAPI();
 
-		for (RegionDTO r : e.getRegions()) {
-			if (r.getCode().equals("08")) {
-				System.out.println("Found region");
+			for (RegionDTO r : e.getRegions()) {
+				if (r.getCode().equals("08")) {
+					System.out.println("Found region");
 
-				for (CityDTO c : e.getCities(r)) {
+					for (CityDTO c : e.getCities(r)) {
 
-					if (c.getName().equals("Val d'Or")) {
+						if (c.getName().equals("Val d'Or")) {
 
-						System.out.println("Found city");
+							System.out.println("Found city");
 
-						for (JobDTO j : e.getJobs(c)) {
+							for (JobDTO j : e.getJobs(c)) {
 
-							System.out.println("Found jobs");
+								System.out.println("Found jobs");
 
-							jobs.add(j);
+								jobs.add(j);
+							}
 						}
 					}
 				}
 			}
+
+			valdorJobs = jobs;
+
 		}
 
-		return jobs;
+
+
+		return valdorJobs;
 
 	}
 

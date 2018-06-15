@@ -7,17 +7,25 @@ import io.javalin.Javalin;
 
 public class Request {
 
-	EmploiQuebecAPI emploiQuebecAPI = new EmploiQuebecAPI();
+	private static EmploiQuebecAPI emploiQuebecAPI = new EmploiQuebecAPI();
 
 	public static void main(String[] args) {
-		Javalin app = Javalin.start(7000);
+
+		Javalin app = Javalin.create();
+
+		app.enableCorsForOrigin("127.0.0.1");
+		app.enableCorsForOrigin("localhost");
+		app.enableCorsForOrigin("http://localhost:4200/");
+
 		app.get("/", ctx -> ctx.result("Hello World"));
 
 		app.before("/some-path/*", ctx -> {
 			System.out.println("Hello");
 		});
 
-		app.get("/valdor", ctx -> ctx.json(Valdor.getValdorJobs()));
+		app.get("/regions", ctx -> ctx.json(emploiQuebecAPI.getRegions()));
+
+		app.start();
 	}
 
 }

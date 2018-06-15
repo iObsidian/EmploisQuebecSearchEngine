@@ -22,6 +22,7 @@
     "@angular/platform-browser-dynamic": "^5.2.0",
     "@angular/router": "^5.2.0",
     "core-js": "^2.4.1",
+    "primeicons": "^1.0.0-beta.7",
     "primeng": "^6.0.0-rc.1",
     "rxjs": "^5.5.6",
     "zone.js": "^0.8.19"
@@ -45,5 +46,10 @@
     "ts-node": "~4.1.0",
     "tslint": "~5.9.1",
     "typescript": "~2.5.3"
-  }
+  },
+  "styles": [
+    "../node_modules/primeicons/primeicons.css",
+    "../node_modules/primeng/resources/themes/omega/theme.css",
+    "../node_modules/primeng/resources/primeng.min.css"
+  ]
 }
