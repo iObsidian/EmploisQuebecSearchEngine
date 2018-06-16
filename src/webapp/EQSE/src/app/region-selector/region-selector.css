@@ -34,6 +34,7 @@
 
 .features-boxed .features {
   padding: 50px 0;
+
 }
 
 .features-boxed .item {
@@ -105,4 +106,10 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.separated {
+  margin-right: 5px;
+  margin-left: 5px;
+  margin-bottom: 10px;
 }

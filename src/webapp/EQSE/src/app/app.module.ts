@@ -19,7 +19,7 @@ import {DataScrollerModule} from 'primeng/datascroller';
 import {ListboxModule} from 'primeng/listbox';
 import { FilterPipe } from './filter.pipe';
 
-
+import {CardModule} from 'primeng/card';
 
 import {ChipsModule} from 'primeng/chips';
 
@@ -42,7 +42,8 @@ import {ChipsModule} from 'primeng/chips';
     ListboxModule,
     CommonModule,
     DataScrollerModule,
-    ChipsModule
+    ChipsModule,
+    CardModule
   ],
   providers: [
     EmploisQuebecAPI,

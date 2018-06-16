@@ -1,3 +1,5 @@
+<!-- Selectors -->
+
 <div class="container mb-5">
   <!-- Region selector : -->
   <p-listbox [options]="regions" [(ngModel)]="selectedRegions" [style]="{'width':'400px'}"
@@ -15,37 +17,47 @@
     </p-listbox>
 
   </div>
-
-  <!--<p>Villes : {{cities.length}}, {{selectedCities.length}} sélectionné(s).</p>
-  <p>Régions : {{regions.length}}, {{selectedRegions.length}} sélectionné(s).</p>
-
-  <p>Villes sélectionnés : <span *ngFor="let c of selectedCities" style="margin-right: 20px">{{c.name}}</span></p>
-  <p>Régions selectionnés : <span *ngFor="let c of selectedRegions" style="margin-right: 20px">{{c.name}}</span></p>
-
-  <p>Jobs : {{jobs?.length}}</p>-->
 </div>
 
-<form id="filter" action="">
-  <label for="filter">Recherche</label>
-  <p-chips [(ngModel)]="searchTerm" name="searchTerm"></p-chips>
-</form>
+<!-- Debug -->
 
-{{searchTerm.length}}
+<div *ngIf="debug">
+  <br>
+  <p>Villes : {{cities.length}}, {{selectedCities.length}} sélectionné(s).</p>
+  <p>Régions : {{regions.length}}, {{selectedRegions.length}} sélectionné(s).</p>
 
-<div *ngIf="jobs">
-  <div class="row">
-    <div class="features-boxed">
-      <!--<div class="container">-->
-      <div class="intro">
-        <h2 class="text-center">Emplois</h2>
-        <p class="text-center">{{jobs.length}} offres d'emplois dans {{getVilles()}}</p>
-      </div>
+  <p>Jobs : {{jobs?.length}}</p>
+</div>
 
-      <div class="row justify-content-center features">
-        <div *ngFor="let job of this.jobs | filter:searchTerm" class="col-sm-6 col-md-5 col-lg-4 item">
-          <div class="box"><i class="fa fa-map-marker icon"></i>
-            <h3 class="name">{{job.nameOfTheJob}}</h3>
 
+<div *ngIf="jobs?.length > 0">
+  
+  <!-- Recherche -->
+
+  <div class="container" *ngIf="">
+    <form id="filter" action="">
+      <label for="filter">Recherche</label>
+      <p-chips [(ngModel)]="searchTerm" name="searchTerm" [style]="{width: '600px'}"></p-chips>
+    </form>
+  </div>
+
+  <br>
+
+  <!-- Jobs -->
+
+  <div class="features-boxed">
+    <!--<div class="container">-->
+    <div class="intro">
+      <h2 class="text-center">Emplois</h2>
+      <p class="text-center">{{(jobs|filter:searchTerm).length}} offre(s) d'emplois dans {{getVilles()}}</p>
+    </div>
+
+    <div class="row justify-content-center features">
+      <div *ngFor="let job of this.jobs | filter:searchTerm">
+        <div class="separated">
+          <p-card title="{{job.nameOfTheJob}}" subtitle="{{job.employer}}"
+                  [style]="{width: '350px',  minHeight: '400px'}"
+                  styleClass="ui-card-shadow">
             <div class="description">
               <p><i class="fas fa-crosshairs"></i> Employeur : {{job.employer}}</p>
               <p><i class="fas fa-users"></i> Position(s) : {{job.numberOfPositions}}</p>
@@ -53,12 +65,13 @@
               <p><i class="fas fa-chart-pie"></i> Année(s) d'éxperience(s) : {{job.yearsOfExperience}}</p>
               <p><i class="fas fa-map-marker"></i> Position : {{job.workPlace}}</p>
             </div>
-
-            <a href="{{job.url}}" class="learn-more">Voir sur Emplois Québec»</a></div>
+            <p-footer>
+              <a href="{{job.url}}" class="learn-more">Voir sur Emplois Québec»</a>
+            </p-footer>
+          </p-card>
         </div>
       </div>
     </div>
-    <!--</div>-->
   </div>
 </div>
 

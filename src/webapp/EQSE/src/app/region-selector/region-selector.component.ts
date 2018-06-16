@@ -7,6 +7,8 @@ import {JobDTO} from "../model/JobDTO";
 import {ChipsModule} from 'primeng/chips';
 import {FormsModule} from "@angular/forms";
 
+
+
 @Component({
   selector: 'app-region-selector',
   templateUrl: 'region-selector.html',
@@ -14,13 +16,12 @@ import {FormsModule} from "@angular/forms";
 })
 export class RegionSelectorComponent implements OnInit {
 
-  values: string[];
+  debug: boolean = false;
 
   searchTerm: string[] = [];
 
   isLoading: boolean = false;
-  private loadingText: string;
-
+  loadingText: string;
 
   setLoading(isLoading: boolean, loadingText?: string) {
     this.isLoading = isLoading;
@@ -29,7 +30,6 @@ export class RegionSelectorComponent implements OnInit {
       this.loadingText = loadingText;
     }
   }
-
 
   regions: RegionDTO[] = [];
   selectedRegions: RegionDTO[] = [];
