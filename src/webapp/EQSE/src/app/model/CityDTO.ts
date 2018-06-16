@@ -1,5 +1,7 @@
+import {SelectItem} from "primeng/api";
+
 export interface CityDTO {
-  numberOfOffers: string,
   name: string,
+  numberOfOffers: string,
   url: string
 }

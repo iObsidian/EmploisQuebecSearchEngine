@@ -11,6 +11,13 @@ public class CityDTO implements Serializable {
 	private String name;
 	private String url;
 
+	public CityDTO() {
+	}
+
+	public CityDTO(String url) {
+		this.url = url;
+	}
+
 	public String getNumberOfOffers() {
 		return numberOfOffers;
 	}

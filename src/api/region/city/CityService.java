@@ -1,15 +1,15 @@
 package api.region.city;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import alde.commons.network.GetWebsite;
 import api.region.RegionDTO;
-import api.region.city.job.JobDTO;
-import api.region.city.job.JobService;
 import ui.StringUtil;
 
 public class CityService {
@@ -29,8 +29,14 @@ public class CityService {
 	public static final String CITY_URL_BEGIN = "<td><a href=";
 	public static final String CITY_NAME_BEGIN = "<td>";
 
+	public static Map<String, List<CityDTO>> cached_cities = new HashMap<>();
 
 	public List<CityDTO> getCities(RegionDTO r) {
+
+		if (cached_cities.get(r.getCode()) != null) {
+			return cached_cities.get(r.getCode());
+		}
+
 		ArrayList<CityDTO> cities = new ArrayList<>();
 
 		// Convert the string to an array
@@ -60,6 +66,7 @@ public class CityService {
 				}
 			}
 		}
+		cached_cities.put(r.getCode(), cities);
 
 		return cities;
 

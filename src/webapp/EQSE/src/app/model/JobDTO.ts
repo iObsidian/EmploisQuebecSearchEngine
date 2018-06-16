@@ -1,3 +1,5 @@
+import {SelectItem} from "primeng/api";
+
 export interface JobDTO {
   offerNumber: string,
   url: string

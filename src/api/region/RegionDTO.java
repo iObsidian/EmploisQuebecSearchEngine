@@ -7,6 +7,14 @@ public class RegionDTO implements Serializable {
 	private String name;
 	private String code;
 
+	public RegionDTO() {
+
+	}
+
+	public RegionDTO(String code) {
+		this.code = code;
+	}
+
 	public String getName() {
 		return name;
 	}
