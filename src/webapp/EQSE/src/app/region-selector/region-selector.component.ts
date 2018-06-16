@@ -4,6 +4,9 @@ import {EmploisQuebecAPI} from "../api/emplois-quebec-api";
 import {CityDTO} from "../model/CityDTO";
 import {JobDTO} from "../model/JobDTO";
 
+import {ChipsModule} from 'primeng/chips';
+import {FormsModule} from "@angular/forms";
+
 @Component({
   selector: 'app-region-selector',
   templateUrl: 'region-selector.html',
@@ -11,8 +14,9 @@ import {JobDTO} from "../model/JobDTO";
 })
 export class RegionSelectorComponent implements OnInit {
 
+  values: string[];
 
-  searchTerm: string;
+  searchTerm: string[] = [];
 
   isLoading: boolean = false;
   private loadingText: string;

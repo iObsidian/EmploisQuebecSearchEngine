@@ -6,20 +6,36 @@ import {JobDTO} from "./model/JobDTO";
 })
 export class FilterPipe implements PipeTransform {
 
-  transform(jobs: JobDTO[], searchTerm: string): any {
+  transform(jobs: JobDTO[], searchTerms: string[]): any {
     //check if searchTerm is undefined
-    if (!searchTerm) {
+    if (!searchTerms) {
       console.log("Returned")
       return jobs;
     }
 
     // return updated jobs array
     return jobs.filter(function (job) {
-      if (!job.nameOfTheJob) {
+
+      if (!searchTerms || searchTerms.length == 0 ) {
         return true;
-      } else {
-        return job.nameOfTheJob.toLowerCase().includes(searchTerm.toLowerCase());
       }
+
+      var match = false;
+
+      for (let s of searchTerms) {
+        if (!job.nameOfTheJob || !job.employer) {
+          return true;
+        } else {
+
+          var nameMatch = job.nameOfTheJob.toLowerCase().includes(s.toLowerCase());
+          var employerMatch = job.employer.toLowerCase().includes(s.toLowerCase());
+
+          match = nameMatch || employerMatch;
+        }
+      }
+
+      return match;
+
     })
   }
 

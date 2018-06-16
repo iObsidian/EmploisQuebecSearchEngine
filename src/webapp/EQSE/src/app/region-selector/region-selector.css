@@ -68,7 +68,7 @@
   margin-bottom: 20px;
 }
 
-
+/** Loading bar */
 
 .glyphicon.spinning {
   animation: spin 1s infinite linear;
@@ -93,4 +93,16 @@
   }
 }
 
+/** Container */
 
+html,
+body {
+  height: 100%;
+}
+
+.container {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

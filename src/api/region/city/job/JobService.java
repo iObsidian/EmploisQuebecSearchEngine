@@ -48,7 +48,11 @@ public class JobService {
 				}
 
 				if (s.contains(JOB_END)) {
-					jobs.add(currentJob);
+					currentJob.setUrl(pageUrl);
+					
+					if (!currentJob.employer.contains("Invalid")) {
+						jobs.add(currentJob);
+					}
 					currentJob = new JobDTO();
 				} else {
 
@@ -74,6 +78,8 @@ public class JobService {
 
 					if (!s.contains("<!DOCTYPE html PUBLIC ")) {
 
+						
+						
 						if (index == 0) {
 							currentJob.setOfferNumber(StringUtil.getStringBetween(s, "\">", "</td>"));
 						} else if (index == 1) {

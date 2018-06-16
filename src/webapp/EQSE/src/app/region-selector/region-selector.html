@@ -1,4 +1,4 @@
-<div class="container-fluid mx-auto">
+<div class="container mb-5">
   <!-- Region selector : -->
   <p-listbox [options]="regions" [(ngModel)]="selectedRegions" [style]="{'width':'400px'}"
              [listStyle]="{'max-height':'250px'}" multiple="multiple" checkbox="checkbox" filter="filter"
@@ -25,44 +25,45 @@
   <p>Jobs : {{jobs?.length}}</p>-->
 </div>
 
-
 <form id="filter" action="">
-  <label>Filter ninjas by name :</label>
-  <input type="text" name="text" [(ngModel)]="searchTerm">
+  <label for="filter">Recherche</label>
+  <p-chips [(ngModel)]="searchTerm" name="searchTerm"></p-chips>
 </form>
 
-<div style="text-align:center">
+{{searchTerm.length}}
 
-  <div *ngIf="jobs">
-    <div class="row">
-      <div class="features-boxed">
-        <!--<div class="container">-->
-        <div class="intro">
-          <h2 class="text-center">Emplois</h2>
-          <p class="text-center">{{jobs.length}} offres d'emplois dans {{getVilles()}}</p>
-        </div>
+<div *ngIf="jobs">
+  <div class="row">
+    <div class="features-boxed">
+      <!--<div class="container">-->
+      <div class="intro">
+        <h2 class="text-center">Emplois</h2>
+        <p class="text-center">{{jobs.length}} offres d'emplois dans {{getVilles()}}</p>
+      </div>
 
-        <div class="row justify-content-center features">
-          <div *ngFor="let job of this.jobs | filter:searchTerm" class="col-sm-6 col-md-5 col-lg-4 item">
-            <div class="box"><i class="fa fa-map-marker icon"></i>
-              <h3 class="name">{{job.nameOfTheJob}}</h3>
+      <div class="row justify-content-center features">
+        <div *ngFor="let job of this.jobs | filter:searchTerm" class="col-sm-6 col-md-5 col-lg-4 item">
+          <div class="box"><i class="fa fa-map-marker icon"></i>
+            <h3 class="name">{{job.nameOfTheJob}}</h3>
 
-              <div class="description">
-                <p><i class="fas fa-crosshairs"></i> Employeur : {{job.employer}}</p>
-                <p><i class="fas fa-users"></i> Position(s) : {{job.numberOfPositions}}</p>
-                <p><i class="fas fa-graduation-cap"></i> Éducation : {{job.education}}</p>
-                <p><i class="fas fa-chart-pie"></i> Année(s) d'éxperience(s) : {{job.yearsOfExperience}}</p>
-                <p><i class="fas fa-map-marker"></i> Position : {{job.workPlace}}</p>
-              </div>
+            <div class="description">
+              <p><i class="fas fa-crosshairs"></i> Employeur : {{job.employer}}</p>
+              <p><i class="fas fa-users"></i> Position(s) : {{job.numberOfPositions}}</p>
+              <p><i class="fas fa-graduation-cap"></i> Éducation : {{job.education}}</p>
+              <p><i class="fas fa-chart-pie"></i> Année(s) d'éxperience(s) : {{job.yearsOfExperience}}</p>
+              <p><i class="fas fa-map-marker"></i> Position : {{job.workPlace}}</p>
+            </div>
 
-              <a href="{{job.url}}" class="learn-more">Voir sur Emplois Québec»</a></div>
-          </div>
+            <a href="{{job.url}}" class="learn-more">Voir sur Emplois Québec»</a></div>
         </div>
       </div>
-      <!--</div>-->
     </div>
+    <!--</div>-->
   </div>
+</div>
 
+
+<div style="text-align:center">
   <!-- Loading bar -->
   <div *ngIf="isLoading">
     <button class="btn btn-lg btn-warning">

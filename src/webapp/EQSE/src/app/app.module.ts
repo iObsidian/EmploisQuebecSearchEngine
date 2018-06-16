@@ -19,6 +19,11 @@ import {DataScrollerModule} from 'primeng/datascroller';
 import {ListboxModule} from 'primeng/listbox';
 import { FilterPipe } from './filter.pipe';
 
+
+
+import {ChipsModule} from 'primeng/chips';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -30,14 +35,14 @@ import { FilterPipe } from './filter.pipe';
     MultiSelectModule,
     CheckboxModule,
     HttpClientModule,
-    BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
     HttpClientModule,
     SelectButtonModule,
     ListboxModule,
     CommonModule,
-    DataScrollerModule
+    DataScrollerModule,
+    ChipsModule
   ],
   providers: [
     EmploisQuebecAPI,
