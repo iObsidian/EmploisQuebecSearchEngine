@@ -1,12 +1,13 @@
 package website;
 
+import java.util.List;
+
 import api.EmploiQuebecAPI;
 import api.region.RegionDTO;
 import api.region.city.CityDTO;
 import api.region.city.job.JobDTO;
 import io.javalin.Javalin;
-
-import java.util.List;
+import io.javalin.LogLevel;
 
 public class Request {
 
@@ -14,7 +15,7 @@ public class Request {
 
 	public static void main(String[] args) {
 
-		Javalin app = Javalin.create();
+		Javalin app = Javalin.create().requestLogLevel(LogLevel.OFF);
 
 		app.enableCorsForOrigin("127.0.0.1");
 		app.enableCorsForOrigin("localhost");
@@ -32,7 +33,12 @@ public class Request {
 
 		// Get all jobs for city
 		app.get("/jobs/:city-url", ctx -> {
-			ctx.json(getJobs(ctx.param("city-url")));
+
+			String url = ctx.param("city-url");
+
+			System.out.println("Get all jobs from " + url);
+
+			ctx.json(getJobs(url));
 		});
 
 		app.start();

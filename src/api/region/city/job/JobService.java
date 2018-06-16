@@ -24,11 +24,13 @@ public class JobService {
 
 	public List<JobDTO> getJobs(CityDTO c) {
 
+		System.out.println("Request to load jobs from " + c.getUrl());
+		
 		List<JobDTO> jobs = new ArrayList<>();
 
 		List<String> pageUrls = pageService.getPages(c);
 
-		log.info("Found " + pageUrls.size() + " page url(s).");
+		System.out.println("Found " + pageUrls.size() + " page url(s).");
 
 		for (String pageUrl : pageUrls) {
 
