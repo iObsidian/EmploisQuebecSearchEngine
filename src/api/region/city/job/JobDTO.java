@@ -1,12 +1,12 @@
 package api.region.city.job;
 
+import automaticPrune.Prune;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
-
-import automaticPrune.Prune;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class JobDTO implements Serializable {
 
@@ -42,7 +42,7 @@ public class JobDTO implements Serializable {
 	}
 
 	public void setNameOfTheJob(String nameOfTheJob) {
-		this.nameOfTheJob = nameOfTheJob;
+		this.nameOfTheJob = capitalizeFirstLetter(nameOfTheJob);
 	}
 
 	public String getEmployer() {
@@ -115,7 +115,8 @@ public class JobDTO implements Serializable {
 				+ ", workPlace='" + workPlace + '\'' + '}';
 	}
 
-
-
+	public static String capitalizeFirstLetter(String line) {
+		return line.substring(0, 1).toUpperCase() + line.substring(1);
+	}
 
 }

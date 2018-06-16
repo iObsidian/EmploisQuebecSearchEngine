@@ -33,12 +33,7 @@ public class Request {
 
 		// Get all jobs for city
 		app.get("/jobs/:city-url", ctx -> {
-
-			String url = ctx.param("city-url");
-
-			System.out.println("Get all jobs from " + url);
-
-			ctx.json(getJobs(url));
+			ctx.json(getJobs(ctx.param("city-url")));
 		});
 
 		app.start();

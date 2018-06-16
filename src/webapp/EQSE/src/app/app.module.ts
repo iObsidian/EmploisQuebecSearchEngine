@@ -10,14 +10,20 @@ import {BrowserModule} from '@angular/platform-browser';
 import {HttpClientModule} from '@angular/common/http';
 import {EmploisQuebecAPI} from "./api/emplois-quebec-api";
 
+import { CommonModule } from "@angular/common";
+
 import {SelectButtonModule} from 'primeng/selectbutton';
 
+import {DataScrollerModule} from 'primeng/datascroller';
+
 import {ListboxModule} from 'primeng/listbox';
+import { FilterPipe } from './filter.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
-    RegionSelectorComponent
+    RegionSelectorComponent,
+    FilterPipe
   ],
   imports: [
     BrowserModule,
@@ -29,13 +35,15 @@ import {ListboxModule} from 'primeng/listbox';
     FormsModule,
     HttpClientModule,
     SelectButtonModule,
-    ListboxModule
+    ListboxModule,
+    CommonModule,
+    DataScrollerModule
   ],
   providers: [
     EmploisQuebecAPI,
     HttpClientModule
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {
 }
