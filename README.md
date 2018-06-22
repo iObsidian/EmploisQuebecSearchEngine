@@ -2,7 +2,10 @@
 
 Outils de recherche pour 'Emplois Québec' et leur système de placement en ligne.
 
+Comment utiliser : 
 
+Ouvrir 'ng serve' in EmploisQuebecSearchEngine\src\webapp\EQSE
+Ouvrir 'Request.java'
+Ouvrir localhost:4200
 
-Comment utiliser :
-Télécharger, extraire et ouvrir 'Run.jar' dans le dossier 'run'. Requiert Java.
+![New version](https://i.imgur.com/MNvwkmS.png "New version")
