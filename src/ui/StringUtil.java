@@ -33,6 +33,10 @@ public class StringUtil {
 
 	}
 
+	public static String capitalizeFirstLetter(String line) {
+		return line.substring(0, 1).toUpperCase() + line.substring(1);
+	}
+
 	public static String getStringBetween(String f, String begin, String end) {
 		if (f == null || begin == null || end == null) {
 			return "Invalid data :  Null value : Input : '" + f + "', Begin : '" + begin + "', End : '" + end + "'.";

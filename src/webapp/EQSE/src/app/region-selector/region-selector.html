@@ -4,7 +4,7 @@
   <!-- Region selector : -->
   <p-listbox [options]="regions" [(ngModel)]="selectedRegions" [style]="{'width':'400px'}"
              [listStyle]="{'max-height':'250px'}" multiple="multiple" checkbox="checkbox" filter="filter"
-             (onChange)="regionsChanged($event)" optionLabel="name">
+             (onChange)="regionsChanged($event)" optionLabel="name" class="mr-2">
     <p-header>Choisir une région</p-header>
   </p-listbox>
 
@@ -29,12 +29,11 @@
   <p>Jobs : {{jobs?.length}}</p>
 </div>
 
-
 <div *ngIf="jobs?.length > 0">
-  
+
   <!-- Recherche -->
 
-  <div class="container" *ngIf="">
+  <div class="container">
     <form id="filter" action="">
       <label for="filter">Recherche</label>
       <p-chips [(ngModel)]="searchTerm" name="searchTerm" [style]="{width: '600px'}"></p-chips>
