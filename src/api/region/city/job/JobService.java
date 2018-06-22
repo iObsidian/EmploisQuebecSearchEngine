@@ -103,7 +103,6 @@ public class JobService {
 			}
 
 			log.info(pageUrl);
-			break; //TODO REMOVE THIS AFTER DEBUGGING
 
 		}
 
