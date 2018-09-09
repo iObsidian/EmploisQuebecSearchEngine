@@ -9,7 +9,7 @@ import api.region.city.job.JobDTO;
 import io.javalin.Javalin;
 import io.javalin.LogLevel;
 
-public class Request {
+public class RunEQSE {
 
 	private static EmploiQuebecAPI emploiQuebecAPI = new EmploiQuebecAPI();
 

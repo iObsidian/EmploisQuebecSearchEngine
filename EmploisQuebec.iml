@@ -9,7 +9,7 @@
       <excludeFolder url="file://$MODULE_DIR$/src/webapp/EQSE/tmp" />
       <excludeFolder url="file://$MODULE_DIR$/target" />
     </content>
-    <orderEntry type="inheritedJdk" />
+    <orderEntry type="jdk" jdkName="1.8" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="alde-commons-1.2" level="project" />
     <orderEntry type="library" name="AldeCommons" level="project" />
@@ -50,5 +50,6 @@
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.9.5" level="project" />
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.9.0" level="project" />
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-core:2.9.5" level="project" />
+    <orderEntry type="library" name="AldeCommons1" level="project" />
   </component>
 </module>

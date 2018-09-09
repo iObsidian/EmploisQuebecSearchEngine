@@ -1,20 +1,15 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {RegionDTO} from "../model/RegionDTO";
 import {EmploisQuebecAPI} from "../api/emplois-quebec-api";
 import {CityDTO} from "../model/CityDTO";
 import {JobDTO} from "../model/JobDTO";
-
-import {ChipsModule} from 'primeng/chips';
-import {FormsModule} from "@angular/forms";
-
-
 
 @Component({
   selector: 'app-region-selector',
   templateUrl: 'region-selector.html',
   styleUrls: ['region-selector.css']
 })
-export class RegionSelectorComponent implements OnInit {
+export class RegionSelectorComponent {
 
   debug: boolean = false;
 
@@ -52,9 +47,8 @@ export class RegionSelectorComponent implements OnInit {
   regionsChanged(event: any) {
     console.log("Regions changed, loading cities...");
 
-    this.cities = [];
-
     this.setLoading(true, 'Chargement des villes...');
+    this.cities = [];
 
     for (let entry of this.selectedRegions) {
       this.service.getCities(entry.code).subscribe(cities => {
@@ -70,15 +64,12 @@ export class RegionSelectorComponent implements OnInit {
   selectedJobs: JobDTO[];
 
   citiesChanged(event: any) {
-
-    this.isLoading = true;
-
     this.setLoading(true, 'Chargement des emplois...');
 
     this.jobs = [];
     for (let entry of this.selectedCities) {
       this.service.getJobs(entry.url).subscribe(jobs => {
-        console.log('Received ' + jobs.length + ' new Jobs.');
+        console.log('Received ' + jobs.length + ' new jobs.');
         this.jobs = [...this.jobs, ...jobs]; // push doesnt update
 
         this.setLoading(false);
@@ -86,18 +77,22 @@ export class RegionSelectorComponent implements OnInit {
     }
   }
 
-  ngOnInit() {
+  getSubtitle() {
+    if (this.searchTerm.length > 0) {
+      return "offre(s) d'emplois dans " + this.getVilles();
+    } else {
+      return "offre(s) d'emplois trouvés dans " + this.getVilles() + ".";
+    }
   }
 
   getVilles(): string {
     if (this.selectedCities.length == 0) {
-      return 'aucun endroit.';
+      return 'aucun endroit';
     } else if (this.selectedCities.length == 1) {
-      return this.selectedCities[0].name + '.';
+      return this.selectedCities[0].name;
     } else {
-      return this.selectedCities.length + ' villes.';
+      return this.selectedCities.length + ' villes';
     }
-
   }
 
 }
