@@ -5,11 +5,11 @@ import {CityDTO} from "../model/CityDTO";
 import {JobDTO} from "../model/JobDTO";
 
 @Component({
-  selector: 'app-region-selector',
-  templateUrl: 'region-selector.html',
-  styleUrls: ['region-selector.css']
+  selector: 'EQSE',
+  templateUrl: 'eqse.html',
+  styleUrls: ['eqse.css']
 })
-export class RegionSelectorComponent {
+export class EQSEComponent {
 
   debug: boolean = false;
 
@@ -51,7 +51,7 @@ export class RegionSelectorComponent {
     this.cities = [];
 
     for (let entry of this.selectedRegions) {
-      this.service.getCities(entry.code).subscribe(cities => {
+      this.service.getCitiesForRegion(entry.code).subscribe(cities => {
         console.log('Received ' + cities.length + ' new Cities.');
         this.cities = [...this.cities, ...cities]; // push doesnt update
 
@@ -68,7 +68,7 @@ export class RegionSelectorComponent {
 
     this.jobs = [];
     for (let entry of this.selectedCities) {
-      this.service.getJobs(entry.url).subscribe(jobs => {
+      this.service.getJobsForCity(entry.url).subscribe(jobs => {
         console.log('Received ' + jobs.length + ' new jobs.');
         this.jobs = [...this.jobs, ...jobs]; // push doesnt update
 

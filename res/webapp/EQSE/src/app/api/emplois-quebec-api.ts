@@ -25,12 +25,12 @@ export class EmploisQuebecAPI {
   }
 
   /** GET cities (using Region code) */
-  getCities(region: string): Observable<CityDTO[]> {
+  getCitiesForRegion(region: string): Observable<CityDTO[]> {
     return this.http.get<CityDTO[]>(this.cities + region)
   }
 
   /** GET cities (using City url) */
-  getJobs(city: string): Observable<JobDTO[]> {
+  getJobsForCity(city: string): Observable<JobDTO[]> {
     return this.http.get<JobDTO[]>(this.jobs + encodeURIComponent(city))
   }
 

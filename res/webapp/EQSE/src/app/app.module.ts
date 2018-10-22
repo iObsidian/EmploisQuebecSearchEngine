@@ -1,7 +1,6 @@
 import {MultiSelectModule} from 'primeng/multiselect';
 import {FormsModule} from '@angular/forms';
 import {AppComponent} from './app.component';
-import {RegionSelectorComponent} from './region-selector/region-selector.component';
 import {CheckboxModule} from 'primeng/checkbox';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
@@ -22,12 +21,13 @@ import { FilterPipe } from './filter.pipe';
 import {CardModule} from 'primeng/card';
 
 import {ChipsModule} from 'primeng/chips';
+import { EQSEComponent } from './eqse/eqse.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    RegionSelectorComponent,
+    EQSEComponent,
     FilterPipe
   ],
   imports: [

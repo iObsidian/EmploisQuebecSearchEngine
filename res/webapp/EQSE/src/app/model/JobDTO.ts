@@ -1,7 +1,7 @@
 import {SelectItem} from "primeng/api";
 
 export interface JobDTO {
-  offerNumber: string,
+  offerNumber: string
   url: string
   nameOfTheJob: string
   employer: string
@@ -9,4 +9,5 @@ export interface JobDTO {
   education: string
   yearsOfExperience: string
   workPlace: string
+  details: string
 }

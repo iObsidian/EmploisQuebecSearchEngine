@@ -25,7 +25,7 @@ public class JobService {
 	public List<JobDTO> getJobs(CityDTO c) {
 
 		System.out.println("Request to load jobs from " + c.getUrl());
-		
+
 		List<JobDTO> jobs = new ArrayList<>();
 
 		List<String> pageUrls = pageService.getPages(c);
@@ -34,8 +34,7 @@ public class JobService {
 
 		for (String pageUrl : pageUrls) {
 
-			List<String> jobsRaw = StringUtil.getStringsBetween(util.GetWebsite.getWebsiteAsStringList(pageUrl),
-					JOBS_START, JOBS_END);
+			List<String> jobsRaw = StringUtil.getStringsBetween(util.GetWebsite.getWebsiteAsStringList(pageUrl), JOBS_START, JOBS_END);
 
 			JobDTO currentJob = new JobDTO();
 
@@ -49,7 +48,7 @@ public class JobService {
 
 				if (s.contains(JOB_END)) {
 					currentJob.setUrl(pageUrl);
-					
+
 					if (!currentJob.employer.contains("Invalid")) {
 						jobs.add(currentJob);
 					}
@@ -78,8 +77,6 @@ public class JobService {
 
 					if (!s.contains("<!DOCTYPE html PUBLIC ")) {
 
-						
-						
 						if (index == 0) {
 							currentJob.setOfferNumber(StringUtil.getStringBetween(s, "\">", "</td>"));
 						} else if (index == 1) {
@@ -144,8 +141,7 @@ class JobPageService {
 			for (String page : a) {
 
 				if (!page.equals("</p>")) { // Avoids wrongful parsing of html tag
-					pageUrls.add(
-							StringUtil.getStringBetween(page, "<a href=\"", "\" ").replace("\" class=\"pgactive", ""));
+					pageUrls.add(StringUtil.getStringBetween(page, "<a href=\"", "\" ").replace("\" class=\"pgactive", ""));
 				}
 			}
 		}

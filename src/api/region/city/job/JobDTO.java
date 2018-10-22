@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import automaticPrune.Prune;
+import util.CapitalizeFirstLetter;
+import util.GetWebsite;
 
 public class JobDTO implements Serializable {
 
@@ -18,6 +20,11 @@ public class JobDTO implements Serializable {
 	public String yearsOfExperience;
 	@Prune
 	public String workPlace;
+	public String details;
+
+	public void setDetails(String details) {
+		this.details = details;
+	}
 
 	public String getOfferNumber() {
 		return offerNumber;
@@ -33,6 +40,28 @@ public class JobDTO implements Serializable {
 
 	public void setUrl(String url) {
 		this.url = url;
+		this.setDetails(getDetails());
+	}
+
+	private String getDetails() {
+		StringBuilder result = new StringBuilder();
+		boolean isIn = false;
+
+		for (String s : GetWebsite.getWebsiteAsStringList(this.url)) {
+			if (s.contains("<form name")) {
+				isIn = true;
+			} else if (s.contains("</form>")) {
+				isIn = false;
+				break;
+			}
+
+			if (isIn) {
+				result.append(s);
+			}
+
+		}
+
+		return result.toString();
 	}
 
 	public String getNameOfTheJob() {
@@ -40,7 +69,7 @@ public class JobDTO implements Serializable {
 	}
 
 	public void setNameOfTheJob(String nameOfTheJob) {
-		this.nameOfTheJob = capitalizeFirstLetter(nameOfTheJob);
+		this.nameOfTheJob = CapitalizeFirstLetter.capitalizeFirstLetter(nameOfTheJob);
 	}
 
 	public String getEmployer() {
@@ -107,14 +136,8 @@ public class JobDTO implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Job{" + "offerNumber='" + offerNumber + '\'' + ", url='" + url + '\'' + ", nameOfTheJob='"
-				+ nameOfTheJob + '\'' + ", employer='" + employer + '\'' + ", numberOfPositions='" + numberOfPositions
-				+ '\'' + ", education='" + education + '\'' + ", yearsOfExperience='" + yearsOfExperience + '\''
-				+ ", workPlace='" + workPlace + '\'' + '}';
-	}
-
-	public static String capitalizeFirstLetter(String line) {
-		return line.substring(0, 1).toUpperCase() + line.substring(1);
+		return "Job{" + "offerNumber='" + offerNumber + '\'' + ", url='" + url + '\'' + ", nameOfTheJob='" + nameOfTheJob + '\'' + ", employer='" + employer + '\'' + ", numberOfPositions='"
+				+ numberOfPositions + '\'' + ", education='" + education + '\'' + ", yearsOfExperience='" + yearsOfExperience + '\'' + ", workPlace='" + workPlace + '\'' + '}';
 	}
 
 }
