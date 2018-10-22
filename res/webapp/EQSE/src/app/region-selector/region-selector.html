@@ -5,7 +5,7 @@
   <p-listbox [options]="regions" [(ngModel)]="selectedRegions" [style]="{'width':'400px'}"
              [listStyle]="{'max-height':'250px'}" multiple="multiple" checkbox="checkbox" filter="filter"
              (onChange)="regionsChanged($event)" optionLabel="name" class="mr-2">
-    <p-header>Choisir une région</p-header>
+    <p-header>Choisir une ou plusieurs région(s)</p-header>
   </p-listbox>
 
   <!-- City selector : -->
@@ -13,7 +13,7 @@
     <p-listbox [options]="cities" [(ngModel)]="selectedCities" [style]="{'width':'400px'}"
                [listStyle]="{'max-height':'250px'}" multiple="multiple" checkbox="checkbox" filter="filter"
                (onChange)="citiesChanged($event)" optionLabel="name">
-      <p-header>Choisir une ville</p-header>
+      <p-header>Choisir une ou plusieurs ville(s)</p-header>
     </p-listbox>
 
   </div>
@@ -35,7 +35,7 @@
 
   <div class="container">
     <form id="filter" action="">
-      <label for="filter">Recherche</label>
+      <label for="filter">Mot clefs</label>
       <p-chips [(ngModel)]="searchTerm" name="searchTerm" [style]="{width: '600px'}"></p-chips>
     </form>
   </div>
