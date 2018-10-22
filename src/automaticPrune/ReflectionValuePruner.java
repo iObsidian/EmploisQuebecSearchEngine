@@ -10,7 +10,7 @@ import java.util.Map.Entry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import alde.commons.util.math.LevenshteinDistance;
+import util.LevenshteinDistance;
 
 /**
  * This is a test (idea) class for a generic 'pruner'.

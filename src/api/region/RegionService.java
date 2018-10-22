@@ -6,10 +6,8 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import alde.commons.network.GetWebsite;
-import api.region.city.CityDTO;
-import api.region.city.CityService;
 import ui.StringUtil;
+import util.GetWebsite;
 
 public class RegionService {
 
@@ -26,7 +24,7 @@ public class RegionService {
 	public List<RegionDTO> getRegions() {
 		ArrayList<RegionDTO> regions = new ArrayList<>();
 
-		List<String> website = GetWebsite.get().getWebsiteAsStringList(REGIONS_LINK);
+		List<String> website = GetWebsite.getWebsiteAsStringList(REGIONS_LINK);
 		List<String> regionsRaw = StringUtil.getStringsBetween(website, CITIES_RAW_START, CITIES_RAW_END);
 
 		for (String regionLine : regionsRaw) {
@@ -43,6 +41,7 @@ public class RegionService {
 		}
 
 		return regions;
+
 	}
 
 }

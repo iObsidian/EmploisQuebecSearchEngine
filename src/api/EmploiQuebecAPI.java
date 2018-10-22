@@ -1,13 +1,13 @@
 package api;
 
+import java.util.List;
+
 import api.region.RegionDTO;
 import api.region.RegionService;
 import api.region.city.CityDTO;
 import api.region.city.CityService;
 import api.region.city.job.JobDTO;
 import api.region.city.job.JobService;
-
-import java.util.List;
 
 public class EmploiQuebecAPI {
 

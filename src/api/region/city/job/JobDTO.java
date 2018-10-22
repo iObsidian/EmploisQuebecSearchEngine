@@ -1,17 +1,15 @@
 package api.region.city.job;
 
-import automaticPrune.Prune;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
+import automaticPrune.Prune;
+
 public class JobDTO implements Serializable {
 
 	public String offerNumber;
-	@JsonIgnore
 	public String url;
 	public String nameOfTheJob;
 	public String employer;

@@ -6,9 +6,9 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import alde.commons.network.GetWebsite;
 import api.region.city.CityDTO;
 import ui.StringUtil;
+import util.GetWebsite;
 
 public class JobService {
 
@@ -34,7 +34,7 @@ public class JobService {
 
 		for (String pageUrl : pageUrls) {
 
-			List<String> jobsRaw = StringUtil.getStringsBetween(GetWebsite.get().getWebsiteAsStringList(pageUrl),
+			List<String> jobsRaw = StringUtil.getStringsBetween(util.GetWebsite.getWebsiteAsStringList(pageUrl),
 					JOBS_START, JOBS_END);
 
 			JobDTO currentJob = new JobDTO();
@@ -124,7 +124,7 @@ class JobPageService {
 
 		List<String> pageUrls = new ArrayList<>();
 
-		List<String> website = GetWebsite.get().getWebsiteAsStringList(c.getUrl());
+		List<String> website = GetWebsite.getWebsiteAsStringList(c.getUrl());
 
 		String pageLine = "";
 

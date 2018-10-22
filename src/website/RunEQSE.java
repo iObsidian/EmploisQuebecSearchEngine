@@ -7,7 +7,6 @@ import api.region.RegionDTO;
 import api.region.city.CityDTO;
 import api.region.city.job.JobDTO;
 import io.javalin.Javalin;
-import io.javalin.LogLevel;
 
 public class RunEQSE {
 
@@ -15,25 +14,20 @@ public class RunEQSE {
 
 	public static void main(String[] args) {
 
-		Javalin app = Javalin.create().requestLogLevel(LogLevel.OFF);
+		Javalin app = Javalin.create();
 
 		app.enableCorsForOrigin("127.0.0.1");
-		app.enableCorsForOrigin("localhost");
-		app.enableCorsForOrigin("http://localhost:4200/");
 
-		app.get("/", ctx -> ctx.result("Javalin web server working!"));
+		app.get("/", ctx -> ctx.result("Javalin works!"));
 
-		// Get all regions
-		app.get("/regions", ctx -> ctx.json(getRegions()));
+		app.get("/regions", ctx -> ctx.json(getRegions())); // Get all regions
 
-		// Get all cities for region
 		app.get("/cities/:region-code", ctx -> {
-			ctx.json(getCities(ctx.param("region-code")));
+			ctx.json(getCities(ctx.pathParam("region-code"))); // Get all cities for region
 		});
 
-		// Get all jobs for city
 		app.get("/jobs/:city-url", ctx -> {
-			ctx.json(getJobs(ctx.param("city-url")));
+			ctx.json(getJobs(ctx.pathParam("city-url"))); // Get all jobs for city
 		});
 
 		app.start();

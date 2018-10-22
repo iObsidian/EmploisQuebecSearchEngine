@@ -8,9 +8,9 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import alde.commons.network.GetWebsite;
 import api.region.RegionDTO;
 import ui.StringUtil;
+import util.GetWebsite;
 
 public class CityService {
 
@@ -40,8 +40,7 @@ public class CityService {
 		ArrayList<CityDTO> cities = new ArrayList<>();
 
 		// Convert the string to an array
-		List<String> website = GetWebsite.get()
-				.getWebsiteAsStringList(CITIES_PREFIX_LINK + r.getCode() + CITIES_SUFFIX_LINK);
+		List<String> website = GetWebsite.getWebsiteAsStringList(CITIES_PREFIX_LINK + r.getCode() + CITIES_SUFFIX_LINK);
 
 		// Get only the cities data
 		List<String> citiesRaw = StringUtil.getStringsBetween(website, CITIES_RAW_START, CITIES_RAW_END);

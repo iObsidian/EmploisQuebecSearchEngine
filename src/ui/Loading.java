@@ -13,5 +13,4 @@ public class Loading extends JPanel {
 		JLabel lblChargementVeuillezPatienter = new JLabel("Chargement...");
 		add(lblChargementVeuillezPatienter);
 	}
-
 }

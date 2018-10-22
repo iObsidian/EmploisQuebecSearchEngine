@@ -1,9 +1,6 @@
 package api.region.city;
 
 import java.io.Serializable;
-import java.util.List;
-
-import api.region.city.job.JobDTO;
 
 public class CityDTO implements Serializable {
 
