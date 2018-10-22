@@ -1,6 +1,5 @@
 package website;
 
-import java.io.IOException;
 import java.util.List;
 
 import api.EmploiQuebecAPI;

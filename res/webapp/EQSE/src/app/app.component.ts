@@ -8,4 +8,5 @@ import {FilterPipe} from "./filter.pipe";
 })
 export class AppComponent {
   title = 'Emplois Québec Search Engine';
+  description = 'Outil de recherche pour Emplois Québec Placement en Ligne';
 }
