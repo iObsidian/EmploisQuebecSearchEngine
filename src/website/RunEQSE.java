@@ -1,5 +1,6 @@
 package website;
 
+import java.io.IOException;
 import java.util.List;
 
 import api.EmploiQuebecAPI;
@@ -16,9 +17,15 @@ public class RunEQSE {
 
 		Javalin app = Javalin.create();
 
-		app.enableCorsForOrigin("127.0.0.1");
+		app.enableCorsForAllOrigins();
 
-		app.get("/", ctx -> ctx.result("Javalin works!"));
+		StringBuilder explanation = new StringBuilder();
+		explanation.append("Bienvenue sur EmploisQuebecSearchEngine API!" + "\n\n");
+		explanation.append("Si vous souhaitez accedez à l'interface utilisateur, veuillez installer Angular CLI sur votre machine," + "\n");
+		explanation.append("puis utiliser la commande 'ng serve' dans le dossier 'webapp' de cette source." + "\n\n");
+		explanation.append("C'est tout! Visitez localhost:4200 sur votre machine pour voir le site local." + "\n");
+
+		app.get("/", ctx -> ctx.result(explanation.toString()));
 
 		app.get("/regions", ctx -> ctx.json(getRegions())); // Get all regions
 
