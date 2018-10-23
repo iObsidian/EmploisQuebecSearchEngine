@@ -1,5 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<component jdk="1.8" jdk_type="JavaSDK">
-	<exclude-output/>
-	<contentEntry url="file://$MODULE_DIR$"/>
+<component LANGUAGE_LEVEL="JDK_1_5" jdk="1.8" jdk_type="JavaSDK">
+	<output-test url="file://$MODULE_DIR$/target/test-classes"/>
+	<contentEntry url="file://$MODULE_DIR$">
+		<excludeFolder url="file://$MODULE_DIR$/res/webapp/EQSE/dist"/>
+		<excludeFolder url="file://$MODULE_DIR$/res/webapp/EQSE/tmp"/>
+		<excludeFolder url="file://$MODULE_DIR$/target"/>
+	</contentEntry>
+	<levels>
+		<level name="Maven: io.javalin:javalin:2.3.0" value="project"/>
+		<level name="Maven: org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.2.71" value="project"/>
+		<level name="Maven: org.jetbrains.kotlin:kotlin-stdlib:1.2.71" value="project"/>
+		<level name="Maven: org.jetbrains.kotlin:kotlin-stdlib-common:1.2.71" value="project"/>
+		<level name="Maven: org.jetbrains:annotations:13.0" value="project"/>
+		<level name="Maven: org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.2.71" value="project"/>
+		<level name="Maven: org.slf4j:slf4j-api:1.7.25" value="project"/>
+		<level name="Maven: org.eclipse.jetty:jetty-server:9.4.12.v20180830" value="project"/>
+		<level name="Maven: javax.servlet:javax.servlet-api:3.1.0" value="project"/>
+		<level name="Maven: org.eclipse.jetty:jetty-http:9.4.12.v20180830" value="project"/>
+		<level name="Maven: org.eclipse.jetty:jetty-util:9.4.12.v20180830" value="project"/>
+		<level name="Maven: org.eclipse.jetty:jetty-io:9.4.12.v20180830" value="project"/>
+		<level name="Maven: org.eclipse.jetty:jetty-webapp:9.4.12.v20180830" value="project"/>
+		<level name="Maven: org.eclipse.jetty:jetty-xml:9.4.12.v20180830" value="project"/>
+		<level name="Maven: org.eclipse.jetty:jetty-servlet:9.4.12.v20180830" value="project"/>
+		<level name="Maven: org.eclipse.jetty:jetty-security:9.4.12.v20180830" value="project"/>
+		<level name="Maven: org.eclipse.jetty.websocket:websocket-server:9.4.12.v20180830" value="project"/>
+		<level name="Maven: org.eclipse.jetty.websocket:websocket-common:9.4.12.v20180830" value="project"/>
+		<level name="Maven: org.eclipse.jetty.websocket:websocket-api:9.4.12.v20180830" value="project"/>
+		<level name="Maven: org.eclipse.jetty.websocket:websocket-client:9.4.12.v20180830" value="project"/>
+		<level name="Maven: org.eclipse.jetty:jetty-client:9.4.12.v20180830" value="project"/>
+		<level name="Maven: org.eclipse.jetty.websocket:websocket-servlet:9.4.12.v20180830" value="project"/>
+		<level name="Maven: org.jsoup:jsoup:1.8.3" value="project"/>
+		<level name="Maven: org.slf4j:slf4j-simple:1.7.25" value="project"/>
+		<level name="Maven: com.fasterxml.jackson.core:jackson-databind:2.9.6" value="project"/>
+		<level name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.9.0" value="project"/>
+		<level name="Maven: com.fasterxml.jackson.core:jackson-core:2.9.6" value="project"/>
+	</levels>
 </component>

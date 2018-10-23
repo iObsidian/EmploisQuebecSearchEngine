@@ -2,15 +2,19 @@
 
 <div class="container mb-5">
   <!-- Region selector : -->
-  <p-listbox [options]="regions" [(ngModel)]="selectedRegions" [style]="{'width':'400px'}" [listStyle]="{'max-height':'250px'}"
-    multiple="multiple" checkbox="checkbox" filter="filter" (onChange)="regionsChanged($event)" optionLabel="name" class="mr-2">
+  <p-listbox [options]="regions" [(ngModel)]="selectedRegions" [style]="{'width':'400px'}"
+             [listStyle]="{'max-height':'250px'}"
+             multiple="multiple" checkbox="checkbox" filter="filter" (onChange)="regionsChanged($event)"
+             optionLabel="name" class="mr-2">
     <p-header>Choisir une ou plusieurs région(s)</p-header>
   </p-listbox>
 
   <!-- City selector : -->
   <div *ngIf="selectedRegions?.length > 0">
-    <p-listbox [options]="cities" [(ngModel)]="selectedCities" [style]="{'width':'400px'}" [listStyle]="{'max-height':'250px'}"
-      multiple="multiple" checkbox="checkbox" filter="filter" (onChange)="citiesChanged($event)" optionLabel="name">
+    <p-listbox [options]="cities" [(ngModel)]="selectedCities" [style]="{'width':'400px'}"
+               [listStyle]="{'max-height':'250px'}"
+               multiple="multiple" checkbox="checkbox" filter="filter" (onChange)="citiesChanged($event)"
+               optionLabel="name">
       <p-header>Choisir une ou plusieurs ville(s)</p-header>
     </p-listbox>
 
@@ -52,23 +56,24 @@
     <div class="row justify-content-center features">
       <div *ngFor="let job of this.jobs | filter:searchTerm">
         <div class="separated">
-          <i class="fas fa-crosshairs">
-            <p-card title="{{job.nameOfTheJob}}" subtitle="{{job.employer}}" [style]="{width: '350px',  minHeight: '400px'}"
-              styleClass="ui-card-shadow">
-          </i>
-          <div class="description">
-            <p>
-              <i class="fas fa-users"></i> Position(s) : {{job.numberOfPositions}}</p>
-            <p>
-              <i class="fas fa-graduation-cap"></i> Éducation : {{job.education}}</p>
-            <p>
-              <i class="fas fa-chart-pie"></i> Année(s) d'éxperience(s) : {{job.yearsOfExperience}}</p>
-            <p>
-              <i class="fas fa-map-marker"></i> Position : {{job.workPlace}}</p>
-          </div>
-          <p-footer>
-            <a href="{{job.url}}" class="learn-more">Voir sur Emplois Québec»</a>
-          </p-footer>
+
+          <p-card title="{{job.nameOfTheJob}}" subtitle="{{job.employer}}"
+                  [style]="{width: '350px',  minHeight: '400px'}"
+                  styleClass="ui-card-shadow">
+            <i class="fas fa-crosshairs"></i>
+            <div class="description">
+              <p>
+                <i class="fas fa-users"></i> Position(s) : {{job.numberOfPositions}}</p>
+              <p>
+                <i class="fas fa-graduation-cap"></i> Éducation : {{job.education}}</p>
+              <p>
+                <i class="fas fa-chart-pie"></i> Année(s) d'éxperience(s) : {{job.yearsOfExperience}}</p>
+              <p>
+                <i class="fas fa-map-marker"></i> Position : {{job.workPlace}}</p>
+            </div>
+            <p-footer>
+              <a href="{{job.url}}" class="learn-more">Voir sur Emplois Québec»</a>
+            </p-footer>
           </p-card>
         </div>
       </div>
