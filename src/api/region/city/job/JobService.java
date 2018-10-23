@@ -7,8 +7,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import api.region.city.CityDTO;
-import util.StringUtil;
 import util.GetWebsite;
+import util.StringUtil;
 
 public class JobService {
 
