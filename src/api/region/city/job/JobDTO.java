@@ -40,7 +40,7 @@ public class JobDTO implements Serializable {
 
 	public void setUrl(String url) {
 		this.url = url;
-		this.setDetails(getDetails());
+		//this.setDetails(getDetails());
 	}
 
 	private String getDetails() {
