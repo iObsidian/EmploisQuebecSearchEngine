@@ -4,7 +4,7 @@
   <!-- Region selector : -->
   <p-listbox [options]="regions" [(ngModel)]="selectedRegions" [style]="{'width':'400px'}"
              [listStyle]="{'max-height':'250px'}"
-             multiple="multiple" checkbox="checkbox" filter="filter" (onChange)="regionsChanged($event)"
+             multiple="multiple" checkbox="checkbox" filter="filter" (onChange)="selectedRegionsChanged($event)"
              optionLabel="name" class="mr-2">
     <p-header>Choisir une ou plusieurs région(s)</p-header>
   </p-listbox>
@@ -13,12 +13,25 @@
   <div *ngIf="selectedRegions?.length > 0">
     <p-listbox [options]="cities" [(ngModel)]="selectedCities" [style]="{'width':'400px'}"
                [listStyle]="{'max-height':'250px'}"
-               multiple="multiple" checkbox="checkbox" filter="filter" (onChange)="citiesChanged($event)"
+               multiple="multiple" checkbox="checkbox" filter="filter" (onChange)="selectedCitiesChanged($event)"
                optionLabel="name">
       <p-header>Choisir une ou plusieurs ville(s)</p-header>
     </p-listbox>
-
   </div>
+
+
+  <!-- Education selector : -->
+  <div *ngIf="educations?.length > 0">
+    <p-listbox [options]="educations" [(ngModel)]="educations" [style]="{'width':'400px'}"
+               [listStyle]="{'max-height':'250px'}"
+               multiple="multiple" checkbox="checkbox" filter="filter" (onChange)="selectedEducationsChanged($event)"
+               optionLabel="name">
+      <p-header>Choisir une ou plusieurs ville(s)</p-header>
+    </p-listbox>
+  </div>
+
+
+
 </div>
 
 <!-- Debug -->
@@ -60,6 +73,7 @@
           <p-card title="{{job.nameOfTheJob}}" subtitle="{{job.employer}}"
                   [style]="{width: '350px',  minHeight: '400px'}"
                   styleClass="ui-card-shadow">
+
             <div class="description">
               <p>
                 <i class="fas fa-users"></i> Position(s) : {{job.numberOfPositions}}</p>
@@ -70,9 +84,11 @@
               <p>
                 <i class="fas fa-map-marker"></i> Position : {{job.workPlace}}</p>
             </div>
+
             <p-footer>
               <a href="{{job.url}}" class="learn-more">Voir sur Emplois Québec»</a>
             </p-footer>
+
           </p-card>
         </div>
       </div>

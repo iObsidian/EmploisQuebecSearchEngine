@@ -1,6 +1,9 @@
 package website;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import api.EmploiQuebecAPI;
 import api.region.RegionDTO;
@@ -13,7 +16,10 @@ public class RunEQSE {
 	private static EmploiQuebecAPI emploiQuebecAPI = new EmploiQuebecAPI();
 
 	public static void main(String[] args) {
+		new RunEQSE();
+	}
 
+	public RunEQSE() {
 		Javalin app = Javalin.create();
 
 		app.enableCorsForAllOrigins();
@@ -39,16 +45,42 @@ public class RunEQSE {
 		app.start();
 	}
 
-	public static List<RegionDTO> getRegions() {
-		return emploiQuebecAPI.getRegions();
+	/**
+	 * Regions
+	 */
+	List<RegionDTO> cachedRegions = new ArrayList<>();
+
+	public List<RegionDTO> getRegions() {
+		if (cachedRegions.isEmpty()) {
+			cachedRegions.addAll(emploiQuebecAPI.getRegions());
+		}
+
+		return cachedRegions;
 	}
 
-	public static List<CityDTO> getCities(String regionCode) {
-		return emploiQuebecAPI.getCities(new RegionDTO(regionCode));
+	/**
+	 * Cities
+	 */
+	Map<String, List<CityDTO>> cachedCities = new HashMap<>();
+
+	public List<CityDTO> getCities(String regionCode) {
+		if (cachedCities.get(regionCode) == null) {
+			cachedCities.put(regionCode, emploiQuebecAPI.getCities(new RegionDTO(regionCode)));
+		}
+		return cachedCities.get(regionCode);
 	}
 
-	public static List<JobDTO> getJobs(String cityUrl) {
-		return emploiQuebecAPI.getJobs(new CityDTO(cityUrl));
+	/**
+	 * Jobs
+	 */
+	Map<String, List<JobDTO>> cachedJobs = new HashMap<>();
+
+	public List<JobDTO> getJobs(String cityUrl) {
+		if (cachedJobs.get(cityUrl) == null) {
+			cachedJobs.put(cityUrl, emploiQuebecAPI.getJobs(new CityDTO(cityUrl)));
+		}
+
+		return cachedJobs.get(cityUrl);
 	}
 
 }

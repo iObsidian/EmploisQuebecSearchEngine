@@ -18,6 +18,7 @@ export class EQSEComponent {
   isLoading: boolean = false;
   loadingText: string;
 
+
   setLoading(isLoading: boolean, loadingText?: string) {
     this.isLoading = isLoading;
 
@@ -44,7 +45,7 @@ export class EQSEComponent {
   cities: CityDTO[] = [];
   selectedCities: CityDTO[] = [];
 
-  regionsChanged(event: any) {
+  selectedRegionsChanged(event: any) {
     console.log("Regions changed, loading cities...");
 
     this.setLoading(true, 'Chargement des villes...');
@@ -54,34 +55,23 @@ export class EQSEComponent {
       this.service.getCitiesForRegion(entry.code).subscribe(cities => {
         console.log('Received ' + cities.length + ' new Cities.');
         this.cities = [...this.cities, ...cities]; // push doesnt update
-
         this.setLoading(false);
       });
     }
   }
 
   jobs: JobDTO[];
-  selectedJobs: JobDTO[];
 
-  citiesChanged(event: any) {
+  selectedCitiesChanged(event: any) {
     this.setLoading(true, 'Chargement des emplois...');
 
     this.jobs = [];
     for (let entry of this.selectedCities) {
       this.service.getJobsForCity(entry.url).subscribe(jobs => {
         console.log('Received ' + jobs.length + ' new jobs.');
-        this.jobs = [...this.jobs, ...jobs]; // push doesnt update
-
+        this.receiveJobs(jobs);
         this.setLoading(false);
       });
-    }
-  }
-
-  getSubtitle() {
-    if (this.searchTerm.length > 0) {
-      return "offre(s) d'emplois dans " + this.getVilles();
-    } else {
-      return "offre(s) d'emplois trouvés dans " + this.getVilles() + ".";
     }
   }
 
@@ -95,4 +85,34 @@ export class EQSEComponent {
     }
   }
 
+  public selectedEducationsChanged(event: any) {
+
+  }
+
+  public selectedWorkplacesChanged(event: any) {
+
+  }
+
+
+  educations: string[] = [];
+  selectedEducations: string[] = [];
+
+  workplaces: string[] = [];
+  selectedWorkplaces: string[] = [];
+
+  private receiveJobs(jobs: JobDTO[]) {
+    this.jobs = [...this.jobs, ...jobs]; // Push all jobs
+
+    for (let job of jobs) { // Add types of educations
+      if (!this.educations.includes(job.education)) {
+        this.educations.push(job.education);
+      }
+    }
+
+    for (let job of jobs) { // Add types of workplaces
+      if (!this.workplaces.includes(job.workPlace)) {
+        this.workplaces.push(job.workPlace);
+      }
+    }
+  }
 }
