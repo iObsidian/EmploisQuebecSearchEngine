@@ -9,19 +9,19 @@ import {BrowserModule} from '@angular/platform-browser';
 import {HttpClientModule} from '@angular/common/http';
 import {EmploisQuebecAPI} from "./api/emplois-quebec-api";
 
-import { CommonModule } from "@angular/common";
+import {CommonModule} from "@angular/common";
 
 import {SelectButtonModule} from 'primeng/selectbutton';
 
 import {DataScrollerModule} from 'primeng/datascroller';
 
 import {ListboxModule} from 'primeng/listbox';
-import { FilterPipe } from './filter.pipe';
+import {FilterPipe} from './filter.pipe';
 
 import {CardModule} from 'primeng/card';
 
 import {ChipsModule} from 'primeng/chips';
-import { EQSEComponent } from './eqse/eqse.component';
+import {EQSEComponent} from './eqse/eqse.component';
 
 
 @NgModule({

@@ -18,20 +18,6 @@
       <p-header>Choisir une ou plusieurs ville(s)</p-header>
     </p-listbox>
   </div>
-
-
-  <!-- Education selector : -->
-  <div *ngIf="educations?.length > 0">
-    <p-listbox [options]="educations" [(ngModel)]="educations" [style]="{'width':'400px'}"
-               [listStyle]="{'max-height':'250px'}"
-               multiple="multiple" checkbox="checkbox" filter="filter" (onChange)="selectedEducationsChanged($event)"
-               optionLabel="name">
-      <p-header>Choisir une ou plusieurs ville(s)</p-header>
-    </p-listbox>
-  </div>
-
-
-
 </div>
 
 <!-- Debug -->

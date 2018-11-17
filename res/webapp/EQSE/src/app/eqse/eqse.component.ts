@@ -69,7 +69,7 @@ export class EQSEComponent {
     for (let entry of this.selectedCities) {
       this.service.getJobsForCity(entry.url).subscribe(jobs => {
         console.log('Received ' + jobs.length + ' new jobs.');
-        this.receiveJobs(jobs);
+        this.jobs = [...this.jobs, ...jobs]; // Push all jobs
         this.setLoading(false);
       });
     }
@@ -85,34 +85,4 @@ export class EQSEComponent {
     }
   }
 
-  public selectedEducationsChanged(event: any) {
-
-  }
-
-  public selectedWorkplacesChanged(event: any) {
-
-  }
-
-
-  educations: string[] = [];
-  selectedEducations: string[] = [];
-
-  workplaces: string[] = [];
-  selectedWorkplaces: string[] = [];
-
-  private receiveJobs(jobs: JobDTO[]) {
-    this.jobs = [...this.jobs, ...jobs]; // Push all jobs
-
-    for (let job of jobs) { // Add types of educations
-      if (!this.educations.includes(job.education)) {
-        this.educations.push(job.education);
-      }
-    }
-
-    for (let job of jobs) { // Add types of workplaces
-      if (!this.workplaces.includes(job.workPlace)) {
-        this.workplaces.push(job.workPlace);
-      }
-    }
-  }
 }

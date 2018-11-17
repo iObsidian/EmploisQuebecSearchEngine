@@ -26,8 +26,8 @@ public class RunEQSE {
 
 		StringBuilder explanation = new StringBuilder();
 		explanation.append("Bienvenue sur EmploisQuebecSearchEngine API!" + "\n\n");
-		explanation.append("Si vous souhaitez accedez à l'interface utilisateur, veuillez installer Angular CLI sur votre machine," + "\n");
-		explanation.append("puis utiliser la commande 'ng serve' dans le dossier 'webapp' de cette source." + "\n\n");
+		explanation.append("Si vous souhaitez accedez à l'interface utilisateur, veuillez installer Angular CLI sur votre machine" + "\n");
+		explanation.append("et utiliser la commande 'ng serve' dans le dossier 'webapp' de cette source." + "\n\n");
 		explanation.append("C'est tout! Visitez localhost:4200 sur votre machine pour voir le site local." + "\n");
 
 		app.get("/", ctx -> ctx.result(explanation.toString()));
@@ -40,7 +40,7 @@ public class RunEQSE {
 
 		app.get("/jobs/:city-url", ctx -> {
 			ctx.json(getJobs(ctx.pathParam("city-url"))); // Get all jobs for city
-		});
+		}); 
 
 		app.start();
 	}
