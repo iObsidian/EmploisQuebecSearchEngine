@@ -1,142 +1,119 @@
 package api.region.city.job;
 
+import util.StringUtil;
+
 import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
-import automaticPrune.Prune;
-import util.CapitalizeFirstLetter;
-import util.GetWebsite;
-
 public class JobDTO implements Serializable {
 
-	public String offerNumber;
-	public String url;
-	public String nameOfTheJob;
-	public String employer;
-	public String numberOfPositions;
-	public String education;
-	public String yearsOfExperience;
-	public String workPlace;
-	public String details;
+    private String offerNumber;
+    private String url;
+    private String nameOfTheJob;
+    private String employer;
+    private String numberOfPositions;
+    private String education;
+    private String yearsOfExperience;
+    private String workPlace;
+    private String details;
 
-	public void setDetails(String details) {
-		this.details = details;
-	}
+    public void setDetails(String details) {
+        this.details = details;
+    }
 
-	public String getOfferNumber() {
-		return offerNumber;
-	}
+    public String getOfferNumber() {
+        return offerNumber;
+    }
 
-	public void setOfferNumber(String offerNumber) {
-		this.offerNumber = offerNumber;
-	}
+    public void setOfferNumber(String offerNumber) {
+        this.offerNumber = offerNumber;
+    }
 
-	public String getUrl() {
-		return url;
-	}
+    public String getUrl() {
+        return url;
+    }
 
-	public void setUrl(String url) {
-		this.url = url;
-		//this.setDetails(getDetails());
-	}
+    public void setUrl(String url) {
+        this.url = url;
+        //this.setDetails(getDetails());
+    }
 
-	private String getDetails() {
-		StringBuilder result = new StringBuilder();
-		boolean isIn = false;
+    public String getNameOfTheJob() {
+        return nameOfTheJob;
+    }
 
-		for (String s : GetWebsite.getWebsiteAsStringList(this.url)) {
-			if (s.contains("<form name")) {
-				isIn = true;
-			} else if (s.contains("</form>")) {
-				isIn = false;
-				break;
-			}
+    public void setNameOfTheJob(String nameOfTheJob) {
+        this.nameOfTheJob = StringUtil.capitalizeFirstLetter(nameOfTheJob);
+    }
 
-			if (isIn) {
-				result.append(s);
-			}
+    public String getEmployer() {
+        return employer;
+    }
 
-		}
+    public void setEmployer(String employer) {
+        this.employer = employer;
+    }
 
-		return result.toString();
-	}
+    public String getNumberOfPositions() {
+        return numberOfPositions;
+    }
 
-	public String getNameOfTheJob() {
-		return nameOfTheJob;
-	}
+    public void setNumberOfPositions(String numberOfPositions) {
+        this.numberOfPositions = numberOfPositions;
+    }
 
-	public void setNameOfTheJob(String nameOfTheJob) {
-		this.nameOfTheJob = CapitalizeFirstLetter.capitalizeFirstLetter(nameOfTheJob);
-	}
+    public String getEducation() {
+        return education;
+    }
 
-	public String getEmployer() {
-		return employer;
-	}
+    public void setEducation(String education) {
+        this.education = education;
+    }
 
-	public void setEmployer(String employer) {
-		this.employer = employer;
-	}
+    public String getYearsOfExperience() {
+        return yearsOfExperience;
+    }
 
-	public String getNumberOfPositions() {
-		return numberOfPositions;
-	}
+    public void setYearsOfExperience(String yearsOfExperience) {
+        this.yearsOfExperience = yearsOfExperience;
+    }
 
-	public void setNumberOfPositions(String numberOfPositions) {
-		this.numberOfPositions = numberOfPositions;
-	}
+    public String getWorkPlace() {
+        return workPlace;
+    }
 
-	public String getEducation() {
-		return education;
-	}
+    public void setWorkPlace(String workPlace) {
+        this.workPlace = workPlace;
+    }
 
-	public void setEducation(String education) {
-		this.education = education;
-	}
+    public List<String> getValues() {
 
-	public String getYearsOfExperience() {
-		return yearsOfExperience;
-	}
+        List<String> values = new ArrayList<String>();
 
-	public void setYearsOfExperience(String yearsOfExperience) {
-		this.yearsOfExperience = yearsOfExperience;
-	}
+        for (Field f : this.getClass().getFields()) {
 
-	public String getWorkPlace() {
-		return workPlace;
-	}
+            Object value = null;
+            try {
+                value = f.get(this);
+            } catch (IllegalArgumentException | IllegalAccessException e) {
+                e.printStackTrace();
+            }
 
-	public void setWorkPlace(String workPlace) {
-		this.workPlace = workPlace;
-	}
+            if (value != null && value instanceof String) {
+                values.add((String) value);
+            }
 
-	public List<String> getValues() {
+        }
 
-		List<String> values = new ArrayList<String>();
+        return values;
+    }
 
-		for (Field f : this.getClass().getFields()) {
-
-			Object value = null;
-			try {
-				value = f.get(this);
-			} catch (IllegalArgumentException | IllegalAccessException e) {
-				e.printStackTrace();
-			}
-
-			if (value != null && value instanceof String) {
-				values.add((String) value);
-			}
-
-		}
-
-		return values;
-	}
-
-	@Override
-	public String toString() {
-		return "Job{" + "offerNumber='" + offerNumber + '\'' + ", url='" + url + '\'' + ", nameOfTheJob='" + nameOfTheJob + '\'' + ", employer='" + employer + '\'' + ", numberOfPositions='"
-				+ numberOfPositions + '\'' + ", education='" + education + '\'' + ", yearsOfExperience='" + yearsOfExperience + '\'' + ", workPlace='" + workPlace + '\'' + '}';
-	}
+    @Override
+    public String toString() {
+        return "Job{" + "offerNumber='" + offerNumber + '\'' + ", url='" + url + '\'' + ", nameOfTheJob='" + nameOfTheJob + '\'' + ", employer='" + employer + '\'' + ", numberOfPositions='"
+                + numberOfPositions + '\'' + ", education='" + education + '\'' + ", yearsOfExperience='" + yearsOfExperience + '\'' + ", workPlace='" + workPlace + '\'' + '}';
+    }
 
 }

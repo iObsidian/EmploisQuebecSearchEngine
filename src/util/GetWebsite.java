@@ -10,29 +10,29 @@ import java.util.List;
 
 public class GetWebsite {
 
-	public static List<String> getWebsiteAsStringList(String pageUrl) {
+    public static List<String> getWebsiteAsStringList(String pageUrl) {
 
-		List<String> result = new ArrayList<>();
+        List<String> result = new ArrayList<>();
 
-		try {
-			URL url;
-			url = new URL(pageUrl);
+        try {
+            URL url;
+            url = new URL(pageUrl);
 
-			BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
+            BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
 
-			String inputLine;
-			while ((inputLine = in.readLine()) != null)
-				result.add(inputLine);
-			in.close();
+            String inputLine;
+            while ((inputLine = in.readLine()) != null)
+                result.add(inputLine);
+            in.close();
 
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-		return result;
+        return result;
 
-	}
+    }
 
 }

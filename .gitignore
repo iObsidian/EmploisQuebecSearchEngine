@@ -1,2 +1,18 @@
 
 *.class
+*.class
+target/classes/api/EmploiQuebecAPI.class
+target/classes/api/region/city/CityDTO.class
+target/classes/api/region/city/CityService.class
+target/classes/api/region/city/job/JobDTO.class
+target/classes/api/region/city/job/JobPageService.class
+target/classes/api/region/city/job/JobService.class
+target/classes/api/region/RegionDTO.class
+target/classes/api/region/RegionService.class
+target/classes/automaticPrune/Prune.class
+target/classes/automaticPrune/ReflectionValuePruner.class
+target/classes/util/CapitalizeFirstLetter.class
+target/classes/util/GetWebsite.class
+target/classes/util/LevenshteinDistance.class
+target/classes/website/RunEQSE.class
+target/classes/website/Valdor.class
