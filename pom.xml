@@ -5,7 +5,19 @@
 	<groupId>EmploisQuebecSearchEngine</groupId>
 	<artifactId>EmploisQuebecSearchEngine</artifactId>
 	<version>0.0.2</version>
-	<dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>7</source>
+                    <target>7</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+    <dependencies>
 
 		<dependency>
 			<groupId>io.javalin</groupId>

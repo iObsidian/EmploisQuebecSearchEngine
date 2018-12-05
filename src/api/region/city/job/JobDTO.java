@@ -18,7 +18,6 @@ public class JobDTO implements Serializable {
 	public String numberOfPositions;
 	public String education;
 	public String yearsOfExperience;
-	@Prune
 	public String workPlace;
 	public String details;
 
