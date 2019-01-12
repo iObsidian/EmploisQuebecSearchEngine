@@ -46,7 +46,7 @@ public class JobService {
                 }
 
                 if (s.contains(JOB_END)) {
-                    currentJob.setUrl(pageUrl);
+
 
                     if (!currentJob.getEmployer().contains("Invalid")) {
                         jobs.add(currentJob);

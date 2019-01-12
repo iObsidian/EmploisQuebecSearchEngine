@@ -9,13 +9,15 @@ import api.region.city.job.JobService;
 
 import java.util.List;
 
-public class EmploiQuebecAPI {
+public class EmploisQuebecAPI {
 
     private RegionService regionService;
     private CityService cityService;
     private JobService jobService;
 
-    public EmploiQuebecAPI() {
+    public EmploisQuebecAPI() {
+        System.out.println("Launching EmploisQuebecAPI");
+
         jobService = new JobService();
         cityService = new CityService();
         regionService = new RegionService();

@@ -1,9 +1,14 @@
-import api.EmploiQuebecAPI;
+import api.EmploisQuebecAPI;
 import api.region.RegionDTO;
 import api.region.city.CityDTO;
 import api.region.city.job.JobDTO;
+import browser.EmbeddedBrowser;
 import io.javalin.Javalin;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -11,7 +16,7 @@ import java.util.Map;
 
 public class RunEQSE {
 
-    private static EmploiQuebecAPI emploiQuebecAPI = new EmploiQuebecAPI();
+    private static EmploisQuebecAPI emploisQuebecAPI = new EmploisQuebecAPI();
 
     public static void main(String[] args) {
         new RunEQSE();
@@ -39,6 +44,45 @@ public class RunEQSE {
         });
 
         app.start();
+
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        EmbeddedBrowser.main(new String[]{"http://localhost:4200/"});
+
+    }
+
+    private void runAngular() {
+        String s = null;
+
+        try {
+
+            String currentDirectory = new File(".").getCanonicalPath() + "\\res\\webapp\\EQSE";
+
+            ProcessBuilder pb = new ProcessBuilder("ng", "serve");
+            pb.directory(new File(currentDirectory));
+            Process p = pb.start();
+
+            BufferedReader stdInput = new BufferedReader(new InputStreamReader(p.getInputStream()));
+            BufferedReader stdError = new BufferedReader(new InputStreamReader(p.getErrorStream()));
+
+            while ((s = stdInput.readLine()) != null) {
+                System.out.println(s);
+            }
+
+            while ((s = stdError.readLine()) != null) {
+                System.out.println(s);
+            }
+
+            System.exit(0);
+        } catch (IOException e) {
+            System.out.println("exception happened - here's what I know: ");
+            e.printStackTrace();
+            System.exit(-1);
+        }
     }
 
     /**
@@ -48,7 +92,7 @@ public class RunEQSE {
 
     private List<RegionDTO> getRegions() {
         if (cachedRegions.isEmpty()) {
-            cachedRegions.addAll(emploiQuebecAPI.getRegions());
+            cachedRegions.addAll(emploisQuebecAPI.getRegions());
         }
 
         return cachedRegions;
@@ -61,7 +105,7 @@ public class RunEQSE {
 
     private List<CityDTO> getCities(String regionCode) {
         if (cachedCities.get(regionCode) == null) {
-            cachedCities.put(regionCode, emploiQuebecAPI.getCities(new RegionDTO(regionCode)));
+            cachedCities.put(regionCode, emploisQuebecAPI.getCities(new RegionDTO(regionCode)));
         }
         return cachedCities.get(regionCode);
     }
@@ -73,7 +117,7 @@ public class RunEQSE {
 
     private List<JobDTO> getJobs(String cityUrl) {
         if (cachedJobs.get(cityUrl) == null) {
-            cachedJobs.put(cityUrl, emploiQuebecAPI.getJobs(new CityDTO(cityUrl)));
+            cachedJobs.put(cityUrl, emploisQuebecAPI.getJobs(new CityDTO(cityUrl)));
         }
 
         return cachedJobs.get(cityUrl);

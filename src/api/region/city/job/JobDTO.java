@@ -101,7 +101,7 @@ public class JobDTO implements Serializable {
                 e.printStackTrace();
             }
 
-            if (value != null && value instanceof String) {
+            if (value instanceof String) {
                 values.add((String) value);
             }
 
