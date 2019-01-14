@@ -1,0 +1,14 @@
+<web-app xmlns="http://java.sun.com/xml/ns/javaee" version="2.5">
+
+  <display-name>app.Main App</display-name>
+
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+  </welcome-file-list>
+
+  <mime-mapping>
+    <extension>json</extension>
+    <mime-type>text/html</mime-type>
+  </mime-mapping>
+
+</web-app>

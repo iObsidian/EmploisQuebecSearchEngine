@@ -1,3 +1,3 @@
-cd res/webapp/EQSE
+cd res/webapp/app.EQSE
 ng serve
 pause

@@ -2,12 +2,12 @@
 
 Outils de recherche pour 'Emplois Québec' et leur système de placement en ligne.
 
-Comment utiliser : 
+Search utility for 'Emplois Québec' and their online job postings.
 
-Ouvrir 'ng serve' in EmploisQuebecSearchEngine\src\webapp\EQSE
+------
 
-Ouvrir 'Request.java'
 
-Ouvrir localhost:4200
+Run **src.app.Main**.
+
 
 ![New version](https://i.imgur.com/ulcJ357.png "New version")
