@@ -16,19 +16,23 @@ import {SelectButtonModule} from 'primeng/selectbutton';
 import {DataScrollerModule} from 'primeng/datascroller';
 
 import {ListboxModule} from 'primeng/listbox';
-import {FilterPipe} from './filter.pipe';
+import {KeywordFilterPipe} from './keyword-filter.pipe';
 
 import {CardModule} from 'primeng/card';
 
 import {ChipsModule} from 'primeng/chips';
 import {EQSEComponent} from './eqse/eqse.component';
 
+import {SliderModule} from 'primeng/slider';
+import {EducationLevelFilterPipe} from "./education-level-filter.pipe";
+
 
 @NgModule({
   declarations: [
     AppComponent,
     EQSEComponent,
-    FilterPipe
+    KeywordFilterPipe,
+    EducationLevelFilterPipe
   ],
   imports: [
     BrowserModule,
@@ -43,7 +47,8 @@ import {EQSEComponent} from './eqse/eqse.component';
     CommonModule,
     DataScrollerModule,
     ChipsModule,
-    CardModule
+    CardModule,
+    SliderModule
   ],
   providers: [
     EmploisQuebecAPI,

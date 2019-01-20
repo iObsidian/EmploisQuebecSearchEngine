@@ -7,6 +7,7 @@ import java.util.List;
 
 public class StringUtil {
 
+    //TODO fix, this method should return the content
     public static List<String> getStringsBetween(List<String> f, String start, String end) {
 
         List<String> content = new ArrayList<String>();

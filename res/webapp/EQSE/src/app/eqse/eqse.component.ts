@@ -11,14 +11,35 @@ import {JobDTO} from "../model/JobDTO";
 })
 export class EQSEComponent {
 
-  debug: boolean = false;
+  debug: boolean = true;
 
   searchTerm: string[] = [];
 
   isLoading: boolean = false;
   loadingText: string;
 
+  constructor(public service: EmploisQuebecAPI) {
+    this.loadRegions();
+  }
 
+  private loadRegions() {
+    this.setLoading(true, 'Chargement des régions...');
+
+    this.service.getRegions().subscribe(regions => {
+      this.setLoading(false);
+
+      console.log('Received ' + regions.length + ' new cities.');
+
+      for (let region of regions) {
+        console.log(region)
+      }
+
+
+      this.regions = regions
+    });
+  }
+
+  // Set loading status. If true, displays a loading icon with informative text.
   setLoading(isLoading: boolean, loadingText?: string) {
     this.isLoading = isLoading;
 
@@ -30,21 +51,6 @@ export class EQSEComponent {
   regions: RegionDTO[] = [];
   selectedRegions: RegionDTO[] = [];
 
-  constructor(public service: EmploisQuebecAPI) {
-
-    this.setLoading(true, 'Chargement des régions...');
-
-    this.service.getRegions().subscribe(regions => {
-      this.setLoading(false);
-
-      console.log('Received ' + regions.length + ' new Cities.');
-      this.regions = regions
-    });
-  }
-
-  cities: CityDTO[] = [];
-  selectedCities: CityDTO[] = [];
-
   selectedRegionsChanged(event: any) {
     console.log("Regions changed, loading cities...");
 
@@ -53,12 +59,15 @@ export class EQSEComponent {
 
     for (let entry of this.selectedRegions) {
       this.service.getCitiesForRegion(entry.code).subscribe(cities => {
-        console.log('Received ' + cities.length + ' new Cities.');
-        this.cities = [...this.cities, ...cities]; // push doesnt update
+        console.log('Received ' + cities.length + ' new regions.');
+        this.cities = [...this.cities, ...cities]; // use this instead of "push" since it doesn't update
         this.setLoading(false);
       });
     }
   }
+
+  cities: CityDTO[] = [];
+  selectedCities: CityDTO[] = [];
 
   jobs: JobDTO[];
 
@@ -75,6 +84,16 @@ export class EQSEComponent {
     }
   }
 
+  selectedSchoolLevel: string[] = [];
+
+  selectedSchoolLevelChanged(event: any) {
+    this.setLoading(true, 'Changement du niveau de job...');
+
+    console.log('Loaded');
+
+  }
+
+
   getVilles(): string {
     if (this.selectedCities.length == 0) {
       return 'aucun endroit';
@@ -84,5 +103,6 @@ export class EQSEComponent {
       return this.selectedCities.length + ' villes';
     }
   }
+
 
 }

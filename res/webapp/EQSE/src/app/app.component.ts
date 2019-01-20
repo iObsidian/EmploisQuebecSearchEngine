@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {FilterPipe} from "./filter.pipe";
+import {KeywordFilterPipe} from "./keyword-filter.pipe";
 
 @Component({
   selector: 'app-root',

@@ -2,14 +2,14 @@ import {Pipe, PipeTransform} from '@angular/core';
 import {JobDTO} from "./model/JobDTO";
 
 @Pipe({
-  name: 'filter'
+  name: 'keywordFilter'
 })
-export class FilterPipe implements PipeTransform {
+export class KeywordFilterPipe implements PipeTransform {
 
   transform(jobs: JobDTO[], searchTerms: string[]): any {
-    //check if searchTerm is undefined
+
     if (!searchTerms) {
-      console.log("Returned")
+      console.log("No search terms...");
       return jobs;
     }
 
@@ -20,23 +20,19 @@ export class FilterPipe implements PipeTransform {
         return true;
       }
 
-      var match = false;
+      let match = false;
 
       for (let s of searchTerms) {
         if (!job.nameOfTheJob || !job.employer) {
           return true;
         } else {
-
-          var nameMatch = job.nameOfTheJob.toLowerCase().includes(s.toLowerCase());
-          var employerMatch = job.employer.toLowerCase().includes(s.toLowerCase());
-
-          match = nameMatch || employerMatch;
+          match = job.nameOfTheJob.toLowerCase().includes(s.toLowerCase()) || job.employer.toLowerCase().includes(s.toLowerCase());
         }
       }
 
       return match;
 
-    })
+    });
   }
 
 }

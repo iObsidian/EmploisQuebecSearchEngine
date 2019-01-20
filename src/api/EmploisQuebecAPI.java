@@ -19,21 +19,19 @@ public class EmploisQuebecAPI {
     private JobService jobService;
 
     public EmploisQuebecAPI() {
-        System.out.println("Launching EmploisQuebecAPI");
+        System.out.println("Launching EmploisQuebecAPI...");
 
         jobService = new JobService();
         cityService = new CityService();
         regionService = new RegionService();
     }
 
-
-
     /**
      * Regions
      */
-    public java.util.List<RegionDTO> cachedRegions = new ArrayList<>();
+    public List<RegionDTO> cachedRegions = new ArrayList<>();
 
-    public java.util.List<RegionDTO> getCachedRegions() {
+    public List<RegionDTO> getCachedRegions() {
         System.out.println("Received request...");
 
         if (cachedRegions.isEmpty()) {
@@ -48,7 +46,7 @@ public class EmploisQuebecAPI {
      */
     public Map<String, List<CityDTO>> cachedCities = new HashMap<>();
 
-    public java.util.List<CityDTO> getCachedCities(String regionCode) {
+    public List<CityDTO> getCachedCities(String regionCode) {
         System.out.println("Received request...");
 
         if (cachedCities.get(regionCode) == null) {
@@ -60,7 +58,7 @@ public class EmploisQuebecAPI {
     /**
      * Jobs
      */
-    public Map<String, java.util.List<JobDTO>> cachedJobs = new HashMap<>();
+    public Map<String, List<JobDTO>> cachedJobs = new HashMap<>();
 
     public List<JobDTO> getCachedJobs(String cityUrl) {
         System.out.println("Received request...");
@@ -71,10 +69,6 @@ public class EmploisQuebecAPI {
 
         return cachedJobs.get(cityUrl);
     }
-
-
-
-
 
     private List<RegionDTO> getRegions() {
         return regionService.getRegions();

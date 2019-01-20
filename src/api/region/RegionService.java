@@ -39,6 +39,10 @@ public class RegionService {
             }
         }
 
+        for (RegionDTO region : regions) {
+            System.out.println(region.toString());
+        }
+
         return regions;
 
     }

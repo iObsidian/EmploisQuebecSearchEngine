@@ -1,6 +1,9 @@
 <!-- Selectors -->
 
 <div class="container mb-5">
+
+  <!-- Education level selector -->
+
   <!-- Region selector : -->
   <p-listbox [options]="regions" [(ngModel)]="selectedRegions" [style]="{'width':'400px'}"
              [listStyle]="{'max-height':'250px'}"
@@ -18,17 +21,18 @@
       <p-header>Choisir une ou plusieurs ville(s)</p-header>
     </p-listbox>
   </div>
+
 </div>
 
 <!-- Debug -->
 
 <div *ngIf="debug">
-  <br>
-  <p>Villes : {{cities.length}}, {{selectedCities.length}} sélectionné(s).</p>
-  <p>Régions : {{regions.length}}, {{selectedRegions.length}} sélectionné(s).</p>
-
-  <p>Jobs : {{jobs?.length}}</p>
+  Niveau d'éducation sélectioné : <span *ngFor="let level of selectedSchoolLevel">{{level}}</span>
+  <p>{{cities.length}} ville(s), {{selectedCities.length}} sélectionné(s).</p>
+  <p>{{regions.length}} région(s), {{selectedRegions.length}} sélectionné(s).</p>
+  <p>{{jobs?.length}} job(s).</p>
 </div>
+
 
 <div *ngIf="jobs?.length > 0">
 
@@ -39,9 +43,25 @@
       <label for="filter">Mot clefs</label>
       <p-chips [(ngModel)]="searchTerm" name="searchTerm" [style]="{width: '600px'}"></p-chips>
     </form>
+
+
+    <div class="ui-g" style="width:250px;margin-bottom:10px">
+      <div class="ui-g-12"><p-checkbox name="group2" value="Secondaire" label="Secondaire" [(ngModel)]="selectedSchoolLevel" inputId="technology" (onChange)="selectedSchoolLevelChanged($event)"></p-checkbox></div>
+      <div class="ui-g-12"><p-checkbox name="group2" value="Collégial" label="Collégial" [(ngModel)]="selectedSchoolLevel" inputId="finance" (onChange)="selectedCitiesChanged($event)"></p-checkbox></div>
+      <div class="ui-g-12"><p-checkbox name="group2" value="Universitaire" label="Universitaire" [(ngModel)]="selectedSchoolLevel" inputId="sports" (onChange)="selectedCitiesChanged($event)"></p-checkbox></div>
+    </div>
+
+
   </div>
 
+
+
+
   <br>
+
+
+  <br>
+
 
   <!-- Jobs -->
 
@@ -49,11 +69,11 @@
     <!--<div class="container">-->
     <div class="intro">
       <h2 class="text-center">Emplois</h2>
-      <p class="text-center">{{(jobs|filter:searchTerm).length}} offre(s) d'emplois dans {{getVilles()}}.</p>
+      <p class="text-center">{{(jobs|keywordFilter:searchTerm|educationFilter:selectedSchoolLevel).length}} offre(s) d'emplois dans {{getVilles()}}.</p>
     </div>
 
     <div class="row justify-content-center features">
-      <div *ngFor="let job of this.jobs | filter:searchTerm">
+      <div *ngFor="let job of this.jobs | keywordFilter:searchTerm | educationFilter:selectedSchoolLevel">
         <div class="separated">
 
           <p-card title="{{job.nameOfTheJob}}" subtitle="{{job.employer}}"
@@ -68,13 +88,13 @@
               <p>
                 <i class="fas fa-chart-pie"></i> Année(s) d'éxperience(s) : {{job.yearsOfExperience}}</p>
               <p>
-                <i class="fas fa-map-marker"></i> Position : {{job.workPlace}}</p>
+                <i class="fas fa-map-marker"></i> Position : {{job.workPlace}}
+              </p>
             </div>
 
             <p-footer>
               <a href="{{job.url}}" class="learn-more">Voir sur Emplois Québec»</a>
             </p-footer>
-
           </p-card>
         </div>
       </div>

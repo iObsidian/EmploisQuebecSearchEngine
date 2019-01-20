@@ -1,35 +1,93 @@
 package app;
 
 import api.EmploisQuebecAPI;
+import com.sun.javafx.webkit.WebConsoleListener;
 import io.javalin.Javalin;
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.TextField;
+import javafx.scene.input.MouseButton;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.web.WebView;
+import javafx.stage.Stage;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.webapp.WebAppContext;
 
 public class Main {
+
+    private final boolean DEBUG = true; // Run Angular (ng serve) as development (allows hot reload)
 
     public static void main(String[] args) {
         new Main();
     }
 
     Main() {
-        int port = 8080;
+        if (!DEBUG) {
+            new Thread(this::serveCompiledAngularApp).start();
+        }
 
-        new Thread(this::startAPI).start();
-
-        new Thread(() -> serveAngularApp(port)).start();
-
-        WebBrowser.main(null);
-
+        new Thread(this::startEQSE).start();
+        new Thread(this::showBrowser).start();
     }
 
+    public static class WebBrowser extends Application {
+        @Override
+        public void start(Stage primaryStage) throws Exception {
 
-    public void startAPI() {
+            // Allows the app to communicate to the API (Javalin)
+            System.setProperty("sun.net.http.allowRestrictedHeaders", "true");
+
+            String START_URL = "http://localhost:4200/";
+            TextField locationField = new TextField(START_URL);
+            WebView webView = new WebView();
+            webView.getEngine().load(START_URL);
+
+            webView.setContextMenuEnabled(false);
+
+            ContextMenu contextMenu = new ContextMenu();
+            MenuItem reload = new MenuItem("Reload");
+            reload.setOnAction(e -> webView.getEngine().reload());
+            MenuItem savePage = new MenuItem("Save Page");
+            savePage.setOnAction(e -> System.out.println("Save page..."));
+            MenuItem hideImages = new MenuItem("Hide Images");
+            hideImages.setOnAction(e -> System.out.println("Hide Images..."));
+            contextMenu.getItems().addAll(reload, savePage, hideImages);
+
+            webView.setOnMousePressed(e -> {
+                if (e.getButton() == MouseButton.SECONDARY) {
+                    contextMenu.show(webView, e.getScreenX(), e.getScreenY());
+                } else {
+                    contextMenu.hide();
+                }
+            });
+
+            locationField.setOnAction(e -> {
+                webView.getEngine().load(locationField.getText());
+            });
+
+            BorderPane root = new BorderPane(webView, locationField, null, null, null);
+            primaryStage.setScene(new Scene(root, 800, 800));
+            primaryStage.setTitle("app.EQSE");
+            primaryStage.show();
+
+            WebConsoleListener.setDefaultListener((wv, message, lineNumber, sourceId) -> {
+                System.out.println("[Embedded Browser] : " + message + "[at " + lineNumber + "]");
+            });
+
+        }
+    }
+
+    public void showBrowser() {
+        Application.launch(WebBrowser.class, null);
+    }
+
+    public void startEQSE() {
 
         EmploisQuebecAPI emploisQuebecAPI = new EmploisQuebecAPI();
 
         Javalin app = Javalin.create();
-
-        app.port(8080);
 
         app.enableCorsForAllOrigins();
 
@@ -59,12 +117,12 @@ public class Main {
 
     }
 
-    public void serveAngularApp(int port) {
+    public void serveCompiledAngularApp() {
         try {
             // The simple Jetty config here will serve static content from the webapp directory
-            String webappDirLocation = "res/webapp/app.EQSE/dist";
+            String webappDirLocation = "res/webapp/EQSE/dist";
 
-            Server server = new Server(port);
+            Server server = new Server(4200);
 
             WebAppContext webapp = new WebAppContext();
             webapp.setContextPath("/");
@@ -78,7 +136,6 @@ public class Main {
             e.printStackTrace();
         }
     }
-
 
 }
 

@@ -2,29 +2,21 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d2597b0a-edca-4213-8381-c2f954c024ff" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_code_gson_gson_2_2_4.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_sparkjava_spark_core_2_0_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_mongodb_mongo_java_driver_2_11_3.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/webapp/EQSE/WEB-INF/web.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/Main.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/WebBrowser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.classpath" beforeDir="false" afterPath="$PROJECT_DIR$/.classpath" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_slf4j_slf4j_simple_1_7_25.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_slf4j_slf4j_simple_1_7_5.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/webapp/EQSE/src/app/education-level-filter.pipe.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/EmploisQuebecSearchEngine.eml" beforeDir="false" afterPath="$PROJECT_DIR$/EmploisQuebecSearchEngine.eml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/webapp/EQSE/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/res/webapp/EQSE/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/webapp/EQSE/karma.conf.js" beforeDir="false" afterPath="$PROJECT_DIR$/res/webapp/EQSE/karma.conf.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/webapp/EQSE/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/res/webapp/EQSE/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/webapp/EQSE/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/res/webapp/EQSE/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/webapp/EQSE/src/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/res/webapp/EQSE/src/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/webapp/EQSE/src/polyfills.ts" beforeDir="false" afterPath="$PROJECT_DIR$/res/webapp/EQSE/src/polyfills.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runAngularWebapp.bat" beforeDir="false" afterPath="$PROJECT_DIR$/runAngularWebapp.bat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/RunEQSE.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EmploisQuebecSearchEngine.iml" beforeDir="false" afterPath="$PROJECT_DIR$/EmploisQuebecSearchEngine.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/webapp/EQSE/src/app/app.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/res/webapp/EQSE/src/app/app.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/webapp/EQSE/src/app/app.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/res/webapp/EQSE/src/app/app.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/webapp/EQSE/src/app/eqse/eqse.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/res/webapp/EQSE/src/app/eqse/eqse.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/webapp/EQSE/src/app/eqse/eqse.html" beforeDir="false" afterPath="$PROJECT_DIR$/res/webapp/EQSE/src/app/eqse/eqse.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/webapp/EQSE/src/app/filter.pipe.ts" beforeDir="false" afterPath="$PROJECT_DIR$/res/webapp/EQSE/src/app/keyword-filter.pipe.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/api/EmploisQuebecAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/EmploisQuebecAPI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/browser/EmbeddedBrowser.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/api/region/RegionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/region/RegionService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/WebBrowser.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/util/GetWebsite.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/util/GetWebsite.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/util/StringUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/util/StringUtil.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/util/GetWebsite.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/util/GetWebsite.class" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
@@ -41,36 +33,45 @@
     <session id="-2142763657">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="4" />
-          <entry key="project.open.time.1" value="1" />
-          <entry key="project.open.time.12" value="1" />
+          <entry key="project.closed" value="7" />
+          <entry key="project.open.time.1" value="2" />
+          <entry key="project.open.time.10" value="1" />
+          <entry key="project.open.time.12" value="2" />
           <entry key="project.open.time.13" value="1" />
           <entry key="project.open.time.16" value="1" />
           <entry key="project.open.time.17" value="1" />
+          <entry key="project.open.time.2" value="1" />
           <entry key="project.open.time.26" value="1" />
+          <entry key="project.open.time.30" value="1" />
           <entry key="project.open.time.7" value="1" />
-          <entry key="project.opened" value="7" />
+          <entry key="project.opened" value="12" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.js.language.service.starts">
         <counts>
-          <entry key="Angular2LanguageService" value="1" />
+          <entry key="Angular2LanguageService" value="5" />
           <entry key="TypeScriptServerServiceImpl" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="CLASS" value="1" />
+          <entry key="CLASS" value="2" />
+          <entry key="CSS" value="1" />
           <entry key="Font" value="1" />
-          <entry key="HTML" value="1" />
-          <entry key="JAVA" value="26" />
-          <entry key="XML" value="3" />
+          <entry key="HTML" value="5" />
+          <entry key="JAVA" value="44" />
+          <entry key="Markdown" value="1" />
+          <entry key="TypeScript" value="15" />
+          <entry key="XML" value="4" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="2046" />
+          <entry key="HTML" value="505" />
+          <entry key="JAVA" value="2989" />
+          <entry key="Markdown" value="172" />
           <entry key="PLAIN_TEXT" value="7" />
+          <entry key="TypeScript" value="1207" />
           <entry key="XML" value="29" />
         </counts>
       </usages-collector>
@@ -78,64 +79,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/app/Main.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="240">
-              <caret line="31" column="21" selection-start-line="31" selection-start-column="21" selection-end-line="31" selection-end-column="21" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/util/GetWebsite.java">
+        <entry file="file://$PROJECT_DIR$/src/api/region/RegionService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="16" column="20" lean-forward="true" selection-start-line="16" selection-start-column="20" selection-end-line="16" selection-end-column="20" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/app/WebBrowser.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="34" lean-forward="true" selection-start-line="34" selection-end-line="34" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#535#536#0" expanded="true" />
-                <element signature="e#593#594#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="jar://C:/Program Files/Java/jdk1.8.0_191/javafx-src.zip!/javafx/application/Application.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-125">
-              <caret line="222" column="23" selection-start-line="222" selection-start-column="23" selection-end-line="222" selection-end-column="23" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/res/webapp/EQSE/dist/index.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret column="13" selection-start-column="13" selection-end-column="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/pom.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="15" column="32" selection-start-line="15" selection-start-column="32" selection-end-line="15" selection-end-column="32" />
+            <state relative-caret-position="170">
+              <caret line="25" column="49" selection-start-line="25" selection-start-column="49" selection-end-line="25" selection-end-column="49" />
             </state>
           </provider>
         </entry>
@@ -143,22 +91,84 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/util/StringUtil.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="527">
-              <caret line="34" selection-start-line="34" selection-end-line="34" />
+            <state relative-caret-position="405">
+              <caret line="53" column="25" selection-start-line="53" selection-start-column="25" selection-end-line="53" selection-end-column="25" />
+              <folding>
+                <element signature="e#1443#1444#0" expanded="true" />
+                <element signature="e#1490#1491#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/util/GetWebsite.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="238">
+              <caret line="32" column="60" selection-start-line="32" selection-start-column="60" selection-end-line="32" selection-end-column="60" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/res/webapp/EQSE/src/app/app.component.html">
-          <provider selected="true" editor-type-id="text-editor" />
+        <entry file="jar://C:/Program Files/Java/jdk1.8.0_191/src.zip!/java/net/URLConnection.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="411">
+              <caret line="1096" column="16" selection-start-line="1096" selection-start-column="16" selection-end-line="1096" selection-end-column="16" />
+            </state>
+          </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/api/EmploisQuebecAPI.java">
+        <entry file="jar://C:/Program Files/Java/jdk1.8.0_191/src.zip!/java/net/HttpURLConnection.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-34">
-              <caret line="20" column="11" selection-start-line="20" selection-start-column="11" selection-end-line="20" selection-end-column="11" />
+            <state relative-caret-position="163">
+              <caret line="68" column="22" selection-start-line="68" selection-start-column="22" selection-end-line="68" selection-end-column="22" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="jar://C:/Program Files/Java/jdk1.8.0_191/src.zip!/java/io/BufferedReader.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="163">
+              <caret line="99" column="11" selection-start-line="99" selection-start-column="11" selection-end-line="99" selection-end-column="11" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="jar://C:/Program Files/Java/jdk1.8.0_191/src.zip!/java/io/InputStream.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="197">
+              <caret line="44" column="22" selection-start-line="44" selection-start-column="22" selection-end-line="44" selection-end-column="22" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="jar://C:/Program Files/Java/jdk1.8.0_191/src.zip!/java/net/URL.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="173">
+              <caret line="1044" column="25" selection-start-line="1044" selection-start-column="25" selection-end-line="1044" selection-end-column="25" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="jar://C:/Program Files/Java/jdk1.8.0_191/src.zip!/java/nio/charset/StandardCharsets.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="235">
+              <caret line="51" column="32" selection-start-line="51" selection-start-column="32" selection-end-line="51" selection-end-column="32" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="jar://C:/Program Files/Java/jdk1.8.0_191/src.zip!/java/io/InputStreamReader.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="291">
+              <caret line="111" column="11" selection-start-line="111" selection-start-column="11" selection-end-line="111" selection-end-column="11" />
             </state>
           </provider>
         </entry>
@@ -175,6 +185,15 @@
   <component name="FindInProjectRecents">
     <findStrings>
       <find>string[] args</find>
+      <find>selectedCitie</find>
+      <find>getWebsiteAsStringList</find>
+      <find>java.util.</find>
+      <find>getVilles</find>
+      <find>searchTerm</find>
+      <find>KeywordFilterPipe</find>
+      <find>keywordFilter</find>
+      <find>filter</find>
+      <find>ecli</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -192,11 +211,7 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/res/webapp/EQSE/src/app/app.module.ts" />
-        <option value="$PROJECT_DIR$/res/webapp/EQSE/src/app/eqse/eqse.html" />
-        <option value="$PROJECT_DIR$/res/webapp/EQSE/src/app/eqse/eqse.component.ts" />
         <option value="$PROJECT_DIR$/src/util/CapitalizeFirstLetter.java" />
-        <option value="$PROJECT_DIR$/src/util/StringUtil.java" />
         <option value="$PROJECT_DIR$/src/website/RunEQSE.java" />
         <option value="$PROJECT_DIR$/src/api/region/city/job/JobDTO.java" />
         <option value="$PROJECT_DIR$/src/api/region/city/job/JobService.java" />
@@ -207,17 +222,28 @@
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/src/RunEQSE.java" />
         <option value="$PROJECT_DIR$/src/ServeAngularApp.java" />
-        <option value="$PROJECT_DIR$/src/api/EmploisQuebecAPI.java" />
         <option value="$PROJECT_DIR$/src/browser/WebViewContextMenuTest.java" />
         <option value="$PROJECT_DIR$/src/browser/EmbeddedBrowser.java" />
         <option value="$PROJECT_DIR$/src/browser/WebBrowser.java" />
         <option value="$PROJECT_DIR$/src/EQSE.java" />
         <option value="$PROJECT_DIR$/src/Web.java" />
-        <option value="$PROJECT_DIR$/src/util/GetWebsite.java" />
         <option value="$PROJECT_DIR$/src/app/EQSE.java" />
         <option value="$PROJECT_DIR$/src/app/ServeAngularApp.java" />
+        <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/src/app/WebBrowser.java" />
+        <option value="$PROJECT_DIR$/src/app/AngularWebBrowser.java" />
+        <option value="$PROJECT_DIR$/src/api/EmploisQuebecAPI.java" />
         <option value="$PROJECT_DIR$/src/app/Main.java" />
+        <option value="$PROJECT_DIR$/src/util/StringUtil.java" />
+        <option value="$PROJECT_DIR$/res/webapp/EQSE/src/app/filter.pipe.ts" />
+        <option value="$PROJECT_DIR$/res/webapp/EQSE/src/app/keywordfilter.pipe.ts" />
+        <option value="$PROJECT_DIR$/res/webapp/EQSE/src/app/keyword-filter.pipe.ts" />
+        <option value="$PROJECT_DIR$/res/webapp/EQSE/src/app/education-level-filter.pipe.ts" />
+        <option value="$PROJECT_DIR$/res/webapp/EQSE/src/app/app.module.ts" />
+        <option value="$PROJECT_DIR$/res/webapp/EQSE/src/app/eqse/eqse.html" />
+        <option value="$PROJECT_DIR$/res/webapp/EQSE/src/app/eqse/eqse.component.ts" />
+        <option value="$PROJECT_DIR$/src/api/region/RegionService.java" />
+        <option value="$PROJECT_DIR$/src/util/GetWebsite.java" />
       </list>
     </option>
   </component>
@@ -256,6 +282,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -266,25 +294,20 @@
             <path>
               <item name="EmploisQuebecSearchEngine" type="b2602c69:ProjectViewProjectNode" />
               <item name="EmploisQuebecSearchEngine" type="462c0819:PsiDirectoryNode" />
-              <item name="res" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="EmploisQuebecSearchEngine" type="b2602c69:ProjectViewProjectNode" />
-              <item name="EmploisQuebecSearchEngine" type="462c0819:PsiDirectoryNode" />
-              <item name="res" type="462c0819:PsiDirectoryNode" />
-              <item name="webapp" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="EmploisQuebecSearchEngine" type="b2602c69:ProjectViewProjectNode" />
-              <item name="EmploisQuebecSearchEngine" type="462c0819:PsiDirectoryNode" />
-              <item name="res" type="462c0819:PsiDirectoryNode" />
-              <item name="webapp" type="462c0819:PsiDirectoryNode" />
-              <item name="EQSE" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="EmploisQuebecSearchEngine" type="b2602c69:ProjectViewProjectNode" />
               <item name="EmploisQuebecSearchEngine" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="api" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="EmploisQuebecSearchEngine" type="b2602c69:ProjectViewProjectNode" />
+              <item name="EmploisQuebecSearchEngine" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="api" type="462c0819:PsiDirectoryNode" />
+              <item name="region" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="EmploisQuebecSearchEngine" type="b2602c69:ProjectViewProjectNode" />
@@ -292,25 +315,34 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="app" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="EmploisQuebecSearchEngine" type="b2602c69:ProjectViewProjectNode" />
+              <item name="EmploisQuebecSearchEngine" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="util" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1547419781317" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1548007458141" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../AldeMIDI" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="reference.projectsettings.compiler.javacompiler" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
     <property name="ts.external.directory.path" value="C:\Users\rotmg\Documents\GitHub\EmploisQuebecSearchEngine\res\webapp\EQSE\node_modules\typescript\lib" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\rotmg\Documents\GitHub\EmploisQuebecSearchEngine\res\webapp\EQSE\src\app" />
+    </key>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -324,9 +356,23 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.RunEQSE">
+  <component name="RunManager" selected="Application.GetWebsite">
     <configuration default="true" type="Applet" factoryName="Applet">
       <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="AngularWebBrowser" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="app.AngularWebBrowser" />
+      <module name="EmploisQuebecSearchEngine" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="app.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -335,6 +381,20 @@
       <option name="MAIN_CLASS_NAME" value="Bootstrap" />
       <module name="EmploisQuebecSearchEngine" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="GetWebsite" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="util.GetWebsite" />
+      <module name="EmploisQuebecSearchEngine" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="util.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -390,20 +450,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="WebBrowser" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="app.WebBrowser" />
-      <module name="EmploisQuebecSearchEngine" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="app.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration default="true" type="Application" factoryName="Application">
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <method v="2">
@@ -438,15 +484,16 @@
       <item itemvalue="Application.Valdor" />
       <item itemvalue="Application.Main" />
       <item itemvalue="Application.Bootstrap" />
-      <item itemvalue="Application.WebBrowser" />
+      <item itemvalue="Application.AngularWebBrowser" />
+      <item itemvalue="Application.GetWebsite" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.GetWebsite" />
         <item itemvalue="Application.Main" />
-        <item itemvalue="Application.WebBrowser" />
-        <item itemvalue="Application.WebBrowser" />
+        <item itemvalue="Application.AngularWebBrowser" />
+        <item itemvalue="Application.AngularWebBrowser" />
         <item itemvalue="Application.Bootstrap" />
-        <item itemvalue="Application.Valdor" />
       </list>
     </recent_temporary>
   </component>
@@ -479,11 +526,16 @@
       <workItem from="1547330164330" duration="605000" />
       <workItem from="1547402590793" duration="4468000" />
       <workItem from="1547417258882" duration="2503000" />
+      <workItem from="1547443879608" duration="3300000" />
+      <workItem from="1547447226664" duration="500000" />
+      <workItem from="1547913851585" duration="2948000" />
+      <workItem from="1547919708809" duration="14000" />
+      <workItem from="1548001082008" duration="6157000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="31577000" />
+    <option name="totallyTimeSpent" value="44496000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -496,28 +548,31 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.26865673" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2867804" />
       <window_info id="Structure" order="1" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
       <window_info id="UI Designer" order="4" />
       <window_info id="Capture Tool" order="5" />
       <window_info id="Favorites" order="6" side_tool="true" />
+      <window_info id="Web" order="7" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.49573562" weight="0.32936078" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.5554371" weight="0.32936078" />
-      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.6902985" weight="0.3997833" />
+      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.4946695" weight="0.32827735" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.6657783" visible="true" weight="0.43770313" />
+      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.68976545" weight="0.3997833" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32936078" />
-      <window_info anchor="bottom" id="Version Control" order="7" weight="0.32936078" />
+      <window_info anchor="bottom" id="Version Control" order="7" sideWeight="0.49946696" weight="0.32936078" />
       <window_info anchor="bottom" id="TypeScript" order="8" />
       <window_info anchor="bottom" id="Statistic" order="9" />
-      <window_info anchor="bottom" id="Terminal" order="10" sideWeight="0.68710023" weight="0.32719395" />
-      <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.4445629" side_tool="true" visible="true" weight="0.32936078" />
+      <window_info anchor="bottom" id="Terminal" order="10" sideWeight="0.6823028" weight="0.35102925" />
+      <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.33422175" side_tool="true" visible="true" weight="0.43770313" />
       <window_info anchor="bottom" id="Database Changes" order="12" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Messages" order="13" sideWeight="0.4989339" weight="0.32936078" />
+      <window_info anchor="bottom" id="Messages" order="13" sideWeight="0.49840087" weight="0.32936078" />
+      <window_info anchor="bottom" id="Java Enterprise" order="14" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -537,49 +592,8 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/res/webapp/EQSE/src/app/eqse/eqse.css">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/res/webapp/EQSE/src/app/eqse/eqse.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="26" column="30" selection-start-line="25" selection-start-column="6" selection-end-line="26" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/res/webapp/EQSE/src/app/app.component.ts">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/res/webapp/EQSE/src/app/app.module.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="22" column="34" selection-start-line="22" selection-start-column="27" selection-end-line="22" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/automaticPrune/Prune.java" />
     <entry file="file://$PROJECT_DIR$/src/automaticPrune/ReflectionValuePruner.java" />
-    <entry file="file://$PROJECT_DIR$/res/webapp/EQSE/src/app/eqse/eqse.component.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" column="39" selection-start-line="1" selection-start-column="39" selection-end-line="1" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/res/webapp/EQSE/src/app/model/JobDTO.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="2" selection-start-line="8" selection-start-column="2" selection-end-line="8" selection-end-column="2" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/res/webapp/EQSE/src/app/model/RegionDTO.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" selection-start-line="6" selection-end-line="6" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/util/CapitalizeFirstLetter.java" />
     <entry file="file://$PROJECT_DIR$/src/util/LevenshteinDistance.java" />
     <entry file="file://$PROJECT_DIR$/src/website/Valdor.java" />
@@ -587,13 +601,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1139">
           <caret line="102" selection-start-line="102" selection-end-line="102" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/api/region/RegionDTO.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="33" column="13" selection-start-line="33" selection-start-column="13" selection-end-line="33" selection-end-column="13" />
         </state>
       </provider>
     </entry>
@@ -625,34 +632,20 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/res/webapp/EQSE/WEB-INF/web.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="28" selection-start-line="5" selection-start-column="28" selection-end-line="5" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/res/webapp/EQSE/dist/primeicons.4bab9cc0fa00dff8650d.ttf">
-      <provider selected="true" editor-type-id="fontseditor" />
-    </entry>
+    <entry file="file://$PROJECT_DIR$/res/webapp/EQSE/dist/primeicons.4bab9cc0fa00dff8650d.ttf" />
     <entry file="file://$PROJECT_DIR$/src/Bootstrap.java" />
     <entry file="file://$PROJECT_DIR$/dependency-reduced-pom.xml" />
-    <entry file="file://$PROJECT_DIR$/src/app/WebBrowser.java" />
     <entry file="file://$PROJECT_DIR$/src/RunEQSE.java" />
-    <entry file="file://$PROJECT_DIR$/src/api/region/RegionService.java">
+    <entry file="file://$PROJECT_DIR$/src/app/EQSE.java" />
+    <entry file="file://$PROJECT_DIR$/src/app/ServeAngularApp.java" />
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_191/javafx-src.zip!/javafx/application/Application.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="22" column="27" selection-start-line="22" selection-start-column="27" selection-end-line="22" selection-end-column="27" />
+        <state relative-caret-position="3179">
+          <caret line="222" column="23" selection-start-line="222" selection-start-column="23" selection-end-line="222" selection-end-column="23" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/res/webapp/EQSE/dist/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="13" selection-start-column="13" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/res/webapp/EQSE/dist/index.html" />
     <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
@@ -660,76 +653,234 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/util/StringUtil.java">
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="221">
+            <caret line="13" selection-start-line="13" selection-end-line="13" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/webapp/EQSE/WEB-INF/web.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="527">
-          <caret line="34" selection-start-line="34" selection-end-line="34" />
+        <state relative-caret-position="85">
+          <caret line="5" column="28" selection-start-line="5" selection-start-column="28" selection-end-line="5" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/io/javalin/javalin/2.3.0/javalin-2.3.0.jar!/io/javalin/Context.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="248">
+          <caret line="98" column="21" selection-start-line="98" selection-start-column="21" selection-end-line="98" selection-end-column="21" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/res/webapp/EQSE/src/app/app.component.html">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/EQSE.java">
+    <entry file="file://$PROJECT_DIR$/res/webapp/EQSE/src/app/eqse/eqse.css">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/webapp/EQSE/src/app/api/emplois-quebec-api.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" column="4" selection-start-line="7" selection-start-column="4" selection-end-line="7" selection-end-column="4" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="408">
+          <caret line="24" column="3" lean-forward="true" selection-start-line="24" selection-start-column="3" selection-end-line="24" selection-end-column="3" />
         </state>
       </provider>
     </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_191/javafx-src.zip!/javafx/application/Application.java">
+    <entry file="file://$PROJECT_DIR$/res/webapp/EQSE/node_modules/typescript/lib/lib.es5.d.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-125">
-          <caret line="222" column="23" selection-start-line="222" selection-start-column="23" selection-end-line="222" selection-end-column="23" />
+        <state relative-caret-position="534">
+          <caret line="1174" column="4" selection-start-line="1174" selection-start-column="4" selection-end-line="1174" selection-end-column="4" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/ServeAngularApp.java">
+    <entry file="file://$PROJECT_DIR$/src/app/AngularWebBrowser.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/WebBrowser.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="34" lean-forward="true" selection-start-line="34" selection-end-line="34" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#535#536#0" expanded="true" />
-            <element signature="e#593#594#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/util/GetWebsite.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="16" column="20" lean-forward="true" selection-start-line="16" selection-start-column="20" selection-end-line="16" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/api/EmploisQuebecAPI.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-34">
-          <caret line="20" column="11" selection-start-line="20" selection-start-column="11" selection-end-line="20" selection-end-column="11" />
+        <state relative-caret-position="136">
+          <caret line="17" selection-start-line="17" selection-end-line="17" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/app/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="31" column="21" selection-start-line="31" selection-start-column="21" selection-end-line="31" selection-end-column="21" />
+        <state relative-caret-position="297">
+          <caret line="81" column="21" lean-forward="true" selection-start-line="81" selection-start-column="21" selection-end-line="81" selection-end-column="21" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#695#696#0" expanded="true" />
+            <element signature="e#721#722#0" expanded="true" />
+            <element signature="e#2914#2915#0" expanded="true" />
+            <element signature="e#2976#2977#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/webapp/EQSE/src/app/model/JobDTO.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="2" selection-start-line="8" selection-start-column="2" selection-end-line="8" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/webapp/EQSE/src/app/model/RegionDTO.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="6" selection-start-line="6" selection-end-line="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/webapp/EQSE/src/app/model/CityDTO.ts">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/webapp/EQSE/src/app/education-level-filter.pipe.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="6" column="37" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="37" />
+          <folding>
+            <element signature="e#0#50#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/webapp/EQSE/src/app/keyword-filter.pipe.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="6" column="30" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="30" />
+          <folding>
+            <element signature="e#0#50#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/webapp/EQSE/src/app/app.component.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" column="25" selection-start-line="1" selection-start-column="8" selection-end-line="1" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/webapp/EQSE/src/app/app.module.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="385">
+          <caret line="33" column="22" lean-forward="true" selection-start-line="33" selection-start-column="22" selection-end-line="33" selection-end-column="22" />
+          <folding>
+            <element signature="e#0#54#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/webapp/EQSE/src/app/eqse/eqse.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1075">
+          <caret line="77" lean-forward="true" selection-start-line="77" selection-end-line="77" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#div#0;n#div#2;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/webapp/EQSE/src/app/eqse/eqse.component.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="33" column="27" lean-forward="true" selection-start-line="33" selection-start-column="27" selection-end-line="33" selection-end-column="27" />
+          <folding>
+            <element signature="e#0#40#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/api/EmploisQuebecAPI.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="361">
+          <caret line="73" column="36" lean-forward="true" selection-start-line="73" selection-start-column="36" selection-end-line="73" selection-end-column="36" />
+          <folding>
+            <element signature="e#1848#1849#0" expanded="true" />
+            <element signature="e#1897#1898#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/api/region/RegionDTO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/util/StringUtil.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="405">
+          <caret line="53" column="25" selection-start-line="53" selection-start-column="25" selection-end-line="53" selection-end-column="25" />
+          <folding>
+            <element signature="e#1443#1444#0" expanded="true" />
+            <element signature="e#1490#1491#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/api/region/RegionService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="25" column="49" selection-start-line="25" selection-start-column="49" selection-end-line="25" selection-end-column="49" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_191/src.zip!/java/nio/charset/StandardCharsets.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="235">
+          <caret line="51" column="32" selection-start-line="51" selection-start-column="32" selection-end-line="51" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_191/src.zip!/java/io/InputStreamReader.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="291">
+          <caret line="111" column="11" selection-start-line="111" selection-start-column="11" selection-end-line="111" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_191/src.zip!/java/io/InputStream.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="197">
+          <caret line="44" column="22" selection-start-line="44" selection-start-column="22" selection-end-line="44" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_191/src.zip!/java/io/BufferedReader.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="163">
+          <caret line="99" column="11" selection-start-line="99" selection-start-column="11" selection-end-line="99" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_191/src.zip!/java/net/HttpURLConnection.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="163">
+          <caret line="68" column="22" selection-start-line="68" selection-start-column="22" selection-end-line="68" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_191/src.zip!/java/net/URL.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="173">
+          <caret line="1044" column="25" selection-start-line="1044" selection-start-column="25" selection-end-line="1044" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_191/src.zip!/java/net/URLConnection.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="411">
+          <caret line="1096" column="16" selection-start-line="1096" selection-start-column="16" selection-end-line="1096" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/util/GetWebsite.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="32" column="60" selection-start-line="32" selection-start-column="60" selection-end-line="32" selection-end-column="60" />
         </state>
       </provider>
     </entry>
@@ -750,7 +901,7 @@
       </state>
       <state key="FacetStructureConfigurable.UI">
         <settings>
-          <last-edited>No facets are configured</last-edited>
+          <last-edited>Web</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
@@ -789,7 +940,7 @@
           <splitter-proportions>
             <option name="proportions">
               <list>
-                <option value="0.2" />
+                <option value="0.20560747" />
                 <option value="0.6" />
               </list>
             </option>
