@@ -45,7 +45,7 @@
     </form>
 
 
-    <div class="ui-g" style="width:250px;margin-bottom:10px">
+    <div class="ui-g" style="width:250px;margin-bottom:10px" >
       <div class="ui-g-12"><p-checkbox name="group2" value="Secondaire" label="Secondaire" [(ngModel)]="selectedSchoolLevel" inputId="technology" (onChange)="selectedSchoolLevelChanged($event)"></p-checkbox></div>
       <div class="ui-g-12"><p-checkbox name="group2" value="Collégial" label="Collégial" [(ngModel)]="selectedSchoolLevel" inputId="finance" (onChange)="selectedCitiesChanged($event)"></p-checkbox></div>
       <div class="ui-g-12"><p-checkbox name="group2" value="Universitaire" label="Universitaire" [(ngModel)]="selectedSchoolLevel" inputId="sports" (onChange)="selectedCitiesChanged($event)"></p-checkbox></div>
@@ -55,10 +55,7 @@
   </div>
 
 
-
-
   <br>
-
 
   <br>
 
@@ -86,7 +83,7 @@
               <p>
                 <i class="fas fa-graduation-cap"></i> Éducation : {{job.education}}</p>
               <p>
-                <i class="fas fa-chart-pie"></i> Année(s) d'éxperience(s) : {{job.yearsOfExperience}}</p>
+                <i class="fas fa-chart-pie"></i> Année(s) d'expérience(s) : {{job.yearsOfExperience}}</p>
               <p>
                 <i class="fas fa-map-marker"></i> Position : {{job.workPlace}}
               </p>
