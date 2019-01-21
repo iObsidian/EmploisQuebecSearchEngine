@@ -27,13 +27,7 @@ public class Main {
     }
 
     Main() {
-        // Run Angular (ng serve) as development (allows hot reload)
-        boolean DEBUG = false;
-
-        if (!DEBUG) {
-            new Thread(this::serveCompiledAngularApp).start();
-        }
-
+        new Thread(this::serveCompiledAngularApp).start();
         new Thread(this::startEQSE).start();
         new Thread(this::showBrowser).start();
     }

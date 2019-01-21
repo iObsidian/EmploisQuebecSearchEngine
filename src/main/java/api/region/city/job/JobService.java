@@ -1,8 +1,10 @@
 package api.region.city.job;
 
 import api.region.city.CityDTO;
-import main.java.GetWebsite;
-import main.java.StringUtil;
+
+import util.GetWebsite;
+import util.StringUtil;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
