@@ -17,3 +17,4 @@ target/classes/util/LevenshteinDistance.class
 target/classes/website/RunEQSE.class
 target/classes/website/Valdor.class
 *.class
+/target/
