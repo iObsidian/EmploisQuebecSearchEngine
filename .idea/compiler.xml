@@ -9,7 +9,7 @@
         <module name="EmploisQuebecSearchEngine" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel target="1.8">
+    <bytecodeTargetLevel>
       <module name="EmploisQuebecSearchEngine" target="8" />
     </bytecodeTargetLevel>
   </component>
