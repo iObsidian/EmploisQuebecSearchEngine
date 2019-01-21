@@ -33,9 +33,9 @@
 		<level name="Maven: org.eclipse.jetty.websocket:websocket-servlet:9.4.12.v20180830" value="project"/>
 		<level name="Maven: org.jsoup:jsoup:1.8.3" value="project"/>
 		<level name="Maven: org.slf4j:slf4j-simple:1.7.5" value="project"/>
-		<level name="Maven: com.fasterxml.jackson.core:jackson-databind:2.9.6" value="project"/>
+		<level name="Maven: com.fasterxml.jackson.core:jackson-databind:2.9.8" value="project"/>
 		<level name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.9.0" value="project"/>
-		<level name="Maven: com.fasterxml.jackson.core:jackson-core:2.9.6" value="project"/>
+		<level name="Maven: com.fasterxml.jackson.core:jackson-core:2.9.8" value="project"/>
 		<level name="Maven: com.sparkjava:spark-core:2.0.0" value="project"/>
 		<level name="Maven: org.mongodb:mongo-java-driver:2.11.3" value="project"/>
 		<level name="Maven: com.google.code.gson:gson:2.2.4" value="project"/>

@@ -17,13 +17,14 @@ import org.eclipse.jetty.webapp.WebAppContext;
 
 public class Main {
 
-    private final boolean DEBUG = true; // Run Angular (ng serve) as development (allows hot reload)
-
     public static void main(String[] args) {
         new Main();
     }
 
     Main() {
+        // Run Angular (ng serve) as development (allows hot reload)
+        boolean DEBUG = false;
+
         if (!DEBUG) {
             new Thread(this::serveCompiledAngularApp).start();
         }
@@ -69,7 +70,7 @@ public class Main {
 
             BorderPane root = new BorderPane(webView, locationField, null, null, null);
             primaryStage.setScene(new Scene(root, 800, 800));
-            primaryStage.setTitle("app.EQSE");
+            primaryStage.setTitle("EQSE");
             primaryStage.show();
 
             WebConsoleListener.setDefaultListener((wv, message, lineNumber, sourceId) -> {

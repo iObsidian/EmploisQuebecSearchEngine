@@ -16,7 +16,7 @@ export class EducationLevelFilterPipe implements PipeTransform {
     // return updated jobs array
     return jobs.filter(function (job) {
 
-      if (!educationLevel || educationLevel.length == 0 ) {
+      if (!educationLevel || educationLevel.length == 0) {
         return true;
       }
 
@@ -26,7 +26,9 @@ export class EducationLevelFilterPipe implements PipeTransform {
         if (!job.education) {
           return true;
         } else {
-          match = job.education.toLowerCase().includes(s.toLowerCase());
+          if (job.education.toLowerCase().includes(s.toLowerCase())) {
+            match = true;
+          }
         }
       }
 

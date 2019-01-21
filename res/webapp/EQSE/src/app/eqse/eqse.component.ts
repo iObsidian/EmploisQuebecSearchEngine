@@ -11,8 +11,6 @@ import {JobDTO} from "../model/JobDTO";
 })
 export class EQSEComponent {
 
-  debug: boolean = true;
-
   searchTerm: string[] = [];
 
   isLoading: boolean = false;

@@ -24,14 +24,14 @@
 
 </div>
 
-<!-- Debug -->
+<!-- Debug
 
-<div *ngIf="debug">
   Niveau d'éducation sélectioné : <span *ngFor="let level of selectedSchoolLevel">{{level}}</span>
   <p>{{cities.length}} ville(s), {{selectedCities.length}} sélectionné(s).</p>
   <p>{{regions.length}} région(s), {{selectedRegions.length}} sélectionné(s).</p>
   <p>{{jobs?.length}} job(s).</p>
-</div>
+
+-->
 
 
 <div *ngIf="jobs?.length > 0">
@@ -44,21 +44,27 @@
       <p-chips [(ngModel)]="searchTerm" name="searchTerm" [style]="{width: '600px'}"></p-chips>
     </form>
 
-
-    <div class="ui-g" style="width:250px;margin-bottom:10px" >
-      <div class="ui-g-12"><p-checkbox name="group2" value="Secondaire" label="Secondaire" [(ngModel)]="selectedSchoolLevel" inputId="technology" (onChange)="selectedSchoolLevelChanged($event)"></p-checkbox></div>
-      <div class="ui-g-12"><p-checkbox name="group2" value="Collégial" label="Collégial" [(ngModel)]="selectedSchoolLevel" inputId="finance" (onChange)="selectedCitiesChanged($event)"></p-checkbox></div>
-      <div class="ui-g-12"><p-checkbox name="group2" value="Universitaire" label="Universitaire" [(ngModel)]="selectedSchoolLevel" inputId="sports" (onChange)="selectedCitiesChanged($event)"></p-checkbox></div>
+    <div class="ui-g" style="width:250px;margin-bottom:10px">
+      <div class="ui-g-12">
+        <p-checkbox name="group2" value="Secondaire" label="Secondaire" [(ngModel)]="selectedSchoolLevel"
+                    inputId="technology" (onChange)="selectedSchoolLevelChanged($event)"></p-checkbox>
+      </div>
+      <div class="ui-g-12">
+        <p-checkbox name="group2" value="Collégial" label="Collégial" [(ngModel)]="selectedSchoolLevel"
+                    inputId="finance" (onChange)="selectedCitiesChanged($event)"></p-checkbox>
+      </div>
+      <div class="ui-g-12">
+        <p-checkbox name="group2" value="Universitaire" label="Universitaire" [(ngModel)]="selectedSchoolLevel"
+                    inputId="sports" (onChange)="selectedCitiesChanged($event)"></p-checkbox>
+      </div>
     </div>
 
 
   </div>
 
-
   <br>
 
   <br>
-
 
   <!-- Jobs -->
 
@@ -66,7 +72,8 @@
     <!--<div class="container">-->
     <div class="intro">
       <h2 class="text-center">Emplois</h2>
-      <p class="text-center">{{(jobs|keywordFilter:searchTerm|educationFilter:selectedSchoolLevel).length}} offre(s) d'emplois dans {{getVilles()}}.</p>
+      <p class="text-center">{{(jobs|keywordFilter:searchTerm|educationFilter:selectedSchoolLevel).length}} offre(s)
+        d'emplois dans {{getVilles()}}.</p>
     </div>
 
     <div class="row justify-content-center features">
