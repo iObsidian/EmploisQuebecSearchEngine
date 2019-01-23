@@ -10,7 +10,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="EmploisQuebecSearchEngine" target="1.5" />
+      <module name="EmploisQuebecSearchEngine" target="8" />
     </bytecodeTargetLevel>
   </component>
 </project>
