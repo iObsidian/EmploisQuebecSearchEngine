@@ -32,6 +32,13 @@ public class Main {
         new Thread(this::showBrowser).start();
     }
 
+    /**
+     * To build app
+     *
+     * npm install
+     * ng build
+     *
+     */
     public void serveCompiledAngularApp() {
         try {
             // The simple Jetty config here will serve static content from the webapp directory
@@ -47,6 +54,7 @@ public class Main {
             server.setHandler(webapp);
             server.start();
             server.join();
+
         } catch (Exception e) {
             e.printStackTrace();
         }
