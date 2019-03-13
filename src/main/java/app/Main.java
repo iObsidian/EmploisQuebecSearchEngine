@@ -2,6 +2,7 @@ package app;
 
 import api.EmploisQuebecAPI;
 import com.sun.javafx.webkit.WebConsoleListener;
+import com.sun.javaws.IconUtil;
 import io.javalin.Javalin;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -11,6 +12,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.web.WebView;
@@ -18,159 +20,148 @@ import javafx.stage.Stage;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.webapp.WebAppContext;
 
+import javax.swing.*;
 import java.util.Stack;
 
 public class Main {
 
-    public static void main(String[] args) {
-        new Main();
-    }
+	public static void main(String[] args) {
+		new Main();
+	}
 
-    Main() {
-        new Thread(this::serveCompiledAngularApp).start();
-        new Thread(this::startEQSE).start();
-        new Thread(this::showBrowser).start();
-    }
+	Main() {
+		new Thread(this::serveCompiledAngularApp).start();
+		new Thread(this::startEQSE).start();
+		new Thread(this::showBrowser).start();
+	}
 
-    /**
-     * To build app
-     *
-     * npm install
-     * ng build
-     *
-     */
-    public void serveCompiledAngularApp() {
-        try {
-            // The simple Jetty config here will serve static content from the webapp directory
-            String webappDirLocation = "src/main/resources/EQSE/dist";
+	/**
+	 * To build app
+	 * <p>
+	 * npm install
+	 * ng build
+	 */
+	public void serveCompiledAngularApp() {
+		try {
+			// The simple Jetty config here will serve static content from the webapp directory
+			String webappDirLocation = "src/main/resources/EQSE/dist";
 
-            Server server = new Server(4200);
+			Server server = new Server(4200);
 
-            WebAppContext webapp = new WebAppContext();
-            webapp.setContextPath("/");
-            webapp.setDescriptor(webappDirLocation + "/WEB-INF/web.xml");
-            webapp.setResourceBase(webappDirLocation);
+			WebAppContext webapp = new WebAppContext();
+			webapp.setContextPath("/");
+			webapp.setDescriptor(webappDirLocation + "/WEB-INF/web.xml");
+			webapp.setResourceBase(webappDirLocation);
 
-            server.setHandler(webapp);
-            server.start();
-            server.join();
+			server.setHandler(webapp);
+			server.start();
+			server.join();
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
+	public void startEQSE() {
 
-    public void startEQSE() {
+		EmploisQuebecAPI emploisQuebecAPI = new EmploisQuebecAPI();
 
-        EmploisQuebecAPI emploisQuebecAPI = new EmploisQuebecAPI();
+		Javalin app = Javalin.create();
 
-        Javalin app = Javalin.create();
+		app.enableCorsForAllOrigins();
 
-        app.enableCorsForAllOrigins();
+		String explanation = ("Bienvenue sur EmploisQuebecSearchEngine API!" + "\n\n") +
+				"Si vous souhaitez accedez à l'interface utilisateur, veuillez installer Angular CLI sur votre machine" + "\n" +
+				"et utiliser la commande 'ng serve' dans le dossier 'webapp' de cette source." + "\n\n" +
+				"C'est tout! Visitez localhost:4200 sur votre machine pour voir le site local." + "\n";
+		app.get("/", ctx -> ctx.result(explanation));
 
-        String explanation = ("Bienvenue sur EmploisQuebecSearchEngine API!" + "\n\n") +
-                "Si vous souhaitez accedez à l'interface utilisateur, veuillez installer Angular CLI sur votre machine" + "\n" +
-                "et utiliser la commande 'ng serve' dans le dossier 'webapp' de cette source." + "\n\n" +
-                "C'est tout! Visitez localhost:4200 sur votre machine pour voir le site local." + "\n";
-        app.get("/", ctx -> ctx.result(explanation));
+		app.get("/regions", ctx -> ctx.json(emploisQuebecAPI.getCachedRegions())); // Get all regions
 
-        app.get("/regions", ctx -> ctx.json(emploisQuebecAPI.getCachedRegions())); // Get all regions
+		app.get("/cities/:region-code", ctx -> {
+			ctx.json(emploisQuebecAPI.getCachedCities(ctx.pathParam("region-code"))); // Get all cities for region
+		});
 
-        app.get("/cities/:region-code", ctx -> {
-            ctx.json(emploisQuebecAPI.getCachedCities(ctx.pathParam("region-code"))); // Get all cities for region
-        });
+		app.get("/jobs/:city-url", ctx -> {
+			ctx.json(emploisQuebecAPI.getCachedJobs(ctx.pathParam("city-url"))); // Get all jobs for city
+		});
 
-        app.get("/jobs/:city-url", ctx -> {
-            ctx.json(emploisQuebecAPI.getCachedJobs(ctx.pathParam("city-url"))); // Get all jobs for city
-        });
+		app.start();
 
-        app.start();
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+	}
 
-    }
+	public void showBrowser() {
+		Application.launch(WebBrowser.class, null);
+	}
 
-    public void showBrowser() {
-        Application.launch(WebBrowser.class, null);
-    }
+	public static class WebBrowser extends Application {
 
+		Stack<String> website = new Stack<>();
 
-    public static class WebBrowser extends Application {
+		@Override
+		public void start(Stage primaryStage) throws Exception {
 
-        Stack<String> website = new Stack<>();
+			// Allows the app to communicate to the API (Javalin)
+			System.setProperty("sun.net.http.allowRestrictedHeaders", "true");
 
-        @Override
-        public void start(Stage primaryStage) throws Exception {
+			String START_URL = "http://localhost:4200/";
+			TextField locationField = new TextField(START_URL);
+			WebView webView = new WebView();
+			webView.getEngine().load(START_URL);
 
-            // Allows the app to communicate to the API (Javalin)
-            System.setProperty("sun.net.http.allowRestrictedHeaders", "true");
+			webView.setContextMenuEnabled(false);
 
-            String START_URL = "http://localhost:4200/";
-            TextField locationField = new TextField(START_URL);
-            WebView webView = new WebView();
-            webView.getEngine().load(START_URL);
+			ContextMenu contextMenu = new ContextMenu();
+			MenuItem reload = new MenuItem("Reload");
+			reload.setOnAction(e -> webView.getEngine().reload());
+			MenuItem savePage = new MenuItem("Save Page");
+			savePage.setOnAction(e -> System.out.println("Save page..."));
+			MenuItem hideImages = new MenuItem("Hide Images");
+			hideImages.setOnAction(e -> System.out.println("Hide Images..."));
+			contextMenu.getItems().addAll(reload, savePage, hideImages);
 
-            webView.setContextMenuEnabled(false);
+			webView.setOnMousePressed(e -> {
+				if (e.getButton() == MouseButton.SECONDARY) {
+					contextMenu.show(webView, e.getScreenX(), e.getScreenY());
+				} else {
+					contextMenu.hide();
+				}
+			});
 
-            ContextMenu contextMenu = new ContextMenu();
-            MenuItem reload = new MenuItem("Reload");
-            reload.setOnAction(e -> webView.getEngine().reload());
-            MenuItem savePage = new MenuItem("Save Page");
-            savePage.setOnAction(e -> System.out.println("Save page..."));
-            MenuItem hideImages = new MenuItem("Hide Images");
-            hideImages.setOnAction(e -> System.out.println("Hide Images..."));
-            contextMenu.getItems().addAll(reload, savePage, hideImages);
+			locationField.setOnAction(e -> {
+				website.push(locationField.getText());
 
-            webView.setOnMousePressed(e -> {
-                if (e.getButton() == MouseButton.SECONDARY) {
-                    contextMenu.show(webView, e.getScreenX(), e.getScreenY());
-                } else {
-                    contextMenu.hide();
-                }
-            });
+				webView.getEngine().load(locationField.getText());
+			});
 
-            locationField.setOnAction(e -> {
-                website.push(locationField.getText());
+			Button goBackButton = new Button("<-");
+			goBackButton.setOnAction(e -> webView.getEngine().load(website.pop()));
 
-                webView.getEngine().load(locationField.getText());
-            });
+			Button goPreviousButton = new Button("->");
+			goPreviousButton.setOnAction(e -> webView.getEngine().load(website.firstElement()));
 
-            Button goBackButton = new Button("<-");
+			BorderPane goBack = new BorderPane(null, null, goBackButton, null, goPreviousButton);
+			BorderPane action = new BorderPane(locationField, null, null, null, goBack);
+			BorderPane root = new BorderPane(webView, action, null, null, null);
+			primaryStage.setScene(new Scene(root, 1000, 800));
+			primaryStage.setTitle("Emplois Québec Search Engine");
 
-            goBackButton.setOnAction(new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent e) {
-                    webView.getEngine().load(website.pop());
-                }
-            });
+			primaryStage.getIcons().add(new Image("EQSE.png"));
 
-            Button goPreviousButton = new Button("->");
+			primaryStage.show();
 
-            goPreviousButton.setOnAction(new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent e) {
-                    webView.getEngine().load(website.firstElement());
-                }
-            });
+			WebConsoleListener.setDefaultListener((wv, message, lineNumber, sourceId) -> {
+				System.out.println("[Embedded Browser] : " + message + "[at " + lineNumber + "]");
+			});
 
-            BorderPane goBack = new BorderPane(null, null, goBackButton, null, goPreviousButton);
-            BorderPane action = new BorderPane(locationField, null, goBack, null, null);
-            BorderPane root = new BorderPane(webView, action, null, null, null);
-            primaryStage.setScene(new Scene(root, 1000, 800));
-            primaryStage.setTitle("EQSE");
-            primaryStage.show();
-
-            WebConsoleListener.setDefaultListener((wv, message, lineNumber, sourceId) -> {
-                System.out.println("[Embedded Browser] : " + message + "[at " + lineNumber + "]");
-            });
-
-        }
-    }
+		}
+	}
 
 }
 
