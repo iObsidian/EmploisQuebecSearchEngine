@@ -1,0 +1,13 @@
+<div id='myMap' style='width: 100vw; height: 100vh;'></div>
+<script type='text/javascript'>
+    function loadMapScenario() {
+        var map = new Microsoft.Maps.Map(document.getElementById('myMap'), {
+                credentials: 'My Bing Map Key - I removed here'
+        });
+        var pushpin = new Microsoft.Maps.Pushpin(map.getCenter(), null);
+        var layer = new Microsoft.Maps.Layer();
+        layer.add(pushpin);
+        map.layers.insert(layer);
+    }
+</script>
+ 

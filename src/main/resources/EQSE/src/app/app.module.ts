@@ -25,6 +25,7 @@ import {EQSEComponent} from './eqse/eqse.component';
 
 import {SliderModule} from 'primeng/slider';
 import {EducationLevelFilterPipe} from "./education-level-filter.pipe";
+import { MapComponent } from './map/map.component';
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import {EducationLevelFilterPipe} from "./education-level-filter.pipe";
     AppComponent,
     EQSEComponent,
     KeywordFilterPipe,
-    EducationLevelFilterPipe
+    EducationLevelFilterPipe,
+    MapComponent
   ],
   imports: [
     BrowserModule,

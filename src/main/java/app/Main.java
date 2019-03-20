@@ -2,6 +2,7 @@ package app;
 
 import api.EmploisQuebecAPI;
 import com.sun.javafx.webkit.WebConsoleListener;
+import com.sun.javaws.IconUtil;
 import io.javalin.Javalin;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -11,6 +12,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.web.WebView;
@@ -18,149 +20,148 @@ import javafx.stage.Stage;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.webapp.WebAppContext;
 
+import javax.swing.*;
 import java.util.Stack;
 
 public class Main {
 
-    public static void main(String[] args) {
-        new Main();
-    }
+	public static void main(String[] args) {
+		new Main();
+	}
 
-    Main() {
-        new Thread(this::serveCompiledAngularApp).start();
-        new Thread(this::startEQSE).start();
-        new Thread(this::showBrowser).start();
-    }
+	Main() {
+		new Thread(this::serveCompiledAngularApp).start();
+		new Thread(this::startEQSE).start();
+		new Thread(this::showBrowser).start();
+	}
 
-    public static class WebBrowser extends Application {
+	/**
+	 * To build app
+	 * <p>
+	 * npm install
+	 * ng build
+	 */
+	public void serveCompiledAngularApp() {
+		try {
+			// The simple Jetty config here will serve static content from the webapp directory
+			String webappDirLocation = "src/main/resources/EQSE/dist";
 
-        Stack<String> website = new Stack<>();
+			Server server = new Server(4200);
 
-        @Override
-        public void start(Stage primaryStage) throws Exception {
+			WebAppContext webapp = new WebAppContext();
+			webapp.setContextPath("/");
+			webapp.setDescriptor(webappDirLocation + "/WEB-INF/web.xml");
+			webapp.setResourceBase(webappDirLocation);
 
-            // Allows the app to communicate to the API (Javalin)
-            System.setProperty("sun.net.http.allowRestrictedHeaders", "true");
+			server.setHandler(webapp);
+			server.start();
+			server.join();
 
-            String START_URL = "http://localhost:4200/";
-            TextField locationField = new TextField(START_URL);
-            WebView webView = new WebView();
-            webView.getEngine().load(START_URL);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
-            webView.setContextMenuEnabled(false);
+	public void startEQSE() {
 
-            ContextMenu contextMenu = new ContextMenu();
-            MenuItem reload = new MenuItem("Reload");
-            reload.setOnAction(e -> webView.getEngine().reload());
-            MenuItem savePage = new MenuItem("Save Page");
-            savePage.setOnAction(e -> System.out.println("Save page..."));
-            MenuItem hideImages = new MenuItem("Hide Images");
-            hideImages.setOnAction(e -> System.out.println("Hide Images..."));
-            contextMenu.getItems().addAll(reload, savePage, hideImages);
+		EmploisQuebecAPI emploisQuebecAPI = new EmploisQuebecAPI();
 
-            webView.setOnMousePressed(e -> {
-                if (e.getButton() == MouseButton.SECONDARY) {
-                    contextMenu.show(webView, e.getScreenX(), e.getScreenY());
-                } else {
-                    contextMenu.hide();
-                }
-            });
+		Javalin app = Javalin.create();
 
-            locationField.setOnAction(e -> {
-                website.push(locationField.getText());
+		app.enableCorsForAllOrigins();
 
-                webView.getEngine().load(locationField.getText());
-            });
+		String explanation = ("Bienvenue sur EmploisQuebecSearchEngine API!" + "\n\n") +
+				"Si vous souhaitez accedez à l'interface utilisateur, veuillez installer Angular CLI sur votre machine" + "\n" +
+				"et utiliser la commande 'ng serve' dans le dossier 'webapp' de cette source." + "\n\n" +
+				"C'est tout! Visitez localhost:4200 sur votre machine pour voir le site local." + "\n";
+		app.get("/", ctx -> ctx.result(explanation));
 
-            Button goBackButton = new Button("<-");
+		app.get("/regions", ctx -> ctx.json(emploisQuebecAPI.getCachedRegions())); // Get all regions
 
-            goBackButton.setOnAction(new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent e) {
-                    webView.getEngine().load(website.pop());
-                }
-            });
+		app.get("/cities/:region-code", ctx -> {
+			ctx.json(emploisQuebecAPI.getCachedCities(ctx.pathParam("region-code"))); // Get all cities for region
+		});
 
-            Button goPreviousButton = new Button("->");
+		app.get("/jobs/:city-url", ctx -> {
+			ctx.json(emploisQuebecAPI.getCachedJobs(ctx.pathParam("city-url"))); // Get all jobs for city
+		});
 
-            goPreviousButton.setOnAction(new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent e) {
-                    webView.getEngine().load(website.firstElement());
-                }
-            });
+		app.start();
 
-            BorderPane goBack = new BorderPane(null, null, goBackButton, null, goPreviousButton);
-            BorderPane action = new BorderPane(locationField, null, goBack, null, null);
-            BorderPane root = new BorderPane(webView, action, null, null, null);
-            primaryStage.setScene(new Scene(root, 1000, 800));
-            primaryStage.setTitle("EQSE");
-            primaryStage.show();
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 
-            WebConsoleListener.setDefaultListener((wv, message, lineNumber, sourceId) -> {
-                System.out.println("[Embedded Browser] : " + message + "[at " + lineNumber + "]");
-            });
+	}
 
-        }
-    }
+	public void showBrowser() {
+		Application.launch(WebBrowser.class, null);
+	}
 
-    public void showBrowser() {
-        Application.launch(WebBrowser.class, null);
-    }
+	public static class WebBrowser extends Application {
 
-    public void startEQSE() {
+		Stack<String> website = new Stack<>();
 
-        EmploisQuebecAPI emploisQuebecAPI = new EmploisQuebecAPI();
+		@Override
+		public void start(Stage primaryStage) throws Exception {
 
-        Javalin app = Javalin.create();
+			// Allows the app to communicate to the API (Javalin)
+			System.setProperty("sun.net.http.allowRestrictedHeaders", "true");
 
-        app.enableCorsForAllOrigins();
+			String START_URL = "http://localhost:4200/";
+			TextField locationField = new TextField(START_URL);
+			WebView webView = new WebView();
+			webView.getEngine().load(START_URL);
 
-        String explanation = ("Bienvenue sur EmploisQuebecSearchEngine API!" + "\n\n") +
-                "Si vous souhaitez accedez à l'interface utilisateur, veuillez installer Angular CLI sur votre machine" + "\n" +
-                "et utiliser la commande 'ng serve' dans le dossier 'webapp' de cette source." + "\n\n" +
-                "C'est tout! Visitez localhost:4200 sur votre machine pour voir le site local." + "\n";
-        app.get("/", ctx -> ctx.result(explanation));
+			webView.setContextMenuEnabled(false);
 
-        app.get("/regions", ctx -> ctx.json(emploisQuebecAPI.getCachedRegions())); // Get all regions
+			ContextMenu contextMenu = new ContextMenu();
+			MenuItem reload = new MenuItem("Reload");
+			reload.setOnAction(e -> webView.getEngine().reload());
+			MenuItem savePage = new MenuItem("Save Page");
+			savePage.setOnAction(e -> System.out.println("Save page..."));
+			MenuItem hideImages = new MenuItem("Hide Images");
+			hideImages.setOnAction(e -> System.out.println("Hide Images..."));
+			contextMenu.getItems().addAll(reload, savePage, hideImages);
 
-        app.get("/cities/:region-code", ctx -> {
-            ctx.json(emploisQuebecAPI.getCachedCities(ctx.pathParam("region-code"))); // Get all cities for region
-        });
+			webView.setOnMousePressed(e -> {
+				if (e.getButton() == MouseButton.SECONDARY) {
+					contextMenu.show(webView, e.getScreenX(), e.getScreenY());
+				} else {
+					contextMenu.hide();
+				}
+			});
 
-        app.get("/jobs/:city-url", ctx -> {
-            ctx.json(emploisQuebecAPI.getCachedJobs(ctx.pathParam("city-url"))); // Get all jobs for city
-        });
+			locationField.setOnAction(e -> {
+				website.push(locationField.getText());
 
-        app.start();
+				webView.getEngine().load(locationField.getText());
+			});
 
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+			Button goBackButton = new Button("<-");
+			goBackButton.setOnAction(e -> webView.getEngine().load(website.pop()));
 
-    }
+			Button goPreviousButton = new Button("->");
+			goPreviousButton.setOnAction(e -> webView.getEngine().load(website.firstElement()));
 
-    public void serveCompiledAngularApp() {
-        try {
-            // The simple Jetty config here will serve static content from the webapp directory
-            String webappDirLocation = "src/main/resources/EQSE/dist";
+			BorderPane goBack = new BorderPane(null, null, goBackButton, null, goPreviousButton);
+			BorderPane action = new BorderPane(locationField, null, null, null, goBack);
+			BorderPane root = new BorderPane(webView, action, null, null, null);
+			primaryStage.setScene(new Scene(root, 1000, 800));
+			primaryStage.setTitle("Emplois Québec Search Engine");
 
-            Server server = new Server(4200);
+			primaryStage.getIcons().add(new Image("EQSE.png"));
 
-            WebAppContext webapp = new WebAppContext();
-            webapp.setContextPath("/");
-            webapp.setDescriptor(webappDirLocation + "/WEB-INF/web.xml");
-            webapp.setResourceBase(webappDirLocation);
+			primaryStage.show();
 
-            server.setHandler(webapp);
-            server.start();
-            server.join();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+			WebConsoleListener.setDefaultListener((wv, message, lineNumber, sourceId) -> {
+				System.out.println("[Embedded Browser] : " + message + "[at " + lineNumber + "]");
+			});
+
+		}
+	}
 
 }
 

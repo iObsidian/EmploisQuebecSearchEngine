@@ -1,61 +1,60 @@
 package api.region.city.job;
 
 import api.region.city.CityDTO;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import util.GetWebsite;
 import util.StringUtil;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class JobService {
 
-    private static final Logger log = LoggerFactory.getLogger(JobService.class);
+	private static final Logger log = LoggerFactory.getLogger(JobService.class);
 
-    private JobPageService pageService = new JobPageService();
+	private JobPageService pageService = new JobPageService();
 
-    private static final String JOBS_START = "<tbody>";
-    private static final String JOBS_END = "</tbody>";
+	private static final String JOBS_START = "<tbody>";
+	private static final String JOBS_END = "</tbody>";
 
-    private static final String JOB_END = "</tr>";
-    private static final String JOB_START = "<td style=\"";
+	private static final String JOB_END = "</tr>";
+	private static final String JOB_START = "<td style=\"";
 
-    public List<JobDTO> getJobs(CityDTO c) {
+	public List<JobDTO> getJobs(CityDTO c) {
 
-        System.out.println("Request to load jobs from " + c.getUrl());
+		System.out.println("Request to load jobs from " + c.getUrl());
 
-        List<JobDTO> jobs = new ArrayList<>();
+		List<JobDTO> jobs = new ArrayList<>();
 
-        List<String> pageUrls = pageService.getPages(c);
+		List<String> pageUrls = pageService.getPages(c);
 
-        System.out.println("Found " + pageUrls.size() + " page url(s).");
+		System.out.println("Found " + pageUrls.size() + " page url(s).");
 
-        for (String pageUrl : pageUrls) {
+		for (String pageUrl : pageUrls) {
 
-            List<String> jobsRaw = StringUtil.getStringsBetween(GetWebsite.getWebsiteAsStringList(pageUrl), JOBS_START, JOBS_END);
+			List<String> jobsRaw = StringUtil.getStringsBetween(GetWebsite.getWebsiteAsStringList(pageUrl), JOBS_START, JOBS_END);
 
-            JobDTO currentJob = new JobDTO();
+			JobDTO currentJob = new JobDTO();
 
-            int index = 0;
+			int index = 0;
 
-            for (String s : jobsRaw) {
+			for (String s : jobsRaw) {
 
-                if (s.contains(JOB_START)) {
-                    index = -1;
-                }
+				if (s.contains(JOB_START)) {
+					index = -1;
+				}
 
-                if (s.contains(JOB_END)) {
+				if (s.contains(JOB_END)) {
 
-                    if (!currentJob.getEmployer().contains("Invalid")) {
-                        jobs.add(currentJob);
-                    }
-                    currentJob = new JobDTO();
-                } else {
+					if (!currentJob.getEmployer().contains("Invalid")) {
+						jobs.add(currentJob);
+					}
+					currentJob = new JobDTO();
+				} else {
 
-                    index++;
+					index++;
 
 					/*
 					 * <th style="width:45px;">Offer N°</th>
@@ -75,34 +74,37 @@ public class JobService {
 					 6 : <td>Notre-Dame-du-Nord</td>
 					 */
 
-                    if (!s.contains("<!DOCTYPE html PUBLIC ")) {
-                        if (index == 0) {
-                            currentJob.setOfferNumber(StringUtil.getStringBetween(s, "\">", "</td>"));
-                        } else if (index == 1) {
-                            currentJob.setUrl(StringUtil.getStringBetween(s, "<a href=\"", "\" >"));
-                            currentJob.setNameOfTheJob(StringUtil.getStringBetween(s, "\" >", "</a>"));
-                        } else if (index == 2) {
-                            currentJob.setEmployer(StringUtil.getStringBetween(s, "<td>", "</td>"));
-                        } else if (index == 3) {
-                            currentJob.setNumberOfPositions(StringUtil.getStringBetween(s, "<td>", "</td>"));
-                        } else if (index == 4) {
-                            currentJob.setEducation(StringUtil.getStringBetween(s, "<td>", "</td>"));
-                        } else if (index == 5) {
-                            currentJob.setYearsOfExperience(StringUtil.getStringBetween(s, "<td>", "</td>"));
-                        } else if (index == 6) {
-                            currentJob.setWorkPlace(StringUtil.getStringBetween(s, "<td>", "</td>"));
-                        }
-                    }
-                }
-            }
+					if (!s.contains("<!DOCTYPE html PUBLIC ")) {
+						if (index == 0) {
+							currentJob.setOfferNumber(StringUtil.getStringBetween(s, "\">", "</td>"));
+						} else if (index == 1) {
+							currentJob.setUrl(StringUtil.getStringBetween(s, "<a href=\"", "\" >"));
+							currentJob.setNameOfTheJob(StringUtil.getStringBetween(s, "\" >", "</a>"));
+						} else if (index == 2) {
+							currentJob.setEmployer(StringUtil.getStringBetween(s, "<td>", "</td>"));
+						} else if (index == 3) {
+							currentJob.setNumberOfPositions(StringUtil.getStringBetween(s, "<td>", "</td>"));
+						} else if (index == 4) {
+							currentJob.setEducation(StringUtil.getStringBetween(s, "<td>", "</td>"));
+						} else if (index == 5) {
+							currentJob.setYearsOfExperience(StringUtil.getStringBetween(s, "<td>", "</td>"));
+						} else if (index == 6) {
+							currentJob.setWorkPlace(StringUtil.getStringBetween(s, "<td>", "</td>"));
+						}
+					}
+				}
+			}
 
-            log.info(pageUrl);
+			log.info(pageUrl);
 
-        }
+		}
 
-        return jobs;
+		// Sort alphabetically
+		jobs.sort(Comparator.comparing(JobDTO::getNameOfTheJob));
 
-    }
+		return jobs;
+
+	}
 
 }
 
@@ -111,40 +113,39 @@ public class JobService {
  */
 class JobPageService {
 
-    private static final String PAGE_LINE_STARS_WITH = "<a href=\"http://placement.emploiquebec.gouv.qc.ca";
-    private static final String PAGE_ENDS_WITH = "</a>&nbsp;&nbsp;";
+	private static final String PAGE_LINE_STARS_WITH = "<a href=\"http://placement.emploiquebec.gouv.qc.ca";
+	private static final String PAGE_ENDS_WITH = "</a>&nbsp;&nbsp;";
 
-    public List<String> getPages(CityDTO c) {
+	public List<String> getPages(CityDTO c) {
 
-        List<String> pageUrls = new ArrayList<>();
+		List<String> pageUrls = new ArrayList<>();
 
-        List<String> website = GetWebsite.getWebsiteAsStringList(c.getUrl());
+		List<String> website = GetWebsite.getWebsiteAsStringList(c.getUrl());
 
-        String pageLine = "";
+		String pageLine = "";
 
-        for (String s : website) { // Find the 'page' selector at the bottom of the page
-            if (s.startsWith(PAGE_LINE_STARS_WITH)) {
-                pageLine = s;
-                break;
-            }
-        }
+		for (String s : website) { // Find the 'page' selector at the bottom of the page
+			if (s.startsWith(PAGE_LINE_STARS_WITH)) {
+				pageLine = s;
+				break;
+			}
+		}
 
-        if (pageLine.equals("")) { //If there is no page line (only one page)
-            pageUrls.add(c.getUrl());
-            return pageUrls;
-        } else {
-            String[] a = pageLine.split(PAGE_ENDS_WITH);
+		if (pageLine.equals("")) { //If there is no page line (only one page)
+			pageUrls.add(c.getUrl());
+			return pageUrls;
+		} else {
+			String[] a = pageLine.split(PAGE_ENDS_WITH);
 
-            for (String page : a) {
+			for (String page : a) {
+				if (!page.equals("</p>")) { // Avoids wrongful parsing of html tag
+					pageUrls.add(StringUtil.getStringBetween(page, "<a href=\"", "\" ").replace("\" class=\"pgactive", ""));
+				}
+			}
+		}
 
-                if (!page.equals("</p>")) { // Avoids wrongful parsing of html tag
-                    pageUrls.add(StringUtil.getStringBetween(page, "<a href=\"", "\" ").replace("\" class=\"pgactive", ""));
-                }
-            }
-        }
+		return pageUrls;
 
-        return pageUrls;
-
-    }
+	}
 
 }
