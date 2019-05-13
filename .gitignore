@@ -18,3 +18,6 @@ target/classes/website/RunEQSE.class
 target/classes/website/Valdor.class
 *.class
 /target/
+
+
+/classes/*
