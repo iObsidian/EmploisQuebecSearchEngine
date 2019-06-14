@@ -23,6 +23,11 @@ public class EQSE extends Application {
 
 	private Stack<String> website = new Stack<>();
 
+	
+	 public static void main(String[] args) {
+	        launch(args);
+	    }
+	
 	@Override
 	public void init() throws Exception {
 		new Thread(this::serveCompiledAngularApp).start();
